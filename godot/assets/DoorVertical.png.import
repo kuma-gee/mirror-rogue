@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwmbj6f66h24d"
-path="res://.godot/imported/squares.png-c7aea8631b6d35eaa972587d985c58b8.ctex"
+uid="uid://dsjqkag1nk0b7"
+path="res://.godot/imported/DoorVertical.png-c6bd8dc4cecf29ec73223608fdc64a41.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/scene-manager/shader_patterns/squares.png"
-dest_files=["res://.godot/imported/squares.png-c7aea8631b6d35eaa972587d985c58b8.ctex"]
+source_file="res://assets/DoorVertical.png"
+dest_files=["res://.godot/imported/DoorVertical.png-c6bd8dc4cecf29ec73223608fdc64a41.ctex"]
 
 [params]
 
