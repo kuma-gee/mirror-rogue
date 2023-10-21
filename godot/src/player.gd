@@ -1,7 +1,10 @@
 extends CharacterBody2D
 
+signal died()
+
 @export var speed := 100
 @export var accel := 800
+@export var health := 50
 
 @export var projectile_scene: PackedScene
 
@@ -29,3 +32,9 @@ func _physics_process(delta):
 	
 	velocity = velocity.move_toward(Vector2(motion_x, motion_y) * speed, accel * delta)
 	move_and_slide()
+
+
+func _on_hitbox_hit(dmg):
+	health -= dmg
+	if health <= 0:
+		died.emit()

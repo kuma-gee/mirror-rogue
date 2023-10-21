@@ -3,6 +3,7 @@ extends Area2D
 @export var speed := 300
 @export var dir := Vector2.RIGHT
 @export var max_reflections := 4
+@export var damage := 5
 
 var reflected := 0
 
@@ -16,7 +17,10 @@ func _ready():
 			
 			if reflected > max_reflections:
 				queue_free()
-	)
+		elif area is Hitbox:
+			area.damage(damage)
+			queue_free()
+	) 
 
 func _physics_process(delta):
 	translate(dir * speed * delta)

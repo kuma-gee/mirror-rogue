@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
+signal died()
+
 @export var speed := 50
+@export var health := 10
 
 @onready var navigation_agent := $NavigationAgent2D
 
@@ -24,3 +27,10 @@ func _physics_process(delta):
 
 	velocity = new_velocity
 	move_and_slide()
+
+
+func _on_hitbox_hit(dmg):
+	health -= dmg
+	if health <= 0:
+		died.emit()
+		queue_free()

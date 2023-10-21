@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://mt5fy2ohtmg5"]
+
+[ext_resource type="Script" path="res://src/Enemy.gd" id="1_xsn24"]
+[ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_s6l7m"]
+[ext_resource type="Script" path="res://src/character/Hitbox.gd" id="3_dexve"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wd2x"]
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5khei"]
+size = Vector2(12, 12)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_xsn24")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.490196, 0.490196, 1)
+scale = Vector2(0.078125, 0.078125)
+texture = ExtResource("2_s6l7m")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0wd2x")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_dexve")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_5khei")
+
+[connection signal="hit" from="Hitbox" to="." method="_on_hitbox_hit"]

@@ -1,13 +1,10 @@
-[gd_scene load_steps=34 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=29 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Shader" path="res://src/tile_mirror.gdshader" id="1_atk3l"]
+[ext_resource type="Script" path="res://src/game.gd" id="1_fscq0"]
 [ext_resource type="Texture2D" uid="uid://vdsf1wra5c5b" path="res://assets/dungeon/Set 1.png" id="1_m7630"]
-[ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_58mfa"]
-[ext_resource type="Script" path="res://src/player.gd" id="5_0tmg6"]
 [ext_resource type="PackedScene" uid="uid://tiykwg5o8806" path="res://src/props/mirror.tscn" id="5_ojmwg"]
-[ext_resource type="PackedScene" uid="uid://h5rba01pdi3f" path="res://src/props/projectile.tscn" id="6_bcm1c"]
-[ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="7_551oe"]
-[ext_resource type="Script" path="res://src/Enemy.gd" id="8_3lsk6"]
+[ext_resource type="PackedScene" uid="uid://dlby6flxkmnjs" path="res://src/character/player.tscn" id="6_2xq02"]
 [ext_resource type="Texture2D" uid="uid://dsjqkag1nk0b7" path="res://assets/DoorVertical.png" id="8_50fra"]
 [ext_resource type="Texture2D" uid="uid://dvbp02x8waica" path="res://assets/door.png" id="9_hni6l"]
 
@@ -1127,16 +1124,14 @@ size = Vector2(7, 47)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvrmu"]
 size = Vector2(358, 10)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dgu6m"]
-radius = 2.0
-height = 16.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wd2x"]
-size = Vector2(10, 10)
-
 [node name="Game" type="Node2D"]
+script = ExtResource("1_fscq0")
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Main" type="Node2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Main"]
 material = SubResource("ShaderMaterial_rserg")
 tile_set = SubResource("TileSet_k6e46")
 format = 2
@@ -1151,116 +1146,78 @@ layer_1/y_sort_origin = 0
 layer_1/z_index = -1
 layer_1/tile_data = PackedInt32Array(0, 1048578, 13, 3, 1048578, 13, 4, 1048578, 13, 65533, 1048578, 13, 65529, 1048578, 13, 262152, 1048578, 13, 196616, 1048578, 13, 131080, 1048578, 13, 65544, 1048578, 13, 8, 1048578, 13, -65528, 1048578, 13, -131064, 1048578, 13, -196600, 1048578, 13, -262136, 1048578, 13, -327672, 1048578, 13, 262151, 1048578, 13, 196615, 1048578, 13, 131079, 1048578, 13, 65543, 1048578, 13, 7, 1048578, 13, -65529, 1048578, 13, -131065, 1048578, 13, -196601, 1048578, 13, -262137, 1048578, 13, -327673, 1048578, 13, 262150, 1048578, 13, 196614, 1048578, 13, 131078, 1048578, 13, 65542, 1048578, 13, 6, 1048578, 13, -65530, 1048578, 13, -131066, 1048578, 13, -196602, 1048578, 13, -262138, 1048578, 13, -327674, 1048578, 13, 262149, 1048578, 13, 196613, 1048578, 13, 131077, 1048578, 13, 65541, 1048578, 13, 5, 1048578, 13, -65531, 1048578, 13, -131067, 1048578, 13, -196603, 1048578, 13, -262139, 1048578, 13, -327675, 1048578, 13, 262148, 1048578, 13, 196612, 1048578, 13, 131076, 1048578, 13, 65540, 1048578, 13, -65532, 1048578, 13, -131068, 1048578, 13, -196604, 1048578, 13, -262140, 1048578, 13, -327676, 1048578, 13, 262147, 1048578, 13, 196611, 1048578, 13, 131075, 1048578, 13, 65539, 1048578, 13, -65533, 1048578, 13, -131069, 1048578, 13, -196605, 1048578, 13, -262141, 1048578, 13, -327677, 1048578, 13, 262146, 1048578, 13, 196610, 1048578, 13, 131074, 1048578, 13, 65538, 1048578, 13, 2, 1048578, 13, -65534, 1048578, 13, -131070, 1048578, 13, -196606, 1048578, 13, -262142, 1048578, 13, -327678, 1048578, 13, 262145, 1048578, 13, 196609, 1048578, 13, 131073, 1048578, 13, 65537, 1048578, 13, 1, 1048578, 13, -65535, 1048578, 13, -131071, 1048578, 13, -196607, 1048578, 13, -262143, 1048578, 13, -327679, 1048578, 13, 262144, 1048578, 13, 196608, 1048578, 13, 131072, 1048578, 13, 65536, 1048578, 13, -65536, 1048578, 13, -131072, 1048578, 13, -196608, 1048578, 13, -262144, 1048578, 13, -327680, 1048578, 13, 327679, 1048578, 13, 262143, 1048578, 13, 196607, 1048578, 13, 131071, 1048578, 13, 65535, 1048578, 13, -1, 1048578, 13, -65537, 1048578, 13, -131073, 1048578, 13, -196609, 1048578, 13, -262145, 1048578, 13, 327678, 1048578, 13, 262142, 1048578, 13, 196606, 1048578, 13, 131070, 1048578, 13, 65534, 1048578, 13, -2, 1048578, 13, -65538, 1048578, 13, -131074, 1048578, 13, -196610, 1048578, 13, -262146, 1048578, 13, 327677, 1048578, 13, 262141, 1048578, 13, 196605, 1048578, 13, 131069, 1048578, 13, -3, 1048578, 13, -65539, 1048578, 13, -131075, 1048578, 13, -196611, 1048578, 13, -262147, 1048578, 13, 327676, 1048578, 13, 262140, 1048578, 13, 196604, 1048578, 13, 131068, 1048578, 13, 65532, 1048578, 13, -4, 1048578, 13, -65540, 1048578, 13, -131076, 1048578, 13, -196612, 1048578, 13, -262148, 1048578, 13, 327675, 1048578, 13, 262139, 1048578, 13, 196603, 1048578, 13, 131067, 1048578, 13, 65531, 1048578, 13, -5, 1048578, 13, -65541, 1048578, 13, -131077, 1048578, 13, -196613, 1048578, 13, -262149, 1048578, 13, 327674, 1048578, 13, 262138, 1048578, 13, 196602, 1048578, 13, 131066, 1048578, 13, 65530, 1048578, 13, -6, 1048578, 13, -65542, 1048578, 13, -131078, 1048578, 13, -196614, 1048578, 13, -262150, 1048578, 13, 327673, 1048578, 13, 262137, 1048578, 13, 196601, 1048578, 13, 131065, 1048578, 13, -7, 1048578, 13, -65543, 1048578, 13, -131079, 1048578, 13, -196615, 1048578, 13, -262151, 1048578, 13, 327672, 1048578, 13, 262136, 1048578, 13, 196600, 1048578, 13, 131064, 1048578, 13, 65528, 1048578, 13, -8, 1048578, 13, -65544, 1048578, 13, -131080, 1048578, 13, -196616, 1048578, 13, -262152, 1048578, 13, 327671, 1048578, 13, 262135, 1048578, 13, 196599, 1048578, 13, 131063, 1048578, 13, 65527, 1048578, 13, -9, 1048578, 13, -65545, 1048578, 13, -131081, 1048578, 13, -196617, 1048578, 13, -262153, 1048578, 13, 327670, 1048578, 13, 262134, 1048578, 13, 196598, 1048578, 13, 131062, 1048578, 13, 65526, 1048578, 13, -10, 1048578, 13, -65546, 1048578, 13, -131082, 1048578, 13, -196618, 1048578, 13, -262154, 1048578, 13, 327690, 851970, 12, 262154, 851970, 12, 196618, 851970, 12, 131082, 851970, 12, -65526, 851970, 13, -196598, 851970, 12, -262134, 851970, 12, -327670, 851970, 12, -393206, 851970, 11, 327689, 1048578, 13, 262153, 1048578, 13, 196617, 1048578, 13, 131081, 1048578, 13, 65545, 1048578, 13, 9, 1048578, 13, -65527, 1048578, 13, -131063, 1048578, 13, -196599, 1048578, 13, -262135, 1048578, 13, -327671, 1048578, 13, -393207, 786434, 11, 327688, 1048578, 13, -393208, 786434, 11, 327687, 1048578, 13, -393209, 786434, 11, -393210, 786434, 11, -393211, 786434, 11, -393212, 786434, 11, -393213, 786434, 11, -393214, 786434, 11, 327681, 1048578, 13, -393215, 917506, 13, 327680, 1048578, 13, -393216, 851970, 14, 393215, 1048578, 13, -327681, 720898, 14, 393214, 1048578, 13, -327682, 983042, 13, 393213, 1048578, 13, -327683, 786434, 11, 393212, 1048578, 13, -327684, 786434, 11, 393211, 1048578, 13, -327685, 786434, 11, 393210, 1048578, 13, -327686, 786434, 11, 393209, 1048578, 13, -327687, 786434, 11, 393208, 1048578, 13, -327688, 786434, 11, 393207, 1048578, 13, -327689, 786434, 11, 393206, 1048578, 13, -327690, 786434, 11, 393205, 720898, 12, 327669, 720898, 12, 262133, 720898, 12, 196597, 720898, 12, 131061, 983042, 12, 65525, 720898, 14, -11, 720898, 13, -65547, 720898, 12, -131083, 720898, 12, -196619, 720898, 12, -262155, 720898, 12, -327691, 720898, 11, 12, 786434, 11, 11, 917506, 13, 65524, 983042, 13, 65523, 786434, 11, -458752, 851970, 12, -524288, 851970, 12, -589824, 851970, 12, -393217, 720898, 12, -458753, 720898, 12, -524289, 720898, 12, 524288, 851970, 12, 458752, 851970, 12, 393216, 917506, 12, 589823, 720898, 12, 524287, 720898, 12, 458751, 983042, 12, 65546, 917506, 12, 10, 851970, 14, -131062, 851970, 12, 327686, 1048578, 13, 327685, 1048578, 13, 327684, 1048578, 13, 327683, 1048578, 13, 327682, 1048578, 13)
 
-[node name="DoorN" type="StaticBody2D" parent="TileMap"]
+[node name="DoorN" type="StaticBody2D" parent="Main/TileMap"]
 position = Vector2(0, -104)
 
-[node name="Sprite2D" type="Sprite2D" parent="TileMap/DoorN"]
+[node name="Sprite2D" type="Sprite2D" parent="Main/TileMap/DoorN"]
 texture = ExtResource("9_hni6l")
 hframes = 6
 frame = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/DoorN"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Main/TileMap/DoorN"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_lth1k")
 
-[node name="DoorS" type="StaticBody2D" parent="TileMap"]
+[node name="DoorS" type="StaticBody2D" parent="Main/TileMap"]
 position = Vector2(0, 103)
 
-[node name="Sprite2D" type="Sprite2D" parent="TileMap/DoorS"]
+[node name="Sprite2D" type="Sprite2D" parent="Main/TileMap/DoorS"]
 texture = ExtResource("9_hni6l")
 hframes = 6
 frame = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/DoorS"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Main/TileMap/DoorS"]
 shape = SubResource("RectangleShape2D_hll1h")
 
-[node name="DoorW" type="StaticBody2D" parent="TileMap"]
+[node name="DoorW" type="StaticBody2D" parent="Main/TileMap"]
 position = Vector2(-179.5, 10.5)
 
-[node name="Sprite2D" type="Sprite2D" parent="TileMap/DoorW"]
+[node name="Sprite2D" type="Sprite2D" parent="Main/TileMap/DoorW"]
 texture = ExtResource("8_50fra")
 hframes = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/DoorW"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Main/TileMap/DoorW"]
 shape = SubResource("RectangleShape2D_niqj8")
 
-[node name="DoorE" type="StaticBody2D" parent="TileMap"]
+[node name="DoorE" type="StaticBody2D" parent="Main/TileMap"]
 position = Vector2(179.5, 10.5)
 
-[node name="Sprite2D" type="Sprite2D" parent="TileMap/DoorE"]
+[node name="Sprite2D" type="Sprite2D" parent="Main/TileMap/DoorE"]
 texture = ExtResource("8_50fra")
 flip_h = true
 hframes = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/DoorE"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Main/TileMap/DoorE"]
 shape = SubResource("RectangleShape2D_niqj8")
 
-[node name="Mirror" parent="TileMap" instance=ExtResource("5_ojmwg")]
+[node name="Mirror" parent="Main/TileMap" instance=ExtResource("5_ojmwg")]
 position = Vector2(0, -102)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMap/Mirror"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/TileMap/Mirror"]
 shape = SubResource("RectangleShape2D_qvrmu")
 
-[node name="Mirror3" parent="TileMap" instance=ExtResource("5_ojmwg")]
+[node name="Mirror3" parent="Main/TileMap" instance=ExtResource("5_ojmwg")]
 position = Vector2(0, 101)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMap/Mirror3"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/TileMap/Mirror3"]
 shape = SubResource("RectangleShape2D_qvrmu")
 
-[node name="Mirror5" parent="TileMap" instance=ExtResource("5_ojmwg")]
+[node name="Mirror5" parent="Main/TileMap" instance=ExtResource("5_ojmwg")]
 position = Vector2(-182, 12)
 rotation = 1.5708
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMap/Mirror5"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/TileMap/Mirror5"]
 shape = SubResource("RectangleShape2D_qvrmu")
 
-[node name="Mirror7" parent="TileMap" instance=ExtResource("5_ojmwg")]
+[node name="Mirror7" parent="Main/TileMap" instance=ExtResource("5_ojmwg")]
 position = Vector2(182, 11)
 rotation = 1.5708
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMap/Mirror7"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/TileMap/Mirror7"]
 shape = SubResource("RectangleShape2D_qvrmu")
 
-[node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
-collision_layer = 2
-script = ExtResource("5_0tmg6")
-projectile_scene = ExtResource("6_bcm1c")
+[node name="Player" parent="Main" instance=ExtResource("6_2xq02")]
 
-[node name="Icon" type="Sprite2D" parent="Player"]
-scale = Vector2(0.125, 0.125)
-texture = ExtResource("2_58mfa")
+[node name="DeathScreen" type="Sprite2D" parent="."]
 
-[node name="Input" type="Node" parent="Player"]
-script = ExtResource("7_551oe")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(0, 6)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_dgu6m")
-
-[node name="Hand" type="Node2D" parent="Player"]
-
-[node name="ShotPoint" type="Marker2D" parent="Player/Hand"]
-position = Vector2(16, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="Player/Hand/ShotPoint"]
-scale = Vector2(0.03125, 0.03125)
-texture = ExtResource("2_58mfa")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-
-[node name="Enemy" type="CharacterBody2D" parent="."]
-position = Vector2(-99, 0)
-collision_layer = 4
-collision_mask = 0
-script = ExtResource("8_3lsk6")
-
-[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
-modulate = Color(1, 0.490196, 0.490196, 1)
-scale = Vector2(0.078125, 0.078125)
-texture = ExtResource("2_58mfa")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Enemy"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
-shape = SubResource("RectangleShape2D_0wd2x")
+[connection signal="died" from="Main/Player" to="." method="_on_player_died"]
