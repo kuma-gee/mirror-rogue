@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=31 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Shader" path="res://src/tile_mirror.gdshader" id="1_atk3l"]
 [ext_resource type="Texture2D" uid="uid://vdsf1wra5c5b" path="res://assets/dungeon/Set 1.png" id="1_m7630"]
 [ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_58mfa"]
 [ext_resource type="Script" path="res://src/player.gd" id="5_0tmg6"]
 [ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="7_551oe"]
+[ext_resource type="Script" path="res://src/Enemy.gd" id="8_3lsk6"]
 [ext_resource type="Texture2D" uid="uid://dsjqkag1nk0b7" path="res://assets/DoorVertical.png" id="8_50fra"]
 [ext_resource type="Texture2D" uid="uid://dvbp02x8waica" path="res://assets/door.png" id="9_hni6l"]
 
@@ -14,6 +15,76 @@ shader_parameter/base_color = Color(0.545098, 0.607843, 0.705882, 1)
 shader_parameter/shine_color = Color(0.752941, 0.796078, 0.862745, 1)
 shader_parameter/shine_speed = 1.5
 shader_parameter/shine_size = 0.01
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_66jp7"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_vijgq"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_coehy"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_kesxt"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_acqgg"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_dcmti"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_p1n4m"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_w4itq"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_mofas"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_cfbwv"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_64s4h"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ixv1n"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_wo82q"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ns6gk"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dv1ac"]
 texture = ExtResource("1_m7630")
@@ -575,6 +646,7 @@ texture = ExtResource("1_m7630")
 11:11/0/terrains_peering_bit/right_side = 0
 11:11/0/terrains_peering_bit/bottom_right_corner = 0
 11:11/0/terrains_peering_bit/bottom_side = 0
+11:11/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_66jp7")
 12:11/0 = 0
 12:11/0/terrain_set = 1
 12:11/0/terrain = 0
@@ -585,6 +657,7 @@ texture = ExtResource("1_m7630")
 12:11/0/terrains_peering_bit/bottom_side = 0
 12:11/0/terrains_peering_bit/bottom_left_corner = 0
 12:11/0/terrains_peering_bit/left_side = 0
+12:11/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_acqgg")
 13:11/0 = 0
 13:11/0/terrain_set = 1
 13:11/0/terrain = 0
@@ -593,6 +666,7 @@ texture = ExtResource("1_m7630")
 13:11/0/terrains_peering_bit/bottom_side = 0
 13:11/0/terrains_peering_bit/bottom_left_corner = 0
 13:11/0/terrains_peering_bit/left_side = 0
+13:11/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_dcmti")
 18:11/0 = 0
 18:11/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 18:11/0/physics_layer_0/angular_velocity = 0.0
@@ -618,6 +692,7 @@ texture = ExtResource("1_m7630")
 11:12/0/terrains_peering_bit/bottom_side = 0
 11:12/0/terrains_peering_bit/top_side = 0
 11:12/0/terrains_peering_bit/top_right_corner = 0
+11:12/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_vijgq")
 12:12/0 = 0
 12:12/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 12:12/0/physics_layer_0/angular_velocity = 0.0
@@ -631,6 +706,7 @@ texture = ExtResource("1_m7630")
 13:12/0/terrains_peering_bit/left_side = 0
 13:12/0/terrains_peering_bit/top_left_corner = 0
 13:12/0/terrains_peering_bit/top_side = 0
+13:12/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_p1n4m")
 14:12/0 = 0
 14:12/0/terrain_set = 1
 14:12/0/terrain = 0
@@ -642,6 +718,7 @@ texture = ExtResource("1_m7630")
 14:12/0/terrains_peering_bit/top_left_corner = 0
 14:12/0/terrains_peering_bit/top_side = 0
 14:12/0/terrains_peering_bit/top_right_corner = 0
+14:12/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_cfbwv")
 15:12/0 = 0
 15:12/0/terrain_set = 1
 15:12/0/terrain = 0
@@ -653,6 +730,7 @@ texture = ExtResource("1_m7630")
 15:12/0/terrains_peering_bit/top_left_corner = 0
 15:12/0/terrains_peering_bit/top_side = 0
 15:12/0/terrains_peering_bit/top_right_corner = 0
+15:12/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ixv1n")
 18:12/0 = 0
 18:12/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 18:12/0/physics_layer_0/angular_velocity = 0.0
@@ -692,6 +770,7 @@ texture = ExtResource("1_m7630")
 11:13/0/terrains_peering_bit/bottom_left_corner = 0
 11:13/0/terrains_peering_bit/top_side = 0
 11:13/0/terrains_peering_bit/top_right_corner = 0
+11:13/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_coehy")
 13:13/0 = 0
 13:13/0/terrain_set = 1
 13:13/0/terrain = 0
@@ -703,6 +782,7 @@ texture = ExtResource("1_m7630")
 13:13/0/terrains_peering_bit/left_side = 0
 13:13/0/terrains_peering_bit/top_left_corner = 0
 13:13/0/terrains_peering_bit/top_side = 0
+13:13/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_w4itq")
 14:13/0 = 0
 14:13/0/terrain_set = 1
 14:13/0/terrain = 0
@@ -714,6 +794,7 @@ texture = ExtResource("1_m7630")
 14:13/0/terrains_peering_bit/bottom_left_corner = 0
 14:13/0/terrains_peering_bit/left_side = 0
 14:13/0/terrains_peering_bit/top_left_corner = 0
+14:13/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_64s4h")
 15:13/0 = 0
 15:13/0/terrain_set = 1
 15:13/0/terrain = 0
@@ -725,6 +806,7 @@ texture = ExtResource("1_m7630")
 15:13/0/terrains_peering_bit/bottom_left_corner = 0
 15:13/0/terrains_peering_bit/left_side = 0
 15:13/0/terrains_peering_bit/top_right_corner = 0
+15:13/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_wo82q")
 16:13/0 = 0
 16:13/0/terrain_set = 1
 16:13/0/terrain = 0
@@ -738,6 +820,7 @@ texture = ExtResource("1_m7630")
 16:13/0/terrains_peering_bit/top_left_corner = 0
 16:13/0/terrains_peering_bit/top_side = 0
 16:13/0/terrains_peering_bit/top_right_corner = 0
+16:13/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_ns6gk")
 18:13/0 = 0
 18:13/0/terrain_set = 0
 18:13/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -788,6 +871,7 @@ texture = ExtResource("1_m7630")
 11:14/0/terrains_peering_bit/left_side = 0
 11:14/0/terrains_peering_bit/top_side = 0
 11:14/0/terrains_peering_bit/top_right_corner = 0
+11:14/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_kesxt")
 13:14/0 = 0
 13:14/0/terrain_set = 1
 13:14/0/terrain = 0
@@ -800,6 +884,7 @@ texture = ExtResource("1_m7630")
 13:14/0/terrains_peering_bit/left_side = 0
 13:14/0/terrains_peering_bit/top_left_corner = 0
 13:14/0/terrains_peering_bit/top_side = 0
+13:14/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_mofas")
 14:14/0 = 0
 14:14/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 14:14/0/physics_layer_0/angular_velocity = 0.0
@@ -1025,16 +1110,24 @@ terrain_set_0/terrain_1/color = Color(0.5, 0.4375, 0.25, 1)
 terrain_set_1/mode = 0
 terrain_set_1/terrain_0/name = "Floor"
 terrain_set_1/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+navigation_layer_0/layers = 1
 sources/2 = SubResource("TileSetAtlasSource_dv1ac")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lth1k"]
+size = Vector2(36, 15)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hll1h"]
-size = Vector2(34, 16)
+size = Vector2(36, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_niqj8"]
 size = Vector2(7, 47)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cj2i2"]
-size = Vector2(16, 6)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dgu6m"]
+radius = 2.0
+height = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wd2x"]
+size = Vector2(10, 10)
 
 [node name="Game" type="Node2D"]
 
@@ -1062,7 +1155,8 @@ hframes = 6
 frame = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/DoorN"]
-shape = SubResource("RectangleShape2D_hll1h")
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_lth1k")
 
 [node name="DoorS" type="StaticBody2D" parent="TileMap"]
 position = Vector2(0, 103)
@@ -1096,7 +1190,8 @@ hframes = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/DoorE"]
 shape = SubResource("RectangleShape2D_niqj8")
 
-[node name="Player" type="CharacterBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
+collision_layer = 2
 script = ExtResource("5_0tmg6")
 
 [node name="Icon" type="Sprite2D" parent="Player"]
@@ -1107,15 +1202,24 @@ texture = ExtResource("2_58mfa")
 script = ExtResource("7_551oe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(0, 5)
-shape = SubResource("RectangleShape2D_cj2i2")
+position = Vector2(0, 6)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_dgu6m")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Enemy" type="CharacterBody2D" parent="."]
 position = Vector2(-99, 0)
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("8_3lsk6")
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemy"]
 modulate = Color(1, 0.490196, 0.490196, 1)
 scale = Vector2(0.078125, 0.078125)
 texture = ExtResource("2_58mfa")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+shape = SubResource("RectangleShape2D_0wd2x")
