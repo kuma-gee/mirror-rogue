@@ -18,7 +18,6 @@ var shattered = false
 func _ready() -> void:
 	if get_parent() is Sprite2D:
 		var _rect = get_parent().get_rect()
-		print(_rect)
 		var points = []
 		#add outer frame points
 		points.append(_rect.position)

@@ -12,16 +12,19 @@ signal died()
 @onready var hand: Node2D = $Hand
 @onready var shot_point = $Hand/ShotPoint
 
+var thrown = false
 
 func _ready():
 	input.just_pressed.connect(_on_just_pressed)
 
 func _on_just_pressed(ev: InputEvent):
-	if ev.is_action_pressed("throw"):
+	if ev.is_action_pressed("throw") and not thrown:
+		thrown = true
 		var projectile = projectile_scene.instantiate()
 		projectile.global_position = shot_point.global_position
 		projectile.global_rotation = shot_point.global_rotation
 		get_tree().current_scene.add_child(projectile)
+		projectile.freed.connect(func(): thrown = false)
 
 func _process(delta):
 	hand.global_rotation = Vector2.RIGHT.angle_to(global_position.direction_to(get_global_mouse_position()))
