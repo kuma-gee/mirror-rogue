@@ -1,9 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=34 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Shader" path="res://src/tile_mirror.gdshader" id="1_atk3l"]
 [ext_resource type="Texture2D" uid="uid://vdsf1wra5c5b" path="res://assets/dungeon/Set 1.png" id="1_m7630"]
 [ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_58mfa"]
 [ext_resource type="Script" path="res://src/player.gd" id="5_0tmg6"]
+[ext_resource type="PackedScene" uid="uid://tiykwg5o8806" path="res://src/props/mirror.tscn" id="5_ojmwg"]
+[ext_resource type="PackedScene" uid="uid://h5rba01pdi3f" path="res://src/props/projectile.tscn" id="6_bcm1c"]
 [ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="7_551oe"]
 [ext_resource type="Script" path="res://src/Enemy.gd" id="8_3lsk6"]
 [ext_resource type="Texture2D" uid="uid://dsjqkag1nk0b7" path="res://assets/DoorVertical.png" id="8_50fra"]
@@ -1122,6 +1124,9 @@ size = Vector2(36, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_niqj8"]
 size = Vector2(7, 47)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qvrmu"]
+size = Vector2(358, 10)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dgu6m"]
 radius = 2.0
 height = 16.0
@@ -1190,9 +1195,36 @@ hframes = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/DoorE"]
 shape = SubResource("RectangleShape2D_niqj8")
 
+[node name="Mirror" parent="TileMap" instance=ExtResource("5_ojmwg")]
+position = Vector2(0, -102)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMap/Mirror"]
+shape = SubResource("RectangleShape2D_qvrmu")
+
+[node name="Mirror3" parent="TileMap" instance=ExtResource("5_ojmwg")]
+position = Vector2(0, 101)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMap/Mirror3"]
+shape = SubResource("RectangleShape2D_qvrmu")
+
+[node name="Mirror5" parent="TileMap" instance=ExtResource("5_ojmwg")]
+position = Vector2(-182, 12)
+rotation = 1.5708
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMap/Mirror5"]
+shape = SubResource("RectangleShape2D_qvrmu")
+
+[node name="Mirror7" parent="TileMap" instance=ExtResource("5_ojmwg")]
+position = Vector2(182, 11)
+rotation = 1.5708
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="TileMap/Mirror7"]
+shape = SubResource("RectangleShape2D_qvrmu")
+
 [node name="Player" type="CharacterBody2D" parent="." groups=["Player"]]
 collision_layer = 2
 script = ExtResource("5_0tmg6")
+projectile_scene = ExtResource("6_bcm1c")
 
 [node name="Icon" type="Sprite2D" parent="Player"]
 scale = Vector2(0.125, 0.125)
@@ -1205,6 +1237,15 @@ script = ExtResource("7_551oe")
 position = Vector2(0, 6)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_dgu6m")
+
+[node name="Hand" type="Node2D" parent="Player"]
+
+[node name="ShotPoint" type="Marker2D" parent="Player/Hand"]
+position = Vector2(16, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player/Hand/ShotPoint"]
+scale = Vector2(0.03125, 0.03125)
+texture = ExtResource("2_58mfa")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
