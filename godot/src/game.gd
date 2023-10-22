@@ -10,9 +10,6 @@ func _ready():
 	death_screen.hide()
 	canvas_modulate.color = Color.WHITE
 
-func _toggle_env_color():
-	canvas_modulate.color = Color("ff9c9c") if canvas_modulate.color == Color.WHITE else Color.WHITE
-
 func _on_player_died():
 	main.process_mode = Node.PROCESS_MODE_DISABLED
 	
@@ -31,5 +28,5 @@ func _on_player_died():
 	get_tree().create_timer(1.0).timeout.connect(func(): shard.shatter())
 
 
-func _on_player_reflected():
-	_toggle_env_color()
+func _on_player_reflected(mirror):
+	canvas_modulate.color = Color("ff9c9c") if mirror else Color.WHITE
