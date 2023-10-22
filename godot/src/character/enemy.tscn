@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://mt5fy2ohtmg5"]
+[gd_scene load_steps=7 format=3 uid="uid://mt5fy2ohtmg5"]
 
 [ext_resource type="Script" path="res://src/Enemy.gd" id="1_xsn24"]
+[ext_resource type="PackedScene" uid="uid://ddfl18bx24sfj" path="res://src/character/enemy_bullet.tscn" id="2_qwwrr"]
 [ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_s6l7m"]
 [ext_resource type="Script" path="res://src/character/Hitbox.gd" id="3_dexve"]
 
@@ -14,6 +15,8 @@ size = Vector2(12, 12)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_xsn24")
+health = 4
+bullet_scene = ExtResource("2_qwwrr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.490196, 0.490196, 1)
@@ -33,4 +36,9 @@ script = ExtResource("3_dexve")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_5khei")
 
+[node name="FireRateTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
 [connection signal="hit" from="Hitbox" to="." method="_on_hitbox_hit"]
+[connection signal="timeout" from="FireRateTimer" to="." method="_on_fire_rate_timer_timeout"]

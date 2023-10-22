@@ -1225,6 +1225,7 @@ shape = SubResource("RectangleShape2D_pcqet")
 [node name="Player" parent="Main" instance=ExtResource("6_2xq02")]
 
 [node name="EnemySpawner" type="Timer" parent="Main"]
+one_shot = true
 autostart = true
 
 [node name="DeathScreen" type="Sprite2D" parent="."]

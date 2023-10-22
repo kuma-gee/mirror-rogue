@@ -7,13 +7,13 @@ signal freed()
 @export var max_reflections := 4
 @export var damage := 5
 
-@onready var collision_shape_2d = $CollisionShape2D
+@export var collision_shape: CollisionShape2D
 
 var reflected := 0
 
 func _ready():
-	collision_shape_2d.disabled = true
-	get_tree().create_timer(0.05).timeout.connect(func(): collision_shape_2d.disabled = false) # prevent player from hitting himself
+	collision_shape.disabled = true
+	get_tree().create_timer(0.05).timeout.connect(func(): collision_shape.disabled = false) # prevent player from hitting himself
 	
 	dir = dir.rotated(global_rotation)
 	area_entered.connect(func(area):
@@ -26,6 +26,8 @@ func _ready():
 				_remove()
 		elif area is Hitbox:
 			area.damage(damage)
+			_remove()
+		else:
 			_remove()
 	) 
 

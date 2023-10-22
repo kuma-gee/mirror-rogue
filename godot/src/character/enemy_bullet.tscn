@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddfl18bx24sfj"]
+
+[ext_resource type="Script" path="res://src/character/projectile.gd" id="1_dy5ky"]
+[ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_e5h20"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oy37k"]
+size = Vector2(10, 10)
+
+[node name="EnemyBullet" type="Area2D" node_paths=PackedStringArray("collision_shape")]
+collision_layer = 0
+collision_mask = 57
+script = ExtResource("1_dy5ky")
+speed = 150
+max_reflections = 2
+damage = 1
+collision_shape = NodePath("CollisionShape2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.078125, 0.078125)
+texture = ExtResource("2_e5h20")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_oy37k")

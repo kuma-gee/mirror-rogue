@@ -4,6 +4,8 @@ signal died()
 
 @export var speed := 50
 @export var health := 10
+@export var bullet_scene: PackedScene
+@export var bullet_spawn_offset := 20
 
 @onready var navigation_agent := $NavigationAgent2D
 
@@ -11,8 +13,11 @@ func _ready():
 	navigation_agent.path_desired_distance = 4.0
 	navigation_agent.target_desired_distance = 4.0
 
+func _player_pos():
+	return get_tree().get_first_node_in_group("Player").global_position
+
 func _process(delta):
-	navigation_agent.target_position = get_tree().get_first_node_in_group("Player").global_position
+	navigation_agent.target_position = _player_pos()
 
 func _physics_process(delta):
 	if navigation_agent.is_navigation_finished():
@@ -34,3 +39,12 @@ func _on_hitbox_hit(dmg):
 	if health <= 0:
 		died.emit()
 		queue_free()
+
+
+func _on_fire_rate_timer_timeout():
+	var bullet = bullet_scene.instantiate()
+	
+	var dir = global_position.direction_to(_player_pos()) * bullet_spawn_offset
+	bullet.global_position = global_position + dir
+	bullet.dir = dir.normalized()
+	get_tree().current_scene.add_child(bullet)
