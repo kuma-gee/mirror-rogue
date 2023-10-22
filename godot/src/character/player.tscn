@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dlby6flxkmnjs"]
+[gd_scene load_steps=9 format=3 uid="uid://dlby6flxkmnjs"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_356t7"]
 [ext_resource type="PackedScene" uid="uid://h5rba01pdi3f" path="res://src/props/projectile.tscn" id="2_yssxu"]
@@ -13,8 +13,12 @@ height = 16.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vssjf"]
 size = Vector2(14, 14)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_r0xvd"]
+radius = 10.0499
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
+collision_mask = 33
 script = ExtResource("1_356t7")
 projectile_scene = ExtResource("2_yssxu")
 
@@ -47,4 +51,12 @@ script = ExtResource("5_dpg7u")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_vssjf")
 
+[node name="MirrorDetect" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MirrorDetect"]
+shape = SubResource("CircleShape2D_r0xvd")
+
 [connection signal="hit" from="Hitbox" to="." method="_on_hitbox_hit"]
+[connection signal="area_entered" from="MirrorDetect" to="." method="_on_mirror_detect_area_entered"]

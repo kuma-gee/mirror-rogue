@@ -4,9 +4,14 @@ const SHARD_EMITTER = preload("res://src/props/shard_emitter.tscn")
 
 @onready var main = $Main
 @onready var death_screen = $DeathScreen
+@onready var canvas_modulate = $CanvasModulate
 
 func _ready():
 	death_screen.hide()
+	canvas_modulate.color = Color.WHITE
+
+func _toggle_env_color():
+	canvas_modulate.color = Color("ff9c9c") if canvas_modulate.color == Color.WHITE else Color.WHITE
 
 func _on_player_died():
 	main.process_mode = Node.PROCESS_MODE_DISABLED
@@ -24,3 +29,7 @@ func _on_player_died():
 	var shard = SHARD_EMITTER.instantiate()
 	death_screen.add_child(shard)
 	get_tree().create_timer(1.0).timeout.connect(func(): shard.shatter())
+
+
+func _on_player_reflected():
+	_toggle_env_color()

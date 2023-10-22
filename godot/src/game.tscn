@@ -1220,4 +1220,8 @@ shape = SubResource("RectangleShape2D_qvrmu")
 
 [node name="DeathScreen" type="Sprite2D" parent="."]
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(1, 0.611765, 0.611765, 1)
+
 [connection signal="died" from="Main/Player" to="." method="_on_player_died"]
+[connection signal="reflected" from="Main/Player" to="." method="_on_player_reflected"]

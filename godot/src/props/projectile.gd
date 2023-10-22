@@ -18,7 +18,7 @@ func _ready():
 	dir = dir.rotated(global_rotation)
 	area_entered.connect(func(area):
 		if area is Mirror:
-			dir = dir.bounce(Vector2.DOWN.rotated(area.global_rotation))
+			dir = dir.bounce(area.get_normal())
 			global_rotation = Vector2.RIGHT.angle_to(dir)
 			reflected += 1
 			
