@@ -1,10 +1,16 @@
 extends Node2D
 
 const SHARD_EMITTER = preload("res://src/props/shard_emitter.tscn")
+const ENEMY = preload("res://src/character/enemy.tscn")
 
 @onready var main = $Main
 @onready var death_screen = $DeathScreen
 @onready var canvas_modulate = $CanvasModulate
+
+@onready var mirror_n = $Main/TileMap/MirrorN
+@onready var mirror_s = $Main/TileMap/MirrorS
+@onready var mirror_w = $Main/TileMap/MirrorW
+@onready var mirror_e = $Main/TileMap/MirrorE
 
 func _ready():
 	death_screen.hide()
@@ -30,3 +36,14 @@ func _on_player_died():
 
 func _on_player_reflected(mirror):
 	canvas_modulate.color = Color("ff9c9c") if mirror else Color.WHITE
+
+func _on_enemy_spawner_timeout():
+	var enemy = ENEMY.instantiate()
+	var mirror = [mirror_n, mirror_s, mirror_w, mirror_e].pick_random()
+	var collision = mirror.get_node("CollisionShape2D2") as CollisionShape2D
+	var shape = collision.shape as RectangleShape2D
+	var offset = shape.size.x / 2.0
+	
+	var pos = mirror.global_position + Vector2(randi_range(-offset, offset), 0).rotated(mirror.global_rotation)
+	get_tree().current_scene.add_child(enemy)
+	enemy.global_position = pos

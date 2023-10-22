@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=31 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Shader" path="res://src/tile_mirror.gdshader" id="1_atk3l"]
 [ext_resource type="Script" path="res://src/game.gd" id="1_fscq0"]
@@ -1124,6 +1124,12 @@ size = Vector2(7, 47)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvrmu"]
 size = Vector2(358, 10)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kyft3"]
+size = Vector2(210, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pcqet"]
+size = Vector2(210, 10)
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_fscq0")
 
@@ -1190,33 +1196,36 @@ hframes = 6
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Main/TileMap/DoorE"]
 shape = SubResource("RectangleShape2D_niqj8")
 
-[node name="Mirror" parent="Main/TileMap" instance=ExtResource("5_ojmwg")]
+[node name="MirrorN" parent="Main/TileMap" instance=ExtResource("5_ojmwg")]
 position = Vector2(0, -102)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/TileMap/Mirror"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/TileMap/MirrorN"]
 shape = SubResource("RectangleShape2D_qvrmu")
 
-[node name="Mirror3" parent="Main/TileMap" instance=ExtResource("5_ojmwg")]
+[node name="MirrorS" parent="Main/TileMap" instance=ExtResource("5_ojmwg")]
 position = Vector2(0, 101)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/TileMap/Mirror3"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/TileMap/MirrorS"]
 shape = SubResource("RectangleShape2D_qvrmu")
 
-[node name="Mirror5" parent="Main/TileMap" instance=ExtResource("5_ojmwg")]
-position = Vector2(-182, 12)
+[node name="MirrorW" parent="Main/TileMap" instance=ExtResource("5_ojmwg")]
+position = Vector2(-182, -2)
 rotation = 1.5708
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/TileMap/Mirror5"]
-shape = SubResource("RectangleShape2D_qvrmu")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/TileMap/MirrorW"]
+shape = SubResource("RectangleShape2D_kyft3")
 
-[node name="Mirror7" parent="Main/TileMap" instance=ExtResource("5_ojmwg")]
-position = Vector2(182, 11)
+[node name="MirrorE" parent="Main/TileMap" instance=ExtResource("5_ojmwg")]
+position = Vector2(182, -1)
 rotation = 1.5708
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/TileMap/Mirror7"]
-shape = SubResource("RectangleShape2D_qvrmu")
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Main/TileMap/MirrorE"]
+shape = SubResource("RectangleShape2D_pcqet")
 
 [node name="Player" parent="Main" instance=ExtResource("6_2xq02")]
+
+[node name="EnemySpawner" type="Timer" parent="Main"]
+autostart = true
 
 [node name="DeathScreen" type="Sprite2D" parent="."]
 
@@ -1225,3 +1234,4 @@ color = Color(1, 0.611765, 0.611765, 1)
 
 [connection signal="died" from="Main/Player" to="." method="_on_player_died"]
 [connection signal="reflected" from="Main/Player" to="." method="_on_player_reflected"]
+[connection signal="timeout" from="Main/EnemySpawner" to="." method="_on_enemy_spawner_timeout"]
