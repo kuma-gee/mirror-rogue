@@ -23,7 +23,7 @@ func _ready():
 			global_rotation = Vector2.RIGHT.angle_to(dir)
 			reflected += 1
 			
-			if reflected > max_reflections:
+			if reflected > max_reflections and max_reflections >= 0:
 				_remove()
 		elif area is HurtBox:
 			area.damage(damage)
