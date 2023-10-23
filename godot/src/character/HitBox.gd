@@ -6,5 +6,5 @@ extends Area2D
 func _ready():
 	area_entered.connect(func(area):
 		if area is HurtBox:
-			area.damage(damage)
+			area.damage(damage, self)
 	)

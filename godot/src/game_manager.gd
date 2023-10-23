@@ -46,6 +46,10 @@ func gameover():
 	_play_shatter()
 	get_tree().change_scene_to_packed(GAMEOVER)
 
+func reset():
+	mirror = false
+	canvas_modulate.color = _get_mirror_color()
+
 func reflected():
 	if mirror_tw.new_tween(func(): get_tree().paused = false, false):
 		get_tree().paused = true
@@ -53,12 +57,14 @@ func reflected():
 		mirror_tw.method(_set_mirror_effect, 1.0, -1.5, 1.).set_ease(Tween.EASE_IN)
 		
 		mirror = not mirror
+		mirror_effect.material.set_shader_parameter("in_out", 1 if mirror else 0)
 		mirror_tw.fn(func(): mirrored.emit(mirror))
-		
-		var new_color = Color("ff9c9c") if mirror else Color.WHITE
-		mirror_tw.prop(canvas_modulate, "color", canvas_modulate.color, new_color, 0.1)
+		mirror_tw.prop(canvas_modulate, "color", canvas_modulate.color, _get_mirror_color(), 0.1)
 		
 		mirror_tw.method(_set_mirror_effect, -1.0, 1.5, 1.).set_ease(Tween.EASE_OUT)
+
+func _get_mirror_color():
+	return Color("ff9c9c") if mirror else Color.WHITE
 
 func _set_mirror_effect(value: float):
 	mirror_effect.material.set_shader_parameter("position", value)

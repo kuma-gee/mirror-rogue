@@ -12,12 +12,16 @@ signal freed()
 var target: Node2D
 var reflected := 0
 
+var ignored = []
+
 func _ready():
-	_disable_hit(false)
+	_disable_hit()
 	get_tree().create_timer(0.05).timeout.connect(func(): collision_shape.disabled = false) # prevent player from hitting himself
 	
 	dir = dir.rotated(global_rotation)
 	area_entered.connect(func(area):
+		if area in ignored: return
+		
 		if area is Mirror:
 			dir = dir.bounce(area.get_normal())
 			global_rotation = Vector2.RIGHT.angle_to(dir)
@@ -26,17 +30,14 @@ func _ready():
 			if reflected > max_reflections and max_reflections >= 0:
 				_remove()
 		elif area is HurtBox:
-			area.damage(damage)
+			area.damage(damage, self)
 			_remove()
 		else:
 			_remove()
 	) 
 
-func _disable_hit(deferred = true):
-	if deferred:
-		collision_shape.set_deferred("disabled", true)
-	else:
-		collision_shape.disabled = true
+func _disable_hit():
+	collision_shape.set_deferred("disabled", true)
 
 func _remove():
 	freed.emit()

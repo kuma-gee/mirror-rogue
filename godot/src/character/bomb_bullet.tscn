@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjoxmq8nco7tj"]
+[gd_scene load_steps=7 format=3 uid="uid://bjoxmq8nco7tj"]
 
 [ext_resource type="Script" path="res://src/character/bomb_bullet.gd" id="1_w8slh"]
 [ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="1_w38xc"]
 [ext_resource type="PackedScene" uid="uid://ddfl18bx24sfj" path="res://src/character/enemy_bullet.tscn" id="2_ggcqs"]
+[ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="4_w8ldn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ptgx2"]
 size = Vector2(12, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfuoa"]
+size = Vector2(14, 14)
 
 [node name="BombBullet" type="Area2D" node_paths=PackedStringArray("collision_shape")]
 collision_layer = 0
@@ -30,4 +34,13 @@ wait_time = 4.0
 one_shot = true
 autostart = true
 
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("4_w8ldn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_cfuoa")
+
 [connection signal="timeout" from="ExplodeTimer" to="." method="_on_explode_timer_timeout"]
+[connection signal="hit_with" from="Hurtbox" to="." method="_on_hurtbox_hit_with"]
