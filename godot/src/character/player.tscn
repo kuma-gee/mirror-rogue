@@ -1,11 +1,27 @@
-[gd_scene load_steps=16 format=3 uid="uid://dlby6flxkmnjs"]
+[gd_scene load_steps=18 format=3 uid="uid://dlby6flxkmnjs"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_356t7"]
-[ext_resource type="PackedScene" uid="uid://h5rba01pdi3f" path="res://src/character/projectile.tscn" id="2_8tqco"]
+[ext_resource type="Script" path="res://src/character/Trident.gd" id="2_krux5"]
 [ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="3_h74si"]
 [ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="4_0sora"]
 [ext_resource type="Script" path="res://src/character/HitBox.gd" id="5_hp8me"]
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="6_h0fpl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_str41"]
+size = Vector2(4, 32)
+
+[sub_resource type="PackedScene" id="PackedScene_rv4o7"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("Projectile", "collision_layer", "collision_mask", "script", "Area2D", "Sprite2D", "scale", "texture", "CollisionShape2D", "rotation", "shape"),
+"node_count": 3,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 4, 0, -1, 3, 1, 0, 2, 1, 3, 2, 0, 0, 0, 5, 5, -1, 2, 6, 3, 7, 4, 0, 0, 0, 8, 8, -1, 2, 9, 5, 10, 6, 0),
+"variants": [0, 57, ExtResource("2_krux5"), Vector2(0.234375, 0.0256348), ExtResource("3_h74si"), -1.5708, SubResource("RectangleShape2D_str41")],
+"version": 3
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dgu6m"]
 radius = 2.0
@@ -69,10 +85,9 @@ _data = {
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
-collision_mask = 33
 script = ExtResource("1_356t7")
 max_health = 1
-projectile_scene = ExtResource("2_8tqco")
+projectile_scene = SubResource("PackedScene_rv4o7")
 
 [node name="Icon" type="Sprite2D" parent="."]
 scale = Vector2(0.125, 0.125)

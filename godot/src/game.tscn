@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=32 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Shader" path="res://src/tile_mirror.gdshader" id="1_atk3l"]
 [ext_resource type="Script" path="res://src/game.gd" id="1_fscq0"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://tiykwg5o8806" path="res://src/props/mirror.tscn" id="5_ojmwg"]
 [ext_resource type="PackedScene" uid="uid://dlby6flxkmnjs" path="res://src/character/player.tscn" id="6_2xq02"]
 [ext_resource type="Texture2D" uid="uid://dsjqkag1nk0b7" path="res://assets/DoorVertical.png" id="8_50fra"]
+[ext_resource type="PackedScene" uid="uid://chfrm1aqrag7x" path="res://src/character/trident.tscn" id="8_r0538"]
 [ext_resource type="Texture2D" uid="uid://dvbp02x8waica" path="res://assets/door.png" id="9_hni6l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rserg"]
@@ -1221,6 +1222,7 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_pcqet")
 
 [node name="Player" parent="." instance=ExtResource("6_2xq02")]
+projectile_scene = ExtResource("8_r0538")
 
 [node name="EnemySpawner" type="Timer" parent="."]
 one_shot = true

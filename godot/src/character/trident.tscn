@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://chfrm1aqrag7x"]
+
+[ext_resource type="Script" path="res://src/character/Trident.gd" id="1_uombx"]
+[ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_21np7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_str41"]
+size = Vector2(4, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bddqt"]
+radius = 6.08276
+
+[node name="Trident" type="Area2D" node_paths=PackedStringArray("collision_shape")]
+collision_layer = 0
+collision_mask = 57
+script = ExtResource("1_uombx")
+collision_shape = NodePath("CollisionShape2D")
+damage = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.234375, 0.0256348)
+texture = ExtResource("2_21np7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -1.5708
+shape = SubResource("RectangleShape2D_str41")
+
+[node name="PlayerDetect" type="Area2D" parent="."]
+position = Vector2(13, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetect"]
+shape = SubResource("CircleShape2D_bddqt")

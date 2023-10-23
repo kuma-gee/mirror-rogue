@@ -37,7 +37,7 @@ script = ExtResource("4_dmkps")
 shape = SubResource("RectangleShape2D_5khei")
 
 [node name="FireRateTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 autostart = true
 
 [connection signal="hit" from="Hitbox" to="." method="_on_hitbox_hit"]

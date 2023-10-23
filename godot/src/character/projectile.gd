@@ -1,3 +1,4 @@
+class_name Projectile
 extends HitBox
 
 signal freed()
@@ -8,10 +9,11 @@ signal freed()
 
 @export var collision_shape: CollisionShape2D
 
+var target: Node2D
 var reflected := 0
 
 func _ready():
-	collision_shape.disabled = true
+	_disable_hit()
 	get_tree().create_timer(0.05).timeout.connect(func(): collision_shape.disabled = false) # prevent player from hitting himself
 	
 	dir = dir.rotated(global_rotation)
@@ -30,9 +32,15 @@ func _ready():
 			_remove()
 	) 
 
+func _disable_hit():
+	collision_shape.set_deferred("disabled", true)
+
 func _remove():
 	freed.emit()
 	queue_free()
 
 func _physics_process(delta):
-	translate(dir * speed * delta)
+	var d = global_position.direction_to(target.global_position) if target else dir
+	
+	translate(d * speed * delta)
+	global_rotation = Vector2.RIGHT.angle_to(d)
