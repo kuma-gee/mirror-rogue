@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://da5fh0ulgabo4"]
+
+[ext_resource type="Script" path="res://addons/input_helper/input_key.gd" id="1_linvu"]
+[ext_resource type="Theme" uid="uid://cvvavdkxk7llv" path="res://theme/theme.tres" id="1_o10sg"]
+[ext_resource type="Script" path="res://src/start.gd" id="2_tfb7v"]
+
+[node name="Start" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_o10sg")
+script = ExtResource("2_tfb7v")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="InputKey" type="Node" parent="CenterContainer/VBoxContainer/HBoxContainer/TextureRect"]
+script = ExtResource("1_linvu")
+action = "start"
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "to start"
+horizontal_alignment = 1
+vertical_alignment = 1

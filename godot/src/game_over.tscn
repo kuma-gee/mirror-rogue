@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://cbpmojln8t6kv"]
+[gd_scene load_steps=3 format=3 uid="uid://cbpmojln8t6kv"]
+
+[ext_resource type="Theme" uid="uid://cvvavdkxk7llv" path="res://theme/theme.tres" id="1_nv306"]
+[ext_resource type="Script" path="res://src/game_over.gd" id="2_qvoxr"]
 
 [node name="GameOver" type="Control"]
 process_mode = 3
@@ -8,6 +11,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_nv306")
+script = ExtResource("2_qvoxr")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -20,6 +25,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_nv306")
 
 [node name="Label" type="Label" parent="CanvasLayer/CenterContainer"]
 layout_mode = 2

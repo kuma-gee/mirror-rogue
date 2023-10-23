@@ -2,6 +2,8 @@ extends Projectile
 
 @onready var player_detect = $PlayerDetect
 
+var player: Node2D
+
 func _ready():
 	super._ready()
 	
@@ -11,5 +13,8 @@ func _ready():
 	)
 
 func _remove():
+	return_to()
+
+func return_to(p = player):
 	_disable_hit()
-	target = get_tree().get_first_node_in_group("Player")
+	target = p

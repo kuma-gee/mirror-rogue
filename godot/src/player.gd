@@ -24,6 +24,7 @@ signal reflected()
 var thrown := false
 var dashing := false
 var attacking := false
+var trident: Projectile
 
 func _ready():
 	input.just_pressed.connect(_on_just_pressed)
@@ -43,13 +44,18 @@ func _on_just_pressed(ev: InputEvent):
 		dashing = true
 		if mirror_detect.get_overlapping_areas().size() > 0:
 			_on_mirror_detect_area_entered(mirror_detect.get_overlapping_areas()[0])
-	elif ev.is_action_pressed("throw") and not thrown:
-		thrown = true
-		var projectile = projectile_scene.instantiate()
-		projectile.global_position = shot_point.global_position
-		projectile.global_rotation = shot_point.global_rotation
-		get_tree().current_scene.add_child(projectile)
-		projectile.freed.connect(func(): thrown = false)
+	elif ev.is_action_pressed("throw"):
+		if not thrown:
+			thrown = true
+			trident = projectile_scene.instantiate()
+			trident.player = self
+			trident.global_position = shot_point.global_position
+			trident.global_rotation = shot_point.global_rotation
+			get_tree().current_scene.add_child(trident)
+			trident.freed.connect(func(): thrown = false)
+		elif trident and not trident.is_queued_for_deletion():
+			trident.return_to()
+			
 	elif ev.is_action_pressed("attack") and not thrown and not attacking:
 		attacking = true
 		anim.play("Attack")

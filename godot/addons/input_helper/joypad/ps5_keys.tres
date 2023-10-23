@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="JoypadKeys" load_steps=21 format=3 uid="uid://14n6qsjepneg"]
+
+[ext_resource type="Texture2D" uid="uid://kv5vtf1ur77y" path="res://assets/Inputs/PS5/PS5_Cross.png" id="1_6u0n2"]
+[ext_resource type="Texture2D" uid="uid://dd8jvyx8o1noa" path="res://assets/Inputs/PS5/PS5_Circle.png" id="2_3howh"]
+[ext_resource type="Texture2D" uid="uid://sdgwfycrufiy" path="res://assets/Inputs/PS5/PS5_Dpad_Down.png" id="3_5h5yy"]
+[ext_resource type="Texture2D" uid="uid://b4xuknp3gtwtf" path="res://assets/Inputs/PS5/PS5_Dpad_Left.png" id="4_vow0u"]
+[ext_resource type="Texture2D" uid="uid://dff0w0bd1dlb7" path="res://assets/Inputs/PS5/PS5_Dpad_Right.png" id="5_55qn3"]
+[ext_resource type="Texture2D" uid="uid://d2hmie1l2503n" path="res://assets/Inputs/PS5/PS5_Dpad_Up.png" id="6_uiial"]
+[ext_resource type="Texture2D" uid="uid://dtghk24powjn4" path="res://assets/Inputs/PS5/PS5_Touch_Pad.png" id="7_7dfws"]
+[ext_resource type="Texture2D" uid="uid://brilmo11xihv3" path="res://assets/Inputs/PS5/PS5_L1.png" id="8_dxhdf"]
+[ext_resource type="Texture2D" uid="uid://ct58twvcnicbv" path="res://assets/Inputs/PS5/PS5_L2.png" id="9_kct0v"]
+[ext_resource type="Texture2D" uid="uid://clc3f78arokr8" path="res://assets/Inputs/PS5/PS5_Left_Stick_Click.png" id="10_dgm1u"]
+[ext_resource type="Texture2D" uid="uid://ddr35srfbw778" path="res://assets/Inputs/PS5/PS5_Left_Stick.png" id="10_mepeb"]
+[ext_resource type="Texture2D" uid="uid://btqtg2r5uhjj4" path="res://assets/Inputs/PS5/PS5_R1.png" id="11_p50in"]
+[ext_resource type="Texture2D" uid="uid://ca8t6r6rl1a1y" path="res://assets/Inputs/PS5/PS5_R2.png" id="12_kkjwr"]
+[ext_resource type="Texture2D" uid="uid://cob7kwfldw07l" path="res://assets/Inputs/PS5/PS5_Right_Stick.png" id="13_xjrng"]
+[ext_resource type="Texture2D" uid="uid://g65qa43gffwa" path="res://assets/Inputs/PS5/PS5_Right_Stick_Click.png" id="14_qwt53"]
+[ext_resource type="Texture2D" uid="uid://c1eo8xo8n1ff2" path="res://assets/Inputs/PS5/PS5_Square.png" id="16_l6a6u"]
+[ext_resource type="Texture2D" uid="uid://bishfwvxnoj41" path="res://assets/Inputs/PS5/PS5_Share.png" id="16_vxyma"]
+[ext_resource type="Texture2D" uid="uid://bw3t0ewuj1fjj" path="res://assets/Inputs/PS5/PS5_Triangle.png" id="17_4yigr"]
+[ext_resource type="Texture2D" uid="uid://v3qpenb8npkp" path="res://assets/Inputs/PS5/PS5_Options.png" id="17_6ifif"]
+[ext_resource type="Script" path="res://addons/input_helper/joypad/joypad_keys.gd" id="20_ubdnt"]
+
+[resource]
+script = ExtResource("20_ubdnt")
+JOYSTICK_L_UP = ExtResource("10_mepeb")
+JOYSTICK_L_DOWN = ExtResource("10_mepeb")
+JOYSTICK_L_RIGHT = ExtResource("10_mepeb")
+JOYSTICK_L_LEFT = ExtResource("10_mepeb")
+JOYSTICK_L_CLICK = ExtResource("10_dgm1u")
+JOYSTICK_R_UP = ExtResource("13_xjrng")
+JOYSTICK_R_DOWN = ExtResource("13_xjrng")
+JOYSTICK_R_RIGHT = ExtResource("13_xjrng")
+JOYSTICK_R_LEFT = ExtResource("13_xjrng")
+JOYSTICK_R_CLICK = ExtResource("14_qwt53")
+JOYSTICK_DPAD_UP = ExtResource("6_uiial")
+JOYSTICK_DPAD_DOWN = ExtResource("3_5h5yy")
+JOYSTICK_DPAD_LEFT = ExtResource("4_vow0u")
+JOYSTICK_DPAD_RIGHT = ExtResource("5_55qn3")
+JOYSTICK_A = ExtResource("1_6u0n2")
+JOYSTICK_B = ExtResource("2_3howh")
+JOYSTICK_X = ExtResource("16_l6a6u")
+JOYSTICK_Y = ExtResource("17_4yigr")
+JOYSTICK_L1 = ExtResource("8_dxhdf")
+JOYSTICK_L2 = ExtResource("9_kct0v")
+JOYSTICK_R1 = ExtResource("11_p50in")
+JOYSTICK_R2 = ExtResource("12_kkjwr")
+JOYSTICK_START = ExtResource("17_6ifif")
+JOYSTICK_HOME = ExtResource("7_7dfws")
+JOYSTICK_SELECT = ExtResource("16_vxyma")
