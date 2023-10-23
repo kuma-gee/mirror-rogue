@@ -79,6 +79,7 @@ scale = Vector2(0.125, 0.125)
 texture = ExtResource("3_h74si")
 
 [node name="Input" type="Node" parent="."]
+process_mode = 3
 script = ExtResource("4_0sora")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

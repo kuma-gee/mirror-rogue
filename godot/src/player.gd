@@ -79,7 +79,6 @@ func _get_motion():
 
 func _on_hurtbox_hit(dmg):
 	health -= dmg
-	print(health)
 	if health <= 0:
 		died.emit()
 
@@ -87,4 +86,3 @@ func _on_mirror_detect_area_entered(area):
 	if dashing and velocity.length() > 400:
 		velocity = velocity.bounce(area.get_normal()) / 2
 		reflected.emit()
-		input.reset()

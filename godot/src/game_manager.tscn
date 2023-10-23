@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://vpuckvyd3d02"]
+[gd_scene load_steps=4 format=3 uid="uid://vpuckvyd3d02"]
 
 [ext_resource type="Script" path="res://src/game_manager.gd" id="1_wqsm3"]
+[ext_resource type="Shader" path="res://src/mirror_effect.gdshader" id="2_rh24n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwuei"]
+shader = ExtResource("2_rh24n")
+shader_parameter/in_color = null
+shader_parameter/out_color = Color(0.329412, 0.0745098, 0.0745098, 1)
+shader_parameter/in_out = 1.0
+shader_parameter/position = 1.0
+shader_parameter/size = Vector2(32, 32)
 
 [node name="GameManager" type="Node2D"]
 process_mode = 3
@@ -8,3 +17,14 @@ script = ExtResource("1_wqsm3")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(1, 0.611765, 0.611765, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MirrorEffect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_wwuei")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

@@ -13,7 +13,7 @@ static func create(n):
 func _init(n: Node):
 	node = n
 
-func new_tween(on_finish = null):
+func new_tween(on_finish = null, parallel = true):
 	if tw and tw.is_running():
 		if block:
 			return false
@@ -21,7 +21,7 @@ func new_tween(on_finish = null):
 			tw.kill()
 	
 	tw = node.create_tween()
-	tw.set_parallel()
+	tw.set_parallel(parallel)
 	tw.set_trans(trans)
 	tw.set_ease(ease)
 	if on_finish:
@@ -53,3 +53,13 @@ func scale(n, from: Vector2, to: Vector2, duration = default_duration):
 
 func prop(n, p: String, from, to, duration = default_duration):
 	return tw.tween_property(n, p, to, duration).from(from)
+
+func method(cb: Callable, from, to, duration = default_duration):
+	return tw.tween_method(cb, from, to, duration)
+	
+func fn(cb: Callable):
+	return tw.tween_callback(cb)
+	
+	
+	
+	
