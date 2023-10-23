@@ -5,7 +5,7 @@ signal died()
 @export var speed := 50
 @export var health := 10
 @export var bullet_scene: PackedScene
-@export var bullet_spawn_offset := 20
+@export var bullet_spawn_offset := 10
 
 @onready var navigation_agent := $NavigationAgent2D
 

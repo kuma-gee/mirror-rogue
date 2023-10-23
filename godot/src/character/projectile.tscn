@@ -10,10 +10,6 @@ size = Vector2(4, 32)
 collision_layer = 0
 collision_mask = 57
 script = ExtResource("1_foewd")
-speed = null
-dir = null
-max_reflections = 3
-damage = 2
 collision_shape = NodePath("CollisionShape2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

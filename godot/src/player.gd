@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
 signal died()
-signal reflected(mirror_world)
+signal reflected()
 
 @export var speed := 100
 @export var accel := 800
-@export var health := 50
+@export var max_health := 50
 
 @export var dash_force := 500
 @export var dash_deaccel := 1500
@@ -19,14 +19,19 @@ signal reflected(mirror_world)
 @onready var mirror_detect = $MirrorDetect
 @onready var anim = $AnimationPlayer
 
+@onready var health := max_health
+
 var thrown := false
 var dashing := false
-var mirror := false
 var attacking := false
 
 func _ready():
 	input.just_pressed.connect(_on_just_pressed)
 	anim.play("RESET")
+	
+	GameManager.mirrored.connect(func(mirror):
+		modulate = Color.RED if mirror else Color.WHITE
+	)
 
 func _on_just_pressed(ev: InputEvent):
 	if ev.is_action_pressed("dash") and not dashing:
@@ -74,12 +79,12 @@ func _get_motion():
 
 func _on_hurtbox_hit(dmg):
 	health -= dmg
+	print(health)
 	if health <= 0:
 		died.emit()
 
 func _on_mirror_detect_area_entered(area):
 	if dashing and velocity.length() > 400:
-		mirror = not mirror
 		velocity = velocity.bounce(area.get_normal()) / 2
-		reflected.emit(mirror)
-		modulate = Color.RED if mirror else Color.WHITE
+		reflected.emit()
+		input.reset()

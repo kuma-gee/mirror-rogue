@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://vpuckvyd3d02"]
+
+[ext_resource type="Script" path="res://src/game_manager.gd" id="1_wqsm3"]
+
+[node name="GameManager" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_wqsm3")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(1, 0.611765, 0.611765, 1)
