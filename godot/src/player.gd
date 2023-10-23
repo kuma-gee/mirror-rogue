@@ -9,6 +9,7 @@ signal reflected(mirror_world)
 
 @export var dash_force := 500
 @export var dash_deaccel := 1500
+@export var attack_rate := 0.5
 
 @export var projectile_scene: PackedScene
 
@@ -16,13 +17,16 @@ signal reflected(mirror_world)
 @onready var hand: Node2D = $Hand
 @onready var shot_point = $Hand/ShotPoint
 @onready var mirror_detect = $MirrorDetect
+@onready var anim = $AnimationPlayer
 
-var thrown = false
-var dashing = false
-var mirror = false
+var thrown := false
+var dashing := false
+var mirror := false
+var attacking := false
 
 func _ready():
 	input.just_pressed.connect(_on_just_pressed)
+	anim.play("RESET")
 
 func _on_just_pressed(ev: InputEvent):
 	if ev.is_action_pressed("dash") and not dashing:
@@ -41,6 +45,10 @@ func _on_just_pressed(ev: InputEvent):
 		projectile.global_rotation = shot_point.global_rotation
 		get_tree().current_scene.add_child(projectile)
 		projectile.freed.connect(func(): thrown = false)
+	elif ev.is_action_pressed("attack") and not thrown and not attacking:
+		attacking = true
+		anim.play("Attack")
+		get_tree().create_timer(attack_rate).timeout.connect(func(): attacking = false)
 
 func _process(delta):
 	hand.global_rotation = Vector2.RIGHT.angle_to(_aim_dir())
@@ -64,7 +72,7 @@ func _get_motion():
 	var motion_y = input.get_action_strength("move_down") - input.get_action_strength("move_up")
 	return Vector2(motion_x, motion_y).normalized()
 
-func _on_hitbox_hit(dmg):
+func _on_hurtbox_hit(dmg):
 	health -= dmg
 	if health <= 0:
 		died.emit()

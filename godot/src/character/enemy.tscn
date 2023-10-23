@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/Enemy.gd" id="1_xsn24"]
 [ext_resource type="PackedScene" uid="uid://ddfl18bx24sfj" path="res://src/character/enemy_bullet.tscn" id="2_qwwrr"]
 [ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_s6l7m"]
-[ext_resource type="Script" path="res://src/character/Hitbox.gd" id="3_dexve"]
+[ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="4_dmkps"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wd2x"]
 size = Vector2(10, 10)
@@ -31,7 +31,7 @@ shape = SubResource("RectangleShape2D_0wd2x")
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 0
-script = ExtResource("3_dexve")
+script = ExtResource("4_dmkps")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_5khei")

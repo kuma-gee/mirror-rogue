@@ -1,11 +1,10 @@
-extends Area2D
+extends HitBox
 
 signal freed()
 
 @export var speed := 300
 @export var dir := Vector2.RIGHT
 @export var max_reflections := 4
-@export var damage := 5
 
 @export var collision_shape: CollisionShape2D
 
@@ -24,7 +23,7 @@ func _ready():
 			
 			if reflected > max_reflections:
 				_remove()
-		elif area is Hitbox:
+		elif area is HurtBox:
 			area.damage(damage)
 			_remove()
 		else:
