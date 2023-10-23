@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccmtdbts1e5ac"]
+
+[ext_resource type="PackedScene" uid="uid://mt5fy2ohtmg5" path="res://src/character/enemy.tscn" id="1_c78mk"]
+[ext_resource type="Script" path="res://src/character/area_enemy.gd" id="2_5sqx0"]
+
+[node name="AreaEnemy" instance=ExtResource("1_c78mk")]
+script = ExtResource("2_5sqx0")
+bullet_count = 8
+health = 10
+
+[node name="Sprite2D" parent="." index="0"]
+modulate = Color(0.964706, 1, 0.490196, 1)
+
+[node name="FireRateTimer" parent="." index="4"]
+wait_time = 4.0

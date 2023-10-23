@@ -1,6 +1,8 @@
 extends Node2D
 
 const ENEMY = preload("res://src/character/enemy.tscn")
+const AREA_ENEMY = preload("res://src/character/area_enemy.tscn")
+const BOMB_ENEMY = preload("res://src/character/bomb_enemy.tscn")
 
 @onready var mirror_n = $TileMap/MirrorN
 @onready var mirror_s = $TileMap/MirrorS
@@ -14,7 +16,7 @@ func _on_player_reflected():
 	GameManager.reflected()
 
 func _on_enemy_spawner_timeout():
-	var enemy = ENEMY.instantiate()
+	var enemy = BOMB_ENEMY.instantiate()
 	var mirror = [mirror_n, mirror_s, mirror_w, mirror_e].pick_random()
 	var collision = mirror.get_node("CollisionShape2D2") as CollisionShape2D
 	var shape = collision.shape as RectangleShape2D

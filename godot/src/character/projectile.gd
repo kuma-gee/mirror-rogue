@@ -13,7 +13,7 @@ var target: Node2D
 var reflected := 0
 
 func _ready():
-	_disable_hit()
+	_disable_hit(false)
 	get_tree().create_timer(0.05).timeout.connect(func(): collision_shape.disabled = false) # prevent player from hitting himself
 	
 	dir = dir.rotated(global_rotation)
@@ -32,8 +32,11 @@ func _ready():
 			_remove()
 	) 
 
-func _disable_hit():
-	collision_shape.set_deferred("disabled", true)
+func _disable_hit(deferred = true):
+	if deferred:
+		collision_shape.set_deferred("disabled", true)
+	else:
+		collision_shape.disabled = true
 
 func _remove():
 	freed.emit()

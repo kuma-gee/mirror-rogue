@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0mbhp0aqksh1"]
+
+[ext_resource type="PackedScene" uid="uid://mt5fy2ohtmg5" path="res://src/character/enemy.tscn" id="1_v1rsa"]
+[ext_resource type="PackedScene" uid="uid://bjoxmq8nco7tj" path="res://src/character/bomb_bullet.tscn" id="2_cgwka"]
+
+[node name="BombEnemy" instance=ExtResource("1_v1rsa")]
+speed = 15
+bullet_scene = ExtResource("2_cgwka")
+
+[node name="Sprite2D" parent="." index="0"]
+modulate = Color(0.701961, 0.490196, 1, 1)
+
+[node name="FireRateTimer" parent="." index="4"]
+wait_time = 5.0

@@ -1,3 +1,4 @@
+class_name Enemy
 extends CharacterBody2D
 
 signal died()
@@ -43,8 +44,13 @@ func _on_hitbox_hit(dmg):
 
 func _on_fire_rate_timer_timeout():
 	var bullet = bullet_scene.instantiate()
-	
-	var dir = global_position.direction_to(_player_pos()) * bullet_spawn_offset
+	var dir = global_position.direction_to(_player_pos())
+	_create_bullet(dir)
+
+func _create_bullet(dir):
+	var bullet = bullet_scene.instantiate()
+	dir = dir * bullet_spawn_offset
 	bullet.global_position = global_position + dir
 	bullet.dir = dir.normalized()
 	get_tree().current_scene.add_child(bullet)
+	return bullet
