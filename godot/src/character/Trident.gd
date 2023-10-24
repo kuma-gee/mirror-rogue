@@ -16,5 +16,5 @@ func _remove():
 	return_to()
 
 func return_to(p = player):
-	_disable_hit()
+	#_disable_hit()
 	target = p

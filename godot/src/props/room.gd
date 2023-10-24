@@ -42,8 +42,15 @@ func _ready():
 	door_w.entered.connect(func(): entered.emit(Vector2.LEFT))
 	door_e.entered.connect(func(): entered.emit(Vector2.RIGHT))
 
+func get_size():
+	var size = get_used_rect().size + Vector2i(2, 0)
+	return Vector2(size * tile_set.tile_size)
+
 func open_door(dir: Vector2):
 	doors[dir].open()
+
+func get_door(dir: Vector2):
+	return doors[dir]
 
 func start(max_value: int, max_killed: int, from: Vector2 = Vector2.ZERO):
 	max_enemy_value = max_value
@@ -74,9 +81,7 @@ func _on_enemy_spawner_timeout():
 	enemy.died.connect(func():
 		spawned_enemies.erase(enemy)
 		enemies_killed += 1
-		_check_current_enemy_values()
-		
-		if spawned_enemies.is_empty():
+		if _check_current_enemy_values() and spawned_enemies.is_empty():
 			finished.emit()
 	)
 	
@@ -85,7 +90,7 @@ func _on_enemy_spawner_timeout():
 func _check_current_enemy_values():
 	if enemies_killed >= max_enemies_killed:
 		enemy_spawner.stop()
-		return
+		return true
 	
 	var value = 0
 	for enemy in spawned_enemies:
@@ -95,3 +100,4 @@ func _check_current_enemy_values():
 		enemy_spawner.stop()
 	elif enemy_spawner.is_stopped():
 		enemy_spawner.start()
+	return false

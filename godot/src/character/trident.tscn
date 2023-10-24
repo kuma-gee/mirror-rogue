@@ -11,7 +11,7 @@ radius = 6.08276
 
 [node name="Trident" type="Area2D" node_paths=PackedStringArray("collision_shape")]
 collision_layer = 0
-collision_mask = 57
+collision_mask = 49
 script = ExtResource("1_uombx")
 max_reflections = 5
 collision_shape = NodePath("CollisionShape2D")

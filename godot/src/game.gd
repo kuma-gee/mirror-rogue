@@ -2,6 +2,10 @@ extends Node2D
 
 const ROOM = preload("res://src/props/room.tscn")
 
+@onready var cam = $Camera2D
+@onready var player = $Player
+
+
 const value_increase := 1.5
 const kill_increase := 1.8
 
@@ -24,14 +28,21 @@ func _setup_next_room(current_room: Room):
 	print("Creating room in dir %s" % dir)
 	current_room.rooms[dir] = room
 	current_room.open_door(dir)
+	
+	room.global_position = current_room.global_position + dir * room.get_size()
 	add_child.call_deferred(room)
 
 func _create_room() -> Room:
 	var room = ROOM.instantiate()
 	room.finished.connect(func(): _setup_next_room(room))
 	room.entered.connect(func(dir):
-		# TODO: move camera
-		room.rooms[dir].start(enemy_value, enemy_kills, dir)
+		var new_room = room.rooms[dir]
+		cam.global_position = new_room.global_position
+		player.velocity = Vector2.ZERO
+		player.global_position = new_room.get_door(-dir).global_position + dir * 10
+		player.immediate_return_trident()
+		new_room.start(enemy_value, enemy_kills, dir)
+		get_tree().create_timer(1.0).timeout.connect(func(): room.queue_free())
 	)
 	return room
 

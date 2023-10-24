@@ -8,6 +8,7 @@
 script = ExtResource("1_fscq0")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("6_2xq02")]
 z_index = 10

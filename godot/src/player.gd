@@ -21,7 +21,6 @@ signal reflected()
 
 @onready var health := max_health
 
-var thrown := false
 var dashing := false
 var attacking := false
 var trident: Projectile
@@ -45,21 +44,23 @@ func _on_just_pressed(ev: InputEvent):
 		if mirror_detect.get_overlapping_areas().size() > 0:
 			_on_mirror_detect_area_entered(mirror_detect.get_overlapping_areas()[0])
 	elif ev.is_action_pressed("throw"):
-		if not thrown:
-			thrown = true
+		if not trident:
 			trident = projectile_scene.instantiate()
 			trident.player = self
 			trident.global_position = shot_point.global_position
 			trident.global_rotation = shot_point.global_rotation
 			get_tree().current_scene.add_child(trident)
-			trident.freed.connect(func(): thrown = false)
-		elif trident and not trident.is_queued_for_deletion():
+			trident.freed.connect(func(): trident = null)
+		else:
 			trident.return_to()
 			
-	elif ev.is_action_pressed("attack") and not thrown and not attacking:
+	elif ev.is_action_pressed("attack") and not _is_thrown() and not attacking:
 		attacking = true
 		anim.play("Attack")
 		get_tree().create_timer(attack_rate).timeout.connect(func(): attacking = false)
+
+func _is_thrown():
+	return trident != null
 
 func _process(delta):
 	hand.global_rotation = Vector2.RIGHT.angle_to(_aim_dir())
@@ -92,3 +93,7 @@ func _on_mirror_detect_area_entered(area):
 	if dashing and velocity.length() > 400:
 		velocity = velocity.bounce(area.get_normal()) / 2
 		reflected.emit()
+
+func immediate_return_trident():
+	if trident:
+		trident.queue_free()
