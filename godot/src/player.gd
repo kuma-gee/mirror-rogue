@@ -91,7 +91,11 @@ func _on_hurtbox_hit(dmg):
 
 func _on_mirror_detect_area_entered(area):
 	if dashing and velocity.length() > 400:
-		velocity = velocity.bounce(area.get_normal()) / 2
+		var n = area.get_normal()
+		if abs(velocity.dot(n)) < 0.1: # ignore steep collisions
+			return
+		
+		velocity = velocity.bounce(n) / 2
 		reflected.emit()
 
 func immediate_return_trident():

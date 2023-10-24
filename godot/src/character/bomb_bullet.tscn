@@ -13,7 +13,7 @@ size = Vector2(14, 14)
 
 [node name="BombBullet" type="Area2D" node_paths=PackedStringArray("collision_shape")]
 collision_layer = 0
-collision_mask = 41
+collision_mask = 40
 script = ExtResource("1_w8slh")
 normal_bullet = ExtResource("2_ggcqs")
 speed = 100

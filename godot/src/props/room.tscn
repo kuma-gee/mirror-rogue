@@ -1241,26 +1241,26 @@ position = Vector2(167, 0)
 rotation = 1.5708
 
 [node name="MirrorN" parent="." instance=ExtResource("6_on6bk")]
-position = Vector2(0, -102)
+position = Vector2(0, -104)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="MirrorN"]
 shape = SubResource("RectangleShape2D_qvrmu")
 
 [node name="MirrorS" parent="." instance=ExtResource("6_on6bk")]
-position = Vector2(0, 101)
+position = Vector2(0, 104)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="MirrorS"]
 shape = SubResource("RectangleShape2D_qvrmu")
 
 [node name="MirrorW" parent="." instance=ExtResource("6_on6bk")]
-position = Vector2(-166, -2)
+position = Vector2(-168, -2)
 rotation = 1.5708
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="MirrorW"]
 shape = SubResource("RectangleShape2D_kyft3")
 
 [node name="MirrorE" parent="." instance=ExtResource("6_on6bk")]
-position = Vector2(166, -1)
+position = Vector2(169, -1)
 rotation = 1.5708
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="MirrorE"]
