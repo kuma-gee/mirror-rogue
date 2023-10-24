@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bjoxmq8nco7tj" path="res://src/character/bomb_bullet.tscn" id="2_cgwka"]
 
 [node name="BombEnemy" instance=ExtResource("1_v1rsa")]
+value = 3
 speed = 15
 bullet_scene = ExtResource("2_cgwka")
 

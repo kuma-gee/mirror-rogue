@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 signal died()
 
+@export var value := 1.0
 @export var speed := 50
 @export var health := 10
 @export var bullet_scene: PackedScene
