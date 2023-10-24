@@ -2,12 +2,16 @@ class_name Projectile
 extends HitBox
 
 signal freed()
+signal reflect()
 
 @export var speed := 300
 @export var dir := Vector2.RIGHT
 @export var max_reflections := 4
 
 @export var collision_shape: CollisionShape2D
+
+@onready var current_speed := speed
+@onready var mirror := GameManager.mirror
 
 var target: Node2D
 var reflected := 0
@@ -26,6 +30,8 @@ func _ready():
 			dir = dir.bounce(area.get_normal())
 			global_rotation = Vector2.RIGHT.angle_to(dir)
 			reflected += 1
+			mirror = not mirror
+			reflect.emit()
 			
 			if reflected > max_reflections and max_reflections >= 0:
 				_remove()
@@ -46,5 +52,5 @@ func _remove():
 func _physics_process(delta):
 	var d = global_position.direction_to(target.global_position) if target else dir
 	
-	translate(d * speed * delta)
+	translate(d * current_speed * delta)
 	global_rotation = Vector2.RIGHT.angle_to(d)

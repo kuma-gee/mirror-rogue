@@ -5,7 +5,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wwuei"]
 shader = ExtResource("2_rh24n")
-shader_parameter/in_color = Color(0.352941, 0.411765, 0.533333, 1)
+shader_parameter/in_color = Color(0.290196, 0.396078, 0.588235, 1)
 shader_parameter/out_color = Color(0.419608, 0.164706, 0.164706, 1)
 shader_parameter/in_out = 1.0
 shader_parameter/position = 1.0

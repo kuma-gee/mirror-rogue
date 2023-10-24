@@ -19,6 +19,10 @@ signal reflected()
 @onready var mirror_detect = $MirrorDetect
 @onready var anim = $AnimationPlayer
 
+@onready var body = $Body
+@onready var normal_body = $Body/Normal
+@onready var trident_body = $Body/Trident
+
 @onready var health := max_health
 
 var dashing := false
@@ -28,10 +32,19 @@ var trident: Projectile
 func _ready():
 	input.just_pressed.connect(_on_just_pressed)
 	anim.play("RESET")
+	_update_state()
 	
 	GameManager.mirrored.connect(func(mirror):
 		modulate = Color.RED if mirror else Color.WHITE
 	)
+
+func _update_state():
+	if _is_thrown():
+		normal_body.visible = true
+		trident_body.visible = false
+	else:
+		normal_body.visible = false
+		trident_body.visible = true
 
 func _on_just_pressed(ev: InputEvent):
 	if ev.is_action_pressed("dash") and not dashing:
@@ -41,8 +54,13 @@ func _on_just_pressed(ev: InputEvent):
 		
 		velocity = dir * dash_force
 		dashing = true
+		anim.play("Dash")
+		
 		if mirror_detect.get_overlapping_areas().size() > 0:
-			_on_mirror_detect_area_entered(mirror_detect.get_overlapping_areas()[0])
+			var mirror = mirror_detect.get_overlapping_areas()[0]
+			var mirror_dir = global_position.direction_to(mirror.global_position)
+			if mirror_dir.dot(dir) > 0:
+				_on_mirror_detect_area_entered(mirror)
 	elif ev.is_action_pressed("throw"):
 		if not trident:
 			trident = projectile_scene.instantiate()
@@ -50,7 +68,11 @@ func _on_just_pressed(ev: InputEvent):
 			trident.global_position = shot_point.global_position
 			trident.global_rotation = shot_point.global_rotation
 			get_tree().current_scene.add_child(trident)
-			trident.freed.connect(func(): trident = null)
+			trident.freed.connect(func():
+				trident = null
+				_update_state()
+			)
+			_update_state()
 		else:
 			trident.return_to()
 			
@@ -63,7 +85,11 @@ func _is_thrown():
 	return trident != null
 
 func _process(delta):
-	hand.global_rotation = Vector2.RIGHT.angle_to(_aim_dir())
+	var aim = _aim_dir()
+	hand.global_rotation = Vector2.RIGHT.angle_to(aim)
+	
+	# body is rotated, so we scale y-axis
+	body.scale.y = 1 if aim.x > 0 else -1
 
 func _aim_dir():
 	return global_position.direction_to(get_global_mouse_position())
