@@ -1,38 +1,36 @@
 [gd_scene load_steps=6 format=3 uid="uid://ddfl18bx24sfj"]
 
 [ext_resource type="Script" path="res://src/character/enemy_bullet.gd" id="1_m5cyv"]
-[ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_e5h20"]
+[ext_resource type="Texture2D" uid="uid://d8ap1t3wascc" path="res://assets/Bubble.png" id="2_lmg1q"]
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="3_qq6ij"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oy37k"]
-size = Vector2(10, 10)
+[sub_resource type="CircleShape2D" id="CircleShape2D_k5472"]
+radius = 4.12311
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y27rv"]
-size = Vector2(12, 12)
+[sub_resource type="CircleShape2D" id="CircleShape2D_5521j"]
+radius = 6.0
 
 [node name="EnemyBullet" type="Area2D" node_paths=PackedStringArray("collision_shape")]
 collision_layer = 0
-collision_mask = 40
+collision_mask = 56
 script = ExtResource("1_m5cyv")
-speed = 150
+speed = 100
 max_reflections = 2
 collision_shape = NodePath("CollisionShape2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0, 1)
-scale = Vector2(0.078125, 0.078125)
-texture = ExtResource("2_e5h20")
+texture = ExtResource("2_lmg1q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_oy37k")
+shape = SubResource("CircleShape2D_k5472")
 
 [node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 16
+collision_layer = 64
 collision_mask = 0
 script = ExtResource("3_qq6ij")
 remove_on_hit = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("RectangleShape2D_y27rv")
+shape = SubResource("CircleShape2D_5521j")
 
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]

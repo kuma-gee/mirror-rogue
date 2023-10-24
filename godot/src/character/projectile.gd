@@ -15,8 +15,8 @@ var reflected := 0
 var ignored = []
 
 func _ready():
-	#_disable_hit()
-	#get_tree().create_timer(0.05).timeout.connect(func(): collision_shape.disabled = false) # prevent player from hitting himself
+	_disable_hit()
+	get_tree().create_timer(0.1).timeout.connect(func(): collision_shape.disabled = false) # prevent player from hitting himself
 	
 	dir = dir.rotated(global_rotation)
 	area_entered.connect(func(area):

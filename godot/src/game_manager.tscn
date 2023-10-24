@@ -16,7 +16,7 @@ process_mode = 3
 script = ExtResource("1_wqsm3")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(1, 0.611765, 0.611765, 1)
+color = Color(0.8, 0.972549, 1, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

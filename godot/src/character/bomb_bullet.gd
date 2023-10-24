@@ -2,7 +2,7 @@ extends Projectile
 
 @export var bullet_count := 5
 @export var normal_bullet: PackedScene
-@export var bullet_spawn_offset := 40
+@export var bullet_spawn_offset := 10
 
 @onready var hurtbox = $Hurtbox
 

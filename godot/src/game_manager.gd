@@ -9,12 +9,14 @@ const GAMEOVER = preload("res://src/game_over.tscn")
 @onready var canvas_layer = $CanvasLayer
 @onready var mirror_effect = $CanvasLayer/MirrorEffect
 
+const NORMAL_COLOR = Color("ccf8ff")
+const MIRROR_COLOR = Color("ff9c9c")
+
 var mirror := false
 var mirror_tw = TweenCreator.new(self)
 
 func _ready():
-	canvas_modulate.color = Color.WHITE
-	_set_mirror_effect(1.0)
+	reset()
 	
 func _play_shatter(restore = false):
 	get_tree().paused = true
@@ -49,6 +51,7 @@ func gameover():
 func reset():
 	mirror = false
 	canvas_modulate.color = _get_mirror_color()
+	_set_mirror_effect(1.0)
 
 func reflected():
 	if mirror_tw.new_tween(func(): get_tree().paused = false, false):
@@ -64,7 +67,7 @@ func reflected():
 		mirror_tw.method(_set_mirror_effect, -1.0, 1.5, 1.).set_ease(Tween.EASE_OUT)
 
 func _get_mirror_color():
-	return Color("ff9c9c") if mirror else Color.WHITE
+	return MIRROR_COLOR if mirror else NORMAL_COLOR
 
 func _set_mirror_effect(value: float):
 	mirror_effect.material.set_shader_parameter("position", value)

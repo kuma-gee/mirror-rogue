@@ -143,5 +143,7 @@ libraries = {
 "": SubResource("AnimationLibrary_sf20l")
 }
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
 [connection signal="area_entered" from="MirrorDetect" to="." method="_on_mirror_detect_area_entered"]
