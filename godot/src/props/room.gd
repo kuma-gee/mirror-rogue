@@ -56,21 +56,20 @@ func start(max_value: int, max_killed: int, from: Vector2 = Vector2.ZERO):
 	max_enemy_value = max_value
 	max_enemies_killed = max_killed
 	enemy_spawner.start()
-	
+
 	if max_enemy_value > 8:
 		available_enemies.append(AREA_ENEMY)
-	
+
 	if max_enemy_value > 10:
 		available_enemies.append(BOMB_ENEMY)
-		
+
 	if from:
 		doors[-from].close()
 
 func _on_enemy_spawner_timeout():
 	var enemy = available_enemies.pick_random().instantiate()
 	var mirror = [mirror_n, mirror_s, mirror_w, mirror_e].pick_random()
-	var collision = mirror.get_node("CollisionShape2D2") as CollisionShape2D
-	var shape = collision.shape as RectangleShape2D
+	var shape = mirror.get_shape() as RectangleShape2D
 	var offset = shape.size.x / 2.0
 	
 	var pos = mirror.global_position + Vector2(randi_range(-offset, offset), 0).rotated(mirror.global_rotation)

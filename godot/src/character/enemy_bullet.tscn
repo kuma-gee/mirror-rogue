@@ -10,19 +10,21 @@ radius = 4.12311
 [sub_resource type="CircleShape2D" id="CircleShape2D_5521j"]
 radius = 6.0
 
-[node name="EnemyBullet" type="Area2D" node_paths=PackedStringArray("collision_shape")]
+[node name="EnemyBullet" type="Area2D" node_paths=PackedStringArray("collision_shape", "raycast")]
 collision_layer = 0
 collision_mask = 56
 script = ExtResource("1_m5cyv")
 speed = 100
 max_reflections = 2
 collision_shape = NodePath("CollisionShape2D")
+raycast = NodePath("RayCast2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_lmg1q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_k5472")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 64
@@ -32,5 +34,12 @@ remove_on_hit = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_5521j")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(20, 0)
+collision_mask = 32
+collide_with_areas = true
+collide_with_bodies = false
 
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]

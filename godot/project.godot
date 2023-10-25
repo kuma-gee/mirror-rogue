@@ -26,6 +26,7 @@ InputHelper="*res://addons/input_helper/input_helper.gd"
 [debug]
 
 gdscript/warnings/return_value_discarded=false
+shapes/collision/shape_color=Color(0.32549, 0, 0.701961, 0.419608)
 
 [display]
 

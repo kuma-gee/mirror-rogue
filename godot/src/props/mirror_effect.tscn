@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://b3d6ngjw2fub6"]
+
+[ext_resource type="Texture2D" uid="uid://0adb0xo075m" path="res://assets/MirrorEffect.png" id="1_hhkpl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ehtc"]
+atlas = ExtResource("1_hhkpl")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kl4la"]
+atlas = ExtResource("1_hhkpl")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u63yl"]
+atlas = ExtResource("1_hhkpl")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grenl"]
+atlas = ExtResource("1_hhkpl")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5btb"]
+atlas = ExtResource("1_hhkpl")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgks5"]
+atlas = ExtResource("1_hhkpl")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygpsc"]
+atlas = ExtResource("1_hhkpl")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkxj5"]
+atlas = ExtResource("1_hhkpl")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvbae"]
+atlas = ExtResource("1_hhkpl")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ekcuf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ehtc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kl4la")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u63yl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grenl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5btb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgks5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygpsc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kkxj5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvbae")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="MirrorEffect" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_ekcuf")
+autoplay = "default"
+frame = 8
+frame_progress = 1.0

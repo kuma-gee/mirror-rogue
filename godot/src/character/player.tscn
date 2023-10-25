@@ -55,6 +55,21 @@ tracks/0/keys = {
 "values": [false, true]
 }
 
+[sub_resource type="Animation" id="Animation_4h26t"]
+resource_name = "Dash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hurtbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_kn83o"]
 resource_name = "Idle"
 loop_mode = 1
@@ -114,21 +129,6 @@ tracks/1/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_4h26t"]
-resource_name = "Dash"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hurtbox/CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sf20l"]
 _data = {
 "Attack": SubResource("Animation_xmo06"),
@@ -152,6 +152,7 @@ script = ExtResource("4_0sora")
 position = Vector2(0, 6)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_dgu6m")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="Trident" type="Sprite2D" parent="Body"]
 position = Vector2(-6.00001, -2.99998)
@@ -177,6 +178,7 @@ damage = 2
 position = Vector2(-4, 0)
 shape = SubResource("RectangleShape2D_ofpqk")
 disabled = true
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="ShotPoint" type="Marker2D" parent="Hand"]
 position = Vector2(16, 0)
@@ -193,6 +195,7 @@ script = ExtResource("6_h0fpl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_vssjf")
 disabled = true
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="MirrorDetect" type="Area2D" parent="."]
 collision_layer = 0
@@ -200,6 +203,7 @@ collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MirrorDetect"]
 shape = SubResource("CircleShape2D_r0xvd")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

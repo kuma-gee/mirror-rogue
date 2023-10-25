@@ -1243,28 +1243,32 @@ rotation = 1.5708
 [node name="MirrorN" parent="." instance=ExtResource("6_on6bk")]
 position = Vector2(0, -104)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="MirrorN"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MirrorN"]
 shape = SubResource("RectangleShape2D_qvrmu")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="MirrorS" parent="." instance=ExtResource("6_on6bk")]
 position = Vector2(0, 104)
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="MirrorS"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MirrorS"]
 shape = SubResource("RectangleShape2D_qvrmu")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="MirrorW" parent="." instance=ExtResource("6_on6bk")]
 position = Vector2(-168, -2)
 rotation = 1.5708
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="MirrorW"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MirrorW"]
 shape = SubResource("RectangleShape2D_kyft3")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="MirrorE" parent="." instance=ExtResource("6_on6bk")]
 position = Vector2(169, -1)
 rotation = 1.5708
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="MirrorE"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MirrorE"]
 shape = SubResource("RectangleShape2D_pcqet")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="EnemySpawner" type="Timer" parent="."]
 wait_time = 2.0

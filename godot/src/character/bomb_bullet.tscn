@@ -11,7 +11,7 @@ radius = 7.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_uma4k"]
 radius = 9.0
 
-[node name="BombBullet" type="Area2D" node_paths=PackedStringArray("collision_shape")]
+[node name="BombBullet" type="Area2D" node_paths=PackedStringArray("collision_shape", "raycast")]
 collision_layer = 0
 collision_mask = 56
 script = ExtResource("1_w8slh")
@@ -19,10 +19,12 @@ normal_bullet = ExtResource("2_ggcqs")
 speed = 75
 max_reflections = 2
 collision_shape = NodePath("CollisionShape2D")
+raycast = NodePath("RayCast2D")
 damage = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_58gh8")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_xrcna")
@@ -40,6 +42,13 @@ remove_on_hit = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_uma4k")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(30, 0)
+collision_mask = 32
+collide_with_areas = true
+collide_with_bodies = false
 
 [connection signal="timeout" from="ExplodeTimer" to="." method="_on_explode_timer_timeout"]
 [connection signal="hit_with" from="Hurtbox" to="." method="_on_hurtbox_hit_with"]
