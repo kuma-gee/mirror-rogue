@@ -1,13 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://mt5fy2ohtmg5"]
+[gd_scene load_steps=11 format=3 uid="uid://mt5fy2ohtmg5"]
 
 [ext_resource type="Script" path="res://src/Enemy.gd" id="1_xsn24"]
 [ext_resource type="PackedScene" uid="uid://ddfl18bx24sfj" path="res://src/character/enemy_bullet.tscn" id="2_qwwrr"]
 [ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_s6l7m"]
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="4_dmkps"]
+[ext_resource type="Script" path="res://src/character/HitBox.gd" id="4_i70wx"]
 [ext_resource type="Theme" uid="uid://bx7af5qpgeitk" path="res://theme/enemy.tres" id="5_7mmee"]
 [ext_resource type="Script" path="res://src/character/HpBar.gd" id="5_16pbh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wd2x"]
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vpkdl"]
 size = Vector2(10, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5khei"]
@@ -30,12 +34,21 @@ texture = ExtResource("2_s6l7m")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0wd2x")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("4_i70wx")
+damage = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_vpkdl")
+
+[node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("4_dmkps")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_5khei")
 
 [node name="FireRateTimer" type="Timer" parent="."]
@@ -53,5 +66,5 @@ show_percentage = false
 script = ExtResource("5_16pbh")
 max_health = 15
 
-[connection signal="hit" from="Hitbox" to="." method="_on_hitbox_hit"]
+[connection signal="hit" from="Hurtbox" to="." method="_on_hitbox_hit"]
 [connection signal="timeout" from="FireRateTimer" to="." method="_on_fire_rate_timer_timeout"]

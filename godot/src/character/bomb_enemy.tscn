@@ -10,8 +10,8 @@ bullet_scene = ExtResource("2_cgwka")
 [node name="Sprite2D" parent="." index="0"]
 modulate = Color(0.701961, 0.490196, 1, 1)
 
-[node name="FireRateTimer" parent="." index="4"]
+[node name="FireRateTimer" parent="." index="5"]
 wait_time = 5.0
 
-[node name="HpBar" parent="." index="5"]
+[node name="HpBar" parent="." index="6"]
 max_health = 20
