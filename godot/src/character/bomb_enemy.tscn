@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://bjoxmq8nco7tj" path="res://src/character/bomb_bullet.tscn" id="2_cgwka"]
 
 [node name="BombEnemy" instance=ExtResource("1_v1rsa")]
-value = 3
 speed = 15
 bullet_scene = ExtResource("2_cgwka")
 
@@ -13,3 +12,6 @@ modulate = Color(0.701961, 0.490196, 1, 1)
 
 [node name="FireRateTimer" parent="." index="4"]
 wait_time = 5.0
+
+[node name="HpBar" parent="." index="5"]
+max_health = 20

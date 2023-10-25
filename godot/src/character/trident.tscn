@@ -16,7 +16,7 @@ script = ExtResource("1_uombx")
 max_reflections = 5
 collision_shape = NodePath("CollisionShape2D")
 raycast = NodePath("RayCast2D")
-damage = 2
+damage = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)

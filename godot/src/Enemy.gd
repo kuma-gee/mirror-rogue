@@ -5,13 +5,17 @@ signal died()
 
 @export var value := 1.0
 @export var speed := 50
-@export var health := 10
 @export var bullet_scene: PackedScene
 @export var bullet_spawn_offset := 10
 
 @onready var navigation_agent := $NavigationAgent2D
+@onready var hp_bar = $HpBar
 
 func _ready():
+	hp_bar.zero_health.connect(func():
+		died.emit()
+		queue_free()
+	)
 	navigation_agent.path_desired_distance = 4.0
 	navigation_agent.target_desired_distance = 4.0
 
@@ -37,10 +41,7 @@ func _physics_process(delta):
 
 
 func _on_hitbox_hit(dmg):
-	health -= dmg
-	if health <= 0:
-		died.emit()
-		queue_free()
+	hp_bar.hurt(dmg)
 
 
 func _on_fire_rate_timer_timeout():

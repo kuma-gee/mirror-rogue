@@ -29,22 +29,22 @@ func _ready():
 		if area in ignored: return
 		
 		if area is Mirror:
-			if raycast and raycast.is_colliding():
-				set_physics_process(false)
-				hide()
-				var effect_pos = await area.create_mirror_effect(raycast.get_collision_point(), dir)
-				global_position = effect_pos
-				set_physics_process(true)
-				show()
-			
-			dir = dir.bounce(area.get_normal())
-			global_rotation = Vector2.RIGHT.angle_to(dir)
-			reflected += 1
-			mirror = not mirror
-			reflect.emit()
-			
 			if reflected > max_reflections and max_reflections >= 0:
 				_remove()
+			else:
+				if raycast and raycast.is_colliding():
+					set_physics_process(false)
+					hide()
+					var effect_pos = await area.create_mirror_effect(raycast.get_collision_point(), dir)
+					global_position = effect_pos
+					set_physics_process(true)
+					show()
+				
+				dir = dir.bounce(area.get_normal())
+				global_rotation = Vector2.RIGHT.angle_to(dir)
+				reflected += 1
+				mirror = not mirror
+				reflect.emit()
 		elif area is HurtBox:
 			if area.damage(damage, self):
 				_remove()

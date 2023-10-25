@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dlby6flxkmnjs"]
+[gd_scene load_steps=24 format=3 uid="uid://dlby6flxkmnjs"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_356t7"]
 [ext_resource type="Script" path="res://src/character/Trident.gd" id="2_krux5"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="6_h0fpl"]
 [ext_resource type="Texture2D" uid="uid://or3y5nw2xeov" path="res://assets/Arrow.png" id="6_k4cvt"]
 [ext_resource type="Texture2D" uid="uid://fdcgbmv5xqv0" path="res://assets/Gura_Normal.png" id="6_uyb3b"]
+[ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="10_crikn"]
+[ext_resource type="Script" path="res://src/character/HpBar.gd" id="11_a3gni"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_str41"]
 size = Vector2(4, 32)
@@ -141,7 +143,6 @@ _data = {
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_356t7")
-max_health = 100
 projectile_scene = SubResource("PackedScene_rv4o7")
 
 [node name="Input" type="Node" parent="."]
@@ -172,7 +173,7 @@ position = Vector2(16, 0)
 collision_layer = 0
 collision_mask = 80
 script = ExtResource("5_hp8me")
-damage = 2
+damage = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/HitBox"]
 position = Vector2(-4, 0)
@@ -210,7 +211,18 @@ libraries = {
 "": SubResource("AnimationLibrary_sf20l")
 }
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="HpBar" type="ProgressBar" parent="."]
+offset_left = -7.0
+offset_top = -10.0
+offset_right = 7.0
+offset_bottom = -8.0
+theme = ExtResource("10_crikn")
+step = 1.0
+value = 50.0
+rounded = true
+show_percentage = false
+script = ExtResource("11_a3gni")
+max_health = 20
 
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
 [connection signal="area_entered" from="MirrorDetect" to="." method="_on_mirror_detect_area_entered"]

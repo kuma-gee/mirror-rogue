@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://mt5fy2ohtmg5"]
+[gd_scene load_steps=9 format=3 uid="uid://mt5fy2ohtmg5"]
 
 [ext_resource type="Script" path="res://src/Enemy.gd" id="1_xsn24"]
 [ext_resource type="PackedScene" uid="uid://ddfl18bx24sfj" path="res://src/character/enemy_bullet.tscn" id="2_qwwrr"]
 [ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_s6l7m"]
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="4_dmkps"]
+[ext_resource type="Theme" uid="uid://bx7af5qpgeitk" path="res://theme/enemy.tres" id="5_7mmee"]
+[ext_resource type="Script" path="res://src/character/HpBar.gd" id="5_16pbh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wd2x"]
 size = Vector2(10, 10)
@@ -16,7 +18,6 @@ collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_xsn24")
 speed = 40
-health = 4
 bullet_scene = ExtResource("2_qwwrr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -40,6 +41,17 @@ shape = SubResource("RectangleShape2D_5khei")
 [node name="FireRateTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
+
+[node name="HpBar" type="ProgressBar" parent="."]
+offset_left = -6.0
+offset_top = -9.0
+offset_right = 6.0
+offset_bottom = -7.0
+theme = ExtResource("5_7mmee")
+value = 50.0
+show_percentage = false
+script = ExtResource("5_16pbh")
+max_health = 15
 
 [connection signal="hit" from="Hitbox" to="." method="_on_hitbox_hit"]
 [connection signal="timeout" from="FireRateTimer" to="." method="_on_fire_rate_timer_timeout"]

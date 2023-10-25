@@ -5,7 +5,6 @@ signal reflected()
 
 @export var speed := 100
 @export var accel := 800
-@export var max_health := 50
 
 @export var dash_force := 500
 @export var dash_deaccel := 1500
@@ -22,23 +21,24 @@ signal reflected()
 @onready var body = $Body
 @onready var normal_body = $Body/Normal
 @onready var trident_body = $Body/Trident
-
-@onready var health := max_health
+@onready var hp_bar = $HpBar
 
 var dashing := false
 var attacking := false
 var trident: Projectile
 
 func _ready():
+	hp_bar.zero_health.connect(func(): died.emit())
+	
 	input.just_pressed.connect(_on_just_pressed)
 	anim.play("RESET")
-	_update_state()
+	_update_throw()
 	
 	GameManager.mirrored.connect(func(mirror):
 		modulate = Color.RED if mirror else Color.WHITE
 	)
 
-func _update_state():
+func _update_throw():
 	if _is_thrown():
 		normal_body.visible = true
 		trident_body.visible = false
@@ -70,9 +70,9 @@ func _on_just_pressed(ev: InputEvent):
 			get_tree().current_scene.add_child(trident)
 			trident.freed.connect(func():
 				trident = null
-				_update_state()
+				_update_throw()
 			)
-			_update_state()
+			_update_throw()
 		else:
 			trident.return_to()
 			
@@ -102,6 +102,8 @@ func _physics_process(delta):
 	else:
 		var motion = _get_motion()
 		velocity = velocity.move_toward(motion * speed, accel * delta)
+		if not attacking:
+			anim.play("Move")
 	
 	move_and_slide()
 
@@ -111,9 +113,7 @@ func _get_motion():
 	return Vector2(motion_x, motion_y).normalized()
 
 func _on_hurtbox_hit(dmg):
-	health -= dmg
-	if health <= 0:
-		died.emit()
+	hp_bar.hurt(dmg)
 
 func _on_mirror_detect_area_entered(area):
 	if dashing and velocity.length() > 400:
