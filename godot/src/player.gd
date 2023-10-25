@@ -135,6 +135,8 @@ func _on_mirror_detect_area_entered(area):
 func immediate_return_trident():
 	if trident:
 		trident.queue_free()
+		trident = null
+		_update_throw()
 
 func _set_hit_flash(enable: bool):
 	normal_body.material.set_shader_parameter("enabled", enable)

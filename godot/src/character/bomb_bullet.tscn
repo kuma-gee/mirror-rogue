@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjoxmq8nco7tj"]
+[gd_scene load_steps=13 format=3 uid="uid://bjoxmq8nco7tj"]
 
 [ext_resource type="Script" path="res://src/character/bomb_bullet.gd" id="1_w8slh"]
 [ext_resource type="PackedScene" uid="uid://ddfl18bx24sfj" path="res://src/character/enemy_bullet.tscn" id="2_ggcqs"]
+[ext_resource type="PackedScene" uid="uid://dym6lvn1yabg7" path="res://src/props/bubble_effect.tscn" id="2_kskym"]
 [ext_resource type="Texture2D" uid="uid://c3nl0yefq3f4t" path="res://assets/LargeBubble.png" id="3_xrcna"]
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="4_w8ldn"]
+[ext_resource type="AudioStream" uid="uid://5jsadg4vn1sj" path="res://assets/sound/ペタッ.mp3" id="6_cx87a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_58gh8"]
 radius = 7.0
@@ -11,10 +13,90 @@ radius = 7.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_uma4k"]
 radius = 9.0
 
+[sub_resource type="Animation" id="Animation_d3kij"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_j55vk"]
+resource_name = "pop"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_stfek"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_76tku"]
+_data = {
+"RESET": SubResource("Animation_stfek"),
+"idle": SubResource("Animation_d3kij"),
+"pop": SubResource("Animation_j55vk")
+}
+
 [node name="BombBullet" type="Area2D" node_paths=PackedStringArray("collision_shape", "raycast")]
 collision_layer = 0
 collision_mask = 56
 script = ExtResource("1_w8slh")
+bubble_effect = ExtResource("2_kskym")
 normal_bullet = ExtResource("2_ggcqs")
 speed = 75
 max_reflections = 2
@@ -29,6 +111,7 @@ debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_xrcna")
+hframes = 7
 
 [node name="ExplodeTimer" type="Timer" parent="."]
 wait_time = 4.0
@@ -50,6 +133,14 @@ target_position = Vector2(30, 0)
 collision_mask = 32
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_76tku")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_cx87a")
 
 [connection signal="timeout" from="ExplodeTimer" to="." method="_on_explode_timer_timeout"]
 [connection signal="hit_with" from="Hurtbox" to="." method="_on_hurtbox_hit_with"]

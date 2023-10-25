@@ -68,3 +68,7 @@ func _physics_process(delta):
 	
 	translate(d * current_speed * delta)
 	global_rotation = Vector2.RIGHT.angle_to(d)
+
+func _stop():
+	_disable_hit()
+	set_physics_process(false)

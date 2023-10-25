@@ -155,6 +155,7 @@ script = ExtResource("1_356t7")
 projectile_scene = SubResource("PackedScene_rv4o7")
 
 [node name="FrameFreeze" type="Node" parent="."]
+process_mode = 3
 script = ExtResource("4_5mytp")
 
 [node name="Input" type="Node" parent="."]
