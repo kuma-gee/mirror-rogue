@@ -13,6 +13,7 @@ signal died()
 @onready var navigation_agent := $NavigationAgent2D
 @onready var hp_bar = $HpBar
 @onready var collision_shape_2d = $CollisionShape2D
+@onready var soft_collision = $SoftCollision
 
 var knockback: Vector2
 
@@ -48,6 +49,8 @@ func _physics_process(delta):
 		var new_velocity: Vector2 = next_path_position - current_agent_position
 		new_velocity = new_velocity.normalized()
 		new_velocity = new_velocity * speed
+		
+		new_velocity += soft_collision.get_push_vector() * delta
 
 		velocity = new_velocity
 	
