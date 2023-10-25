@@ -104,7 +104,7 @@ func _physics_process(delta):
 		var motion = _get_motion()
 		velocity = velocity.move_toward(motion * speed, accel * delta)
 		if not attacking:
-			anim.play("Move")
+			anim.play("Move" if velocity.length() > 0 else "Idle")
 	
 	move_and_slide()
 

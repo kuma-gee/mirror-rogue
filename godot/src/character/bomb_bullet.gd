@@ -19,7 +19,7 @@ func _remove(explode_dir = dir):
 	if removing: return
 	
 	removing = true
-	var spread = PI/2
+	var spread = PI
 	for i in bullet_count:
 		var start = explode_dir.rotated(-spread/2)
 		var d = start.rotated(i * spread/bullet_count)
