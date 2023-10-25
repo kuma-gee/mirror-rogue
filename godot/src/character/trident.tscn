@@ -17,6 +17,7 @@ max_reflections = 5
 collision_shape = NodePath("CollisionShape2D")
 raycast = NodePath("RayCast2D")
 damage = 5
+knockback_force = 120
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)

@@ -18,6 +18,7 @@ speed = 100
 max_reflections = 2
 collision_shape = NodePath("CollisionShape2D")
 raycast = NodePath("RayCast2D")
+knockback_force = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_lmg1q")

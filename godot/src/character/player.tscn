@@ -1,16 +1,24 @@
-[gd_scene load_steps=24 format=3 uid="uid://dlby6flxkmnjs"]
+[gd_scene load_steps=28 format=3 uid="uid://dlby6flxkmnjs"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_356t7"]
+[ext_resource type="Shader" path="res://src/character/hit_flash.gdshader" id="1_iff14"]
 [ext_resource type="Script" path="res://src/character/Trident.gd" id="2_krux5"]
 [ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="3_h74si"]
 [ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="4_0sora"]
+[ext_resource type="Script" path="res://shared/FrameFreeze.gd" id="4_5mytp"]
 [ext_resource type="Texture2D" uid="uid://k6r1efayr0v1" path="res://assets/Gura_Trident.png" id="5_272tn"]
 [ext_resource type="Script" path="res://src/character/HitBox.gd" id="5_hp8me"]
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="6_h0fpl"]
 [ext_resource type="Texture2D" uid="uid://or3y5nw2xeov" path="res://assets/Arrow.png" id="6_k4cvt"]
 [ext_resource type="Texture2D" uid="uid://fdcgbmv5xqv0" path="res://assets/Gura_Normal.png" id="6_uyb3b"]
+[ext_resource type="Material" uid="uid://b0yb20w0y2pgh" path="res://src/character/hit_flash.tres" id="7_a3o32"]
 [ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="10_crikn"]
 [ext_resource type="Script" path="res://src/character/HpBar.gd" id="11_a3gni"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tkw7x"]
+shader = ExtResource("1_iff14")
+shader_parameter/hit_color = Color(1, 0, 0, 1)
+shader_parameter/enabled = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_str41"]
 size = Vector2(4, 32)
@@ -141,9 +149,13 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
+material = SubResource("ShaderMaterial_tkw7x")
 collision_layer = 2
 script = ExtResource("1_356t7")
 projectile_scene = SubResource("PackedScene_rv4o7")
+
+[node name="FrameFreeze" type="Node" parent="."]
+script = ExtResource("4_5mytp")
 
 [node name="Input" type="Node" parent="."]
 process_mode = 3
@@ -156,27 +168,29 @@ shape = SubResource("CapsuleShape2D_dgu6m")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="Trident" type="Sprite2D" parent="Body"]
-position = Vector2(-6.00001, -2.99998)
+material = ExtResource("7_a3o32")
+position = Vector2(-8.00001, -2.99997)
 rotation = -1.5708
 texture = ExtResource("5_272tn")
 
 [node name="Normal" type="Sprite2D" parent="Body"]
 visible = false
-position = Vector2(-6.00001, -2.99998)
+material = ExtResource("7_a3o32")
+position = Vector2(-8.00001, -2.99997)
 rotation = -1.5708
 texture = ExtResource("6_uyb3b")
 
 [node name="Hand" type="Node2D" parent="."]
 
 [node name="HitBox" type="Area2D" parent="Hand"]
-position = Vector2(16, 0)
 collision_layer = 0
 collision_mask = 80
 script = ExtResource("5_hp8me")
 damage = 3
+knockback_force = 200
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/HitBox"]
-position = Vector2(-4, 0)
+position = Vector2(12, 0)
 shape = SubResource("RectangleShape2D_ofpqk")
 disabled = true
 debug_color = Color(0, 0.6, 0.7, 0.42)
@@ -225,4 +239,5 @@ script = ExtResource("11_a3gni")
 max_health = 20
 
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
+[connection signal="knockback" from="Hurtbox" to="." method="_on_hurtbox_knockback"]
 [connection signal="area_entered" from="MirrorDetect" to="." method="_on_mirror_detect_area_entered"]

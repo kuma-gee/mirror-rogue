@@ -22,6 +22,7 @@ signal reflected()
 @onready var normal_body = $Body/Normal
 @onready var trident_body = $Body/Trident
 @onready var hp_bar = $HpBar
+@onready var frame_freeze = $FrameFreeze
 
 var dashing := false
 var attacking := false
@@ -114,6 +115,13 @@ func _get_motion():
 
 func _on_hurtbox_hit(dmg):
 	hp_bar.hurt(dmg)
+	_set_hit_flash(true)
+	await frame_freeze.freeze(0.05, 0.5)
+	_set_hit_flash(false)
+
+func _on_hurtbox_knockback(dir):
+	velocity += dir
+
 
 func _on_mirror_detect_area_entered(area):
 	if dashing and velocity.length() > 400:
@@ -127,3 +135,8 @@ func _on_mirror_detect_area_entered(area):
 func immediate_return_trident():
 	if trident:
 		trident.queue_free()
+
+func _set_hit_flash(enable: bool):
+	normal_body.material.set_shader_parameter("enabled", enable)
+	trident_body.material.set_shader_parameter("enabled", enable)
+	

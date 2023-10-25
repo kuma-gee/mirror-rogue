@@ -46,7 +46,7 @@ func _ready():
 				mirror = not mirror
 				reflect.emit()
 		elif area is HurtBox:
-			if area.damage(damage, self):
+			if _do_damage(area):
 				_remove()
 		else:
 			_remove()

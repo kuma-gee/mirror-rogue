@@ -21,6 +21,7 @@ max_reflections = 2
 collision_shape = NodePath("CollisionShape2D")
 raycast = NodePath("RayCast2D")
 damage = 2
+knockback_force = 200
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_58gh8")
