@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fdcgbmv5xqv0"
-path="res://.godot/imported/Gura_Normal.png-97fab4fe1c5d5a1e4a72c925cd828ba6.ctex"
+uid="uid://6lcoatpub83l"
+path="res://.godot/imported/Gura__Normal_Mirror.png-92c135f372450f06a2b5f9682b538b8a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Gura_Normal.png"
-dest_files=["res://.godot/imported/Gura_Normal.png-97fab4fe1c5d5a1e4a72c925cd828ba6.ctex"]
+source_file="res://assets/Gura__Normal_Mirror.png"
+dest_files=["res://.godot/imported/Gura__Normal_Mirror.png-92c135f372450f06a2b5f9682b538b8a.ctex"]
 
 [params]
 

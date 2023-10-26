@@ -1,6 +1,7 @@
 extends Projectile
 
-@export var mirror_speed := 400
+@export var normal_tex: Texture2D
+@export var mirror_tex: Texture2D
 
 @onready var player_detect = $PlayerDetect
 @onready var sprite_2d = $Sprite2D
@@ -16,11 +17,10 @@ func _ready():
 	)
 	
 	_update_for_mirror()
-	reflect.connect(func(): _update_for_mirror())
+	GameManager.mirrored.connect(func(_m): _update_for_mirror())
 
 func _update_for_mirror():
-	sprite_2d.modulate = Color.RED if mirror else Color.WHITE
-	current_speed = mirror_speed if mirror else speed
+	sprite_2d.texture = mirror_tex if GameManager.mirror else normal_tex
 
 func _remove():
 	return_to()

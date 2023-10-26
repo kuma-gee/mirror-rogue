@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dlby6flxkmnjs"]
+[gd_scene load_steps=32 format=3 uid="uid://dlby6flxkmnjs"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_356t7"]
 [ext_resource type="Shader" path="res://src/character/hit_flash.gdshader" id="1_iff14"]
@@ -6,13 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="3_h74si"]
 [ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="4_0sora"]
 [ext_resource type="Script" path="res://shared/FrameFreeze.gd" id="4_5mytp"]
-[ext_resource type="Texture2D" uid="uid://k6r1efayr0v1" path="res://assets/Gura_Trident.png" id="5_272tn"]
 [ext_resource type="Script" path="res://src/character/HitBox.gd" id="5_hp8me"]
+[ext_resource type="Texture2D" uid="uid://c8x10v1drqabm" path="res://assets/Gura__Normal_Normal.png" id="5_ke3rs"]
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="6_h0fpl"]
 [ext_resource type="Texture2D" uid="uid://or3y5nw2xeov" path="res://assets/Arrow.png" id="6_k4cvt"]
-[ext_resource type="Texture2D" uid="uid://fdcgbmv5xqv0" path="res://assets/Gura_Normal.png" id="6_uyb3b"]
 [ext_resource type="Material" uid="uid://b0yb20w0y2pgh" path="res://src/character/hit_flash.tres" id="7_a3o32"]
+[ext_resource type="Texture2D" uid="uid://co8dko7iojh8p" path="res://assets/Gura__Trident_Normal.png" id="7_ih42d"]
+[ext_resource type="Texture2D" uid="uid://wi47ngkwkxbc" path="res://assets/Gura__Trident_Mirror.png" id="9_rn4i3"]
 [ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="10_crikn"]
+[ext_resource type="Texture2D" uid="uid://6lcoatpub83l" path="res://assets/Gura__Normal_Mirror.png" id="11_24eg1"]
 [ext_resource type="Script" path="res://src/character/HpBar.gd" id="11_a3gni"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tkw7x"]
@@ -39,6 +41,12 @@ _bundled = {
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dgu6m"]
 radius = 2.0
 height = 12.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1psfk"]
+load_path = "res://.godot/imported/Gura_Trident.png-a021c52341cca4d176c50d5c137502a3.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b7p8s"]
+load_path = "res://.godot/imported/Gura_Normal.png-97fab4fe1c5d5a1e4a72c925cd828ba6.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ofpqk"]
 size = Vector2(18, 14)
@@ -108,18 +116,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Body/Trident:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
 
 [sub_resource type="Animation" id="Animation_djb3v"]
 resource_name = "Move"
@@ -140,22 +136,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Trident:frame")
+tracks/1/path = NodePath("Body/Normal:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [2, 3]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Body/Normal:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
@@ -200,18 +184,6 @@ tracks/2/keys = {
 "update": 1,
 "values": [0]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Body/Trident:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sf20l"]
 _data = {
@@ -227,6 +199,10 @@ material = SubResource("ShaderMaterial_tkw7x")
 collision_layer = 2
 script = ExtResource("1_356t7")
 projectile_scene = SubResource("PackedScene_rv4o7")
+normal_tex = ExtResource("5_ke3rs")
+normal_mirror_tex = ExtResource("11_24eg1")
+trident_tex = ExtResource("7_ih42d")
+trident_mirror_tex = ExtResource("9_rn4i3")
 
 [node name="FrameFreeze" type="Node" parent="."]
 process_mode = 3
@@ -247,14 +223,31 @@ visible = false
 material = ExtResource("7_a3o32")
 position = Vector2(-8.00001, -2.99997)
 rotation = -1.5708
-texture = ExtResource("5_272tn")
+texture = SubResource("CompressedTexture2D_1psfk")
+hframes = 4
+frame = 2
+
+[node name="TridentMirror" type="Sprite2D" parent="Body"]
+visible = false
+material = ExtResource("7_a3o32")
+position = Vector2(-8.00001, -2.99997)
+rotation = -1.5708
+texture = ExtResource("9_rn4i3")
 hframes = 4
 
 [node name="Normal" type="Sprite2D" parent="Body"]
 material = ExtResource("7_a3o32")
 position = Vector2(-8.00001, -2.99997)
 rotation = -1.5708
-texture = ExtResource("6_uyb3b")
+texture = SubResource("CompressedTexture2D_b7p8s")
+hframes = 4
+
+[node name="NormalMirror" type="Sprite2D" parent="Body"]
+visible = false
+material = ExtResource("7_a3o32")
+position = Vector2(-8.00001, -2.99997)
+rotation = -1.5708
+texture = ExtResource("11_24eg1")
 hframes = 4
 
 [node name="Hand" type="Node2D" parent="."]

@@ -12,6 +12,11 @@ signal reflected()
 
 @export var projectile_scene: PackedScene
 
+@export var normal_tex: Texture2D
+@export var normal_mirror_tex: Texture2D
+@export var trident_tex: Texture2D
+@export var trident_mirror_tex: Texture2D
+
 @onready var input: PlayerInput = $Input
 @onready var hand: Node2D = $Hand
 @onready var shot_point = $Hand/ShotPoint
@@ -19,8 +24,8 @@ signal reflected()
 @onready var anim = $AnimationPlayer
 
 @onready var body = $Body
-@onready var normal_body = $Body/Normal
-@onready var trident_body = $Body/Trident
+@onready var sprite = $Body/Normal
+
 @onready var hp_bar = $HpBar
 @onready var frame_freeze = $FrameFreeze
 
@@ -36,16 +41,17 @@ func _ready():
 	_update_throw()
 	
 	GameManager.mirrored.connect(func(mirror):
-		modulate = Color.RED if mirror else Color.WHITE
+		_update_throw()
 	)
 
 func _update_throw():
+	sprite.texture = _get_body_tex()
+
+func _get_body_tex() -> Texture2D:
+	var mirror = GameManager.mirror
 	if _is_thrown():
-		normal_body.visible = true
-		trident_body.visible = false
-	else:
-		normal_body.visible = false
-		trident_body.visible = true
+		return normal_mirror_tex if mirror else normal_tex
+	return trident_mirror_tex if mirror else trident_tex
 
 func _on_just_pressed(ev: InputEvent):
 	if ev.is_action_pressed("dash") and not dashing:
@@ -139,6 +145,6 @@ func immediate_return_trident():
 		_update_throw()
 
 func _set_hit_flash(enable: bool):
-	normal_body.material.set_shader_parameter("enabled", enable)
-	trident_body.material.set_shader_parameter("enabled", enable)
+	sprite.material.set_shader_parameter("enabled", enable)
+	#trident_body.material.set_shader_parameter("enabled", enable)
 	

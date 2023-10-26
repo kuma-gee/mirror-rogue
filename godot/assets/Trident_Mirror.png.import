@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b22e0ffgnoq7y"
-path="res://.godot/imported/Trident.png-cd4a0082e8cdd7b537658d6d920a9bf3.ctex"
+uid="uid://dywa8xm74rcff"
+path="res://.godot/imported/Trident_Mirror.png-fdaac2a2fc17b8f79f058d2e999e9b67.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Trident.png"
-dest_files=["res://.godot/imported/Trident.png-cd4a0082e8cdd7b537658d6d920a9bf3.ctex"]
+source_file="res://assets/Trident_Mirror.png"
+dest_files=["res://.godot/imported/Trident_Mirror.png-fdaac2a2fc17b8f79f058d2e999e9b67.ctex"]
 
 [params]
 

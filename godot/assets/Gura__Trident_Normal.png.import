@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvbp02x8waica"
-path="res://.godot/imported/door.png-b71998044d513d047c9b0091ee4a07ff.ctex"
+uid="uid://co8dko7iojh8p"
+path="res://.godot/imported/Gura__Trident_Normal.png-83f85f9d8c845fa8a5f06b23e5731168.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/door.png"
-dest_files=["res://.godot/imported/door.png-b71998044d513d047c9b0091ee4a07ff.ctex"]
+source_file="res://assets/Gura__Trident_Normal.png"
+dest_files=["res://.godot/imported/Gura__Trident_Normal.png-83f85f9d8c845fa8a5f06b23e5731168.ctex"]
 
 [params]
 
