@@ -15,10 +15,14 @@ func create_mirror_effect(collision_point: Vector2, dir: Vector2):
 	var shape_size = get_shape().get_rect().size
 	var size = min(shape_size.x, shape_size.y)
 	
-	var actual_pos = to_local(collision_point) + dir.rotated(-global_rotation) * size / 2
+	var actual_pos = collision_point + dir.rotated(-global_rotation) * size / 2
+	await create_effect(actual_pos)
+	return actual_pos
+	
+func create_effect(pos):
 	var effect = mirror_effect.instantiate() as AnimatedSprite2D
-	effect.position = actual_pos
 	add_child(effect)
+	effect.global_position = pos
 	await effect.animation_finished
 	remove_child(effect)
-	return to_global(effect.position)
+	

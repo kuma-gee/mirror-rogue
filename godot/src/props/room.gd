@@ -72,10 +72,6 @@ func _on_enemy_spawner_timeout():
 	var shape = mirror.get_shape() as RectangleShape2D
 	var offset = shape.size.x / 2.0
 	
-	var pos = mirror.global_position + Vector2(randi_range(-offset, offset), 0).rotated(mirror.global_rotation)
-	get_tree().current_scene.add_child(enemy)
-	enemy.global_position = pos
-	
 	spawned_enemies.append(enemy)
 	enemy.died.connect(func():
 		spawned_enemies.erase(enemy)
@@ -85,6 +81,11 @@ func _on_enemy_spawner_timeout():
 	)
 	
 	_check_current_enemy_values()
+	
+	var pos = mirror.global_position + Vector2(randi_range(-offset, offset), 0).rotated(mirror.global_rotation) + mirror.get_normal() * 10
+	await mirror.create_effect(pos)
+	get_tree().current_scene.add_child(enemy)
+	enemy.global_position = pos
 
 func _check_current_enemy_values():
 	if enemies_killed >= max_enemies_killed:

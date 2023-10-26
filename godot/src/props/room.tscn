@@ -1202,13 +1202,13 @@ sources/2 = SubResource("TileSetAtlasSource_dv1ac")
 sources/3 = SubResource("TileSetAtlasSource_im7wa")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvrmu"]
-size = Vector2(358, 10)
+size = Vector2(326, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kyft3"]
-size = Vector2(210, 10)
+size = Vector2(200, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pcqet"]
-size = Vector2(210, 10)
+size = Vector2(200, 10)
 
 [node name="Room" type="TileMap"]
 material = SubResource("ShaderMaterial_rserg")
@@ -1249,24 +1249,26 @@ debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="MirrorS" parent="." instance=ExtResource("6_on6bk")]
 position = Vector2(0, 104)
+rotation = 3.14159
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MirrorS"]
 shape = SubResource("RectangleShape2D_qvrmu")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="MirrorW" parent="." instance=ExtResource("6_on6bk")]
-position = Vector2(-168, -2)
-rotation = 1.5708
+position = Vector2(-168, 0)
+rotation = -1.5708
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MirrorW"]
 shape = SubResource("RectangleShape2D_kyft3")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="MirrorE" parent="." instance=ExtResource("6_on6bk")]
-position = Vector2(169, -1)
+position = Vector2(168, 0)
 rotation = 1.5708
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MirrorE"]
+position = Vector2(-7.54953e-08, 0)
 shape = SubResource("RectangleShape2D_pcqet")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
