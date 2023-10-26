@@ -6,6 +6,7 @@
 [node name="BombEnemy" instance=ExtResource("1_v1rsa")]
 speed = 15
 bullet_scene = ExtResource("2_cgwka")
+drop_chance = 0.5
 
 [node name="Sprite2D" parent="." index="0"]
 modulate = Color(0.701961, 0.490196, 1, 1)

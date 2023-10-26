@@ -15,6 +15,10 @@ func _ready():
 func _is_full_hp():
 	return health == max_health
 
+func heal(amount: int):
+	health = clamp(health + amount, 0, max_health)
+	_update_hp_bar()
+
 func hurt(dmg: int):
 	health -= dmg
 	_update_hp_bar()

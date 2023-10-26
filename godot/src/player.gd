@@ -22,6 +22,7 @@ signal reflected()
 @onready var shot_point = $Hand/ShotPoint
 @onready var mirror_detect = $MirrorDetect
 @onready var anim = $AnimationPlayer
+@onready var attack_anim = $AttackAnim
 
 @onready var body = $Body
 @onready var sprite = $Body/Normal
@@ -38,6 +39,7 @@ func _ready():
 	
 	input.just_pressed.connect(_on_just_pressed)
 	anim.play("RESET")
+	attack_anim.play("RESET")
 	_update_throw()
 	
 	GameManager.mirrored.connect(func(mirror):
@@ -85,7 +87,7 @@ func _on_just_pressed(ev: InputEvent):
 			
 	elif ev.is_action_pressed("attack") and not _is_thrown() and not attacking:
 		attacking = true
-		anim.play("Attack")
+		attack_anim.play("attack")
 		get_tree().create_timer(attack_rate).timeout.connect(func(): attacking = false)
 
 func _is_thrown():
@@ -128,6 +130,8 @@ func _on_hurtbox_hit(dmg):
 func _on_hurtbox_knockback(dir):
 	velocity += dir
 
+func heal(amount: int):
+	hp_bar.heal(amount)
 
 func _on_mirror_detect_area_entered(area):
 	if dashing and velocity.length() > 400:

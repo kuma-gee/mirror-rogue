@@ -126,6 +126,7 @@ start={
 2d_physics/layer_6="mirror"
 2d_physics/layer_7="bubble"
 2d_physics/layer_8="soft_collision"
+2d_physics/layer_9="pick_up"
 
 [locale]
 

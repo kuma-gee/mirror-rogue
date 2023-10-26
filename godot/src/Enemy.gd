@@ -8,6 +8,8 @@ signal died()
 @export var speed := 50
 @export var bullet_scene: PackedScene
 @export var bullet_spawn_offset := 10
+@export var hp_drop: PackedScene
+@export var drop_chance := 0.2
 
 @onready var sprite_2d = $Sprite2D
 @onready var navigation_agent := $NavigationAgent2D
@@ -23,6 +25,10 @@ func _ready():
 	
 	hp_bar.zero_health.connect(func():
 		died.emit()
+		if randf() <= drop_chance and GameManager.mirror:
+			var drop = hp_drop.instantiate()
+			get_tree().current_scene.add_child(drop)
+			drop.global_position = global_position
 		queue_free()
 	)
 	navigation_agent.path_desired_distance = 4.0
