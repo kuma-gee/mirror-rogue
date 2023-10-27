@@ -99,7 +99,8 @@ collision_mask = 56
 script = ExtResource("1_w8slh")
 bubble_effect = ExtResource("2_kskym")
 normal_bullet = ExtResource("2_ggcqs")
-speed = 75
+mirror_speed = 80
+speed = 50
 max_reflections = 2
 collision_shape = NodePath("CollisionShape2D")
 hurt_collision = NodePath("Hurtbox/CollisionShape2D")
@@ -149,4 +150,5 @@ stream = ExtResource("6_cx87a")
 script = ExtResource("7_de2g2")
 
 [connection signal="timeout" from="ExplodeTimer" to="." method="_on_explode_timer_timeout"]
+[connection signal="by_player" from="Hurtbox" to="." method="_on_hurtbox_by_player"]
 [connection signal="hit_with" from="Hurtbox" to="." method="_on_hurtbox_hit_with"]

@@ -26,3 +26,7 @@ func _remove():
 		animation_player.play("pop")
 		await animation_player.animation_finished
 		super._remove()
+
+
+func _on_hurtbox_by_player():
+	GameManager.bubble_popped()

@@ -53,3 +53,7 @@ func _on_explode_timer_timeout():
 
 func _on_hurtbox_hit_with(area: Node2D):
 	_remove(area.global_position.direction_to(global_position))
+
+
+func _on_hurtbox_by_player():
+	GameManager.bubble_popped()

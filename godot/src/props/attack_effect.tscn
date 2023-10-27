@@ -76,6 +76,7 @@ script = ExtResource("2_vt71h")
 collision_layer = 0
 collision_mask = 80
 script = ExtResource("3_xu0cq")
+from_player = true
 damage = 2
 mirror_damage = 3
 knockback_force = 200

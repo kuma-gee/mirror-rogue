@@ -3,11 +3,14 @@ extends CharacterBody2D
 signal died()
 signal reflected()
 
-@export var speed := 100
-@export var accel := 800
+@export var mirror_speed := 120
+@export var speed := 80
+@export var accel := 900
 
 @export var dash_force := 500
 @export var dash_deaccel := 1500
+
+@export var mirror_attack_rate := 0.3
 @export var attack_rate := 0.5
 
 @export var projectile_scene: PackedScene
@@ -95,7 +98,11 @@ func _on_just_pressed(ev: InputEvent):
 		get_tree().current_scene.add_child(eff)
 		eff.global_position = shot_point.global_position
 		eff.global_rotation = shot_point.global_rotation
-		get_tree().create_timer(attack_rate).timeout.connect(func(): attacking = false)
+		_start_attack_rate_timer()
+
+func _start_attack_rate_timer():
+	var time = mirror_attack_rate if GameManager.mirror else attack_rate
+	get_tree().create_timer(time).timeout.connect(func(): attacking = false)
 
 func _is_thrown():
 	return trident != null
@@ -117,7 +124,8 @@ func _physics_process(delta):
 			dashing = false
 	else:
 		var motion = _get_motion()
-		velocity = velocity.move_toward(motion * speed, accel * delta)
+		var s = mirror_speed if GameManager.mirror else speed
+		velocity = velocity.move_toward(motion * s, accel * delta)
 		if not attacking:
 			anim.play("Move" if velocity.length() > 0 else "Idle")
 	

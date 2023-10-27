@@ -4,7 +4,9 @@ extends HitBox
 signal freed()
 signal reflect()
 
+@export var mirror_speed := 300
 @export var speed := 300
+
 @export var dir := Vector2.RIGHT
 @export var max_reflections := 4
 @export var disable_initial_hit := true
@@ -15,7 +17,6 @@ signal reflect()
 @export var raycast: RayCast2D
 
 @onready var current_speed := speed
-@onready var mirror := GameManager.mirror
 
 const MIRROR_LAYER = 1 << 5
 
@@ -25,9 +26,15 @@ var reflected := 0
 var ignored = []
 var random_move_tw := TweenCreator.new(self)
 
+func _update_speed():
+	current_speed = mirror_speed if GameManager.mirror else speed
+
 func _ready():
 	if disable_initial_hit:
 		_temp_disable_collision()
+	
+	_update_speed()
+	GameManager.mirrored.connect(func(_m): _update_speed())
 	
 	dir = dir.rotated(global_rotation)
 	area_entered.connect(func(area):
@@ -48,7 +55,6 @@ func _ready():
 				dir = dir.bounce(area.get_normal())
 				global_rotation = Vector2.RIGHT.angle_to(dir)
 				reflected += 1
-				mirror = not mirror
 				reflect.emit()
 		elif area is HurtBox:
 			if _do_damage(area):
@@ -74,7 +80,6 @@ func _physics_process(delta):
 #		var offset = randf_range(-random_move_offset, random_move_offset)
 #		var random_dir = offset * d.rotated(90)
 #		d += random_dir
-	
 	translate(d * current_speed * delta)
 	global_rotation = Vector2.RIGHT.angle_to(d)
 	

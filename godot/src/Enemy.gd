@@ -5,6 +5,8 @@ signal died()
 
 @export var friction := 800
 @export var value := 1.0
+
+@export var mirror_speed := 50
 @export var speed := 50
 
 @export var move_anim := "move"
@@ -14,7 +16,7 @@ signal died()
 @export var mirror_tex: Texture2D
 
 @export var bullet_scene: PackedScene
-@export var bullet_spawn_offset := 10
+@export var bullet_spawn_offset := 15
 @export var hp_drop: PackedScene
 @export var blood_particles: PackedScene
 
@@ -44,6 +46,7 @@ func _update_mirror():
 func _ready():
 	sprite_2d.material = sprite_2d.material.duplicate()
 	collision_shape_2d.disabled = true
+	_set_hit_flash(false)
 	
 	_update_mirror()
 	GameManager.mirrored.connect(func(_m): _update_mirror())
@@ -89,7 +92,8 @@ func _physics_process(delta):
 
 		var new_velocity: Vector2 = next_path_position - current_agent_position
 		new_velocity = new_velocity.normalized()
-		new_velocity = new_velocity * speed
+		var s = mirror_speed if GameManager.mirror else speed
+		new_velocity = new_velocity * s
 		
 		new_velocity += soft_collision.get_push_vector() * delta
 

@@ -71,7 +71,8 @@ collision_layer = 0
 collision_mask = 56
 script = ExtResource("1_m5cyv")
 bubble_effect = ExtResource("4_k7o7n")
-speed = 100
+mirror_speed = 100
+speed = 80
 max_reflections = 2
 random_move_offset = 10.0
 collision_shape = NodePath("CollisionShape2D")
@@ -112,4 +113,5 @@ libraries = {
 [node name="FreeOnExit" type="VisibleOnScreenNotifier2D" parent="."]
 script = ExtResource("6_0s6lm")
 
+[connection signal="by_player" from="Hurtbox" to="." method="_on_hurtbox_by_player"]
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]

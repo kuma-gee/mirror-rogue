@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://mt5fy2ohtmg5"]
+[gd_scene load_steps=23 format=3 uid="uid://mt5fy2ohtmg5"]
 
 [ext_resource type="Script" path="res://src/Enemy.gd" id="1_xsn24"]
 [ext_resource type="Texture2D" uid="uid://ctn3ta6wyr4t2" path="res://assets/Enemy__Crab_Normal.png" id="2_qj055"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://src/character/HpBar.gd" id="5_16pbh"]
 [ext_resource type="PackedScene" uid="uid://mhmji1mdl0e5" path="res://src/props/kill_particles.tscn" id="6_in8mi"]
 [ext_resource type="Script" path="res://src/character/SoftCollision.gd" id="9_2mmdc"]
+[ext_resource type="Script" path="res://src/character/AttackTimer.gd" id="10_ky8df"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7nrr"]
 size = Vector2(8, 2)
@@ -99,7 +100,8 @@ _data = {
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_xsn24")
-speed = 40
+mirror_speed = 40
+speed = 30
 normal_tex = ExtResource("2_qj055")
 mirror_tex = ExtResource("3_g4yvg")
 bullet_scene = ExtResource("2_qwwrr")
@@ -139,6 +141,9 @@ shape = SubResource("CircleShape2D_g25a1")
 [node name="FireRateTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
+script = ExtResource("10_ky8df")
+normal_time = 2.0
+mirror_time = 1.5
 
 [node name="HpBar" type="ProgressBar" parent="."]
 offset_left = -6.0

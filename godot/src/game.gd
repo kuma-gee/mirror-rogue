@@ -17,6 +17,7 @@ var room_dirs := [Vector2.UP, Vector2.LEFT, Vector2.RIGHT, Vector2.DOWN]
 var _logger = Logger.new("Game")
 
 func _ready():
+	GameManager.game_start()
 	_setup_first_room.call_deferred()
 	music_player.play("RESET")
 	GameManager.mirrored.connect(func(mirror): music_player.play("mirror" if mirror else "normal"))
@@ -40,7 +41,10 @@ func _setup_next_room(current_room: Room):
 
 func _create_room() -> Room:
 	var room = ROOM.instantiate()
-	room.finished.connect(func(): _setup_next_room(room))
+	room.finished.connect(func():
+		_setup_next_room(room)
+		GameManager.room_done()
+	)
 	room.entered.connect(func(dir):
 		_logger.debug("Player entered in direction %s" % dir)
 		var new_room = room.rooms[dir]
@@ -51,6 +55,7 @@ func _create_room() -> Room:
 		
 		previous_dir = -dir
 		new_room.start(enemy_value, enemy_kills, dir)
+		GameManager.room_start()
 		get_tree().create_timer(1.0).timeout.connect(func(): room.queue_free())
 	)
 	return room
