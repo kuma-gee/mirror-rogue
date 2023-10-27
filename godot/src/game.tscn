@@ -1,8 +1,148 @@
-[gd_scene load_steps=4 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=10 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_fscq0"]
+[ext_resource type="AudioStream" uid="uid://cj3tphknhrawu" path="res://assets/sound/Sparkle.mp3" id="4_rug7x"]
+[ext_resource type="AudioStream" uid="uid://bygqjhqr85tjf" path="res://assets/sound/危機.mp3" id="5_3pgwk"]
 [ext_resource type="PackedScene" uid="uid://dlby6flxkmnjs" path="res://src/character/player.tscn" id="6_2xq02"]
 [ext_resource type="PackedScene" uid="uid://chfrm1aqrag7x" path="res://src/character/trident.tscn" id="8_r0538"]
+
+[sub_resource type="Animation" id="Animation_880qs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGMirror:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BGM:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_sp5nt"]
+resource_name = "mirror"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGMirror:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BGM:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BGMirror:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-60.0, -25.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BGM:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-30.0, -50.0]
+}
+
+[sub_resource type="Animation" id="Animation_oe8l0"]
+resource_name = "normal"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGM:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BGM:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-60.0, -30.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BGMirror:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-25.0, -60.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BGMirror:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_06h2n"]
+_data = {
+"RESET": SubResource("Animation_880qs"),
+"mirror": SubResource("Animation_sp5nt"),
+"normal": SubResource("Animation_oe8l0")
+}
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_fscq0")
@@ -13,6 +153,22 @@ position_smoothing_enabled = true
 [node name="Player" parent="." instance=ExtResource("6_2xq02")]
 z_index = 10
 projectile_scene = ExtResource("8_r0538")
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("4_rug7x")
+volume_db = -25.0
+
+[node name="BGMirror" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("5_3pgwk")
+volume_db = -50.0
+
+[node name="MusicPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_06h2n")
+}
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="reflected" from="Player" to="." method="_on_player_reflected"]

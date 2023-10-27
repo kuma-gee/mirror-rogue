@@ -4,7 +4,7 @@ const ROOM = preload("res://src/props/room.tscn")
 
 @onready var cam = $Camera2D
 @onready var player = $Player
-
+@onready var music_player = $MusicPlayer
 
 const value_increase := 1.5
 const kill_increase := 1.8
@@ -18,6 +18,8 @@ var _logger = Logger.new("Game")
 
 func _ready():
 	_setup_first_room.call_deferred()
+	music_player.play("RESET")
+	GameManager.mirrored.connect(func(mirror): music_player.play("mirror" if mirror else "normal"))
 	
 func _setup_first_room():
 	var room = _create_room()

@@ -20,7 +20,7 @@ color = Color(0.588235, 0.172549, 0.172549, 1)
 
 [node name="KillParticles" type="GPUParticles2D"]
 z_index = -2
-emitting = false
+amount = 6
 process_material = SubResource("ParticleProcessMaterial_61rlo")
 texture = ExtResource("1_6x8tw")
 lifetime = 10.0
@@ -32,6 +32,5 @@ script = ExtResource("2_jace2")
 process_mode = 3
 wait_time = 4.0
 one_shot = true
-autostart = true
 
 [connection signal="timeout" from="StartFade" to="." method="_on_start_fade_timeout"]

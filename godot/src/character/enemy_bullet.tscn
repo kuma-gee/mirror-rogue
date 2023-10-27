@@ -6,11 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://dym6lvn1yabg7" path="res://src/props/bubble_effect.tscn" id="4_k7o7n"]
 [ext_resource type="Script" path="res://src/character/FreeOnExit.gd" id="6_0s6lm"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_k5472"]
-radius = 4.12311
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_5521j"]
 radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k5472"]
+radius = 4.12311
 
 [sub_resource type="Animation" id="Animation_vp5li"]
 length = 0.001
@@ -66,7 +66,7 @@ _data = {
 "pop": SubResource("Animation_3rp3y")
 }
 
-[node name="EnemyBullet" type="Area2D" node_paths=PackedStringArray("collision_shape", "raycast")]
+[node name="EnemyBullet" type="Area2D" node_paths=PackedStringArray("collision_shape", "hurt_collision", "raycast")]
 collision_layer = 0
 collision_mask = 56
 script = ExtResource("1_m5cyv")
@@ -75,6 +75,7 @@ speed = 100
 max_reflections = 2
 random_move_offset = 10.0
 collision_shape = NodePath("CollisionShape2D")
+hurt_collision = NodePath("Hurtbox/CollisionShape2D")
 raycast = NodePath("RayCast2D")
 mirror_damage = 2
 knockback_force = 100
@@ -82,10 +83,6 @@ knockback_force = 100
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_lmg1q")
 hframes = 5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_k5472")
-debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 64
@@ -95,6 +92,10 @@ remove_on_hit = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_5521j")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_k5472")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="RayCast2D" type="RayCast2D" parent="."]

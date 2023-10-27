@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://dena2a06vsx8t" path="res://assets/sound/剣の素振り2.mp3" id="4_2d7c3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_st85h"]
-size = Vector2(16, 23)
+size = Vector2(18, 25)
 
 [sub_resource type="Animation" id="Animation_nlnfk"]
 length = 0.001

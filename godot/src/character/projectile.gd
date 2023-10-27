@@ -11,6 +11,7 @@ signal reflect()
 @export var random_move_offset := 0.0
 
 @export var collision_shape: CollisionShape2D
+@export var hurt_collision: CollisionShape2D
 @export var raycast: RayCast2D
 
 @onready var current_speed := speed
@@ -83,4 +84,6 @@ func _physics_process(delta):
 
 func _stop():
 	_disable_hit()
+	if hurt_collision:
+		hurt_collision.set_deferred("disabled", true)
 	set_physics_process(false)

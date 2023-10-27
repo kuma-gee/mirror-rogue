@@ -159,6 +159,6 @@ func immediate_return_trident():
 		_update_throw()
 
 func _set_hit_flash(enable: bool):
+	sprite.material.set_shader_parameter("mirror", GameManager.mirror)
 	sprite.material.set_shader_parameter("enabled", enable)
-	#trident_body.material.set_shader_parameter("enabled", enable)
 	

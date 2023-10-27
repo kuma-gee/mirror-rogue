@@ -23,6 +23,8 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tkw7x"]
 shader = ExtResource("1_iff14")
 shader_parameter/hit_color = Color(1, 0, 0, 1)
+shader_parameter/hit_color_mirror = Color(1, 0, 0, 1)
+shader_parameter/mirror = false
 shader_parameter/enabled = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_str41"]

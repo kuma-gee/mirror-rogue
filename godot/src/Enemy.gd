@@ -106,6 +106,7 @@ func _on_hitbox_hit(dmg):
 	get_tree().create_timer(0.1).timeout.connect(func(): _set_hit_flash(false))
 
 func _set_hit_flash(enable: bool):
+	sprite_2d.material.set_shader_parameter("mirror", GameManager.mirror)
 	sprite_2d.material.set_shader_parameter("enabled", enable)
 
 func _on_fire_rate_timer_timeout():

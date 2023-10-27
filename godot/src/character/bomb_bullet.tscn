@@ -93,7 +93,7 @@ _data = {
 "pop": SubResource("Animation_j55vk")
 }
 
-[node name="BombBullet" type="Area2D" node_paths=PackedStringArray("collision_shape", "raycast")]
+[node name="BombBullet" type="Area2D" node_paths=PackedStringArray("collision_shape", "hurt_collision", "raycast")]
 collision_layer = 0
 collision_mask = 56
 script = ExtResource("1_w8slh")
@@ -102,6 +102,7 @@ normal_bullet = ExtResource("2_ggcqs")
 speed = 75
 max_reflections = 2
 collision_shape = NodePath("CollisionShape2D")
+hurt_collision = NodePath("Hurtbox/CollisionShape2D")
 raycast = NodePath("RayCast2D")
 damage = 2
 mirror_damage = 4

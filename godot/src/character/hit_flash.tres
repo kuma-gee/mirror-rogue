@@ -4,5 +4,7 @@
 
 [resource]
 shader = ExtResource("1_a58pf")
-shader_parameter/hit_color = Color(1, 0, 0, 1)
+shader_parameter/hit_color = Color(1, 1, 1, 1)
+shader_parameter/hit_color_mirror = Color(1, 0, 0, 1)
+shader_parameter/mirror = false
 shader_parameter/enabled = false

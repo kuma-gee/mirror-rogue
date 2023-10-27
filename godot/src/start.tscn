@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://da5fh0ulgabo4"]
+[gd_scene load_steps=6 format=3 uid="uid://da5fh0ulgabo4"]
 
 [ext_resource type="Script" path="res://addons/input_helper/input_key.gd" id="1_linvu"]
 [ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="1_o10sg"]
 [ext_resource type="Script" path="res://src/start.gd" id="2_tfb7v"]
 [ext_resource type="AudioStream" uid="uid://b1e1nre5yw3cf" path="res://assets/sound/プレゼンタイトル表示2.mp3" id="4_7l68f"]
+[ext_resource type="AudioStream" uid="uid://drgcjf4qf00kj" path="res://assets/sound/REFLECT_Inst_hololive_202310280008.mp3" id="5_covsc"]
 
 [node name="Start" type="Control"]
 layout_mode = 3
@@ -52,3 +53,8 @@ vertical_alignment = 1
 [node name="StartSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_7l68f")
 volume_db = -5.0
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_covsc")
+volume_db = -15.0
+autoplay = true
