@@ -16,6 +16,7 @@ signal died()
 @export var bullet_scene: PackedScene
 @export var bullet_spawn_offset := 10
 @export var hp_drop: PackedScene
+@export var blood_particles: PackedScene
 
 @export var min_drop_chance := 0.2
 @export var max_drop_chance := 0.5
@@ -30,6 +31,7 @@ signal died()
 
 var knockback: Vector2
 var attacking := false
+var last_hit_dir := Vector2.RIGHT
 
 func _update_mirror():
 	if GameManager.mirror:
@@ -57,6 +59,10 @@ func _ready():
 			drop.global_position = global_position
 			get_tree().current_scene.call_deferred("add_child", drop)
 		
+		var blood = blood_particles.instantiate()
+		blood.global_position = global_position
+		blood.global_rotation = Vector2.RIGHT.angle_to(last_hit_dir)
+		get_tree().current_scene.call_deferred("add_child", blood)
 		GameManager.killed_enemy()
 		queue_free()
 	)
@@ -133,3 +139,7 @@ func _on_mirror_exit_area_exited(area):
 
 func _on_heal_timer_timeout():
 	hp_bar.heal(1)
+
+
+func _on_hurtbox_hit_with(area):
+	last_hit_dir = area.global_position.direction_to(global_position)

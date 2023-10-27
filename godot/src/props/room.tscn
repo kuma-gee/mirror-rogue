@@ -1211,6 +1211,7 @@ size = Vector2(200, 10)
 size = Vector2(200, 10)
 
 [node name="Room" type="TileMap"]
+z_index = -5
 material = SubResource("ShaderMaterial_rserg")
 tile_set = SubResource("TileSet_k6e46")
 format = 2
