@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://mt5fy2ohtmg5"]
+[gd_scene load_steps=21 format=3 uid="uid://mt5fy2ohtmg5"]
 
 [ext_resource type="Script" path="res://src/Enemy.gd" id="1_xsn24"]
+[ext_resource type="Texture2D" uid="uid://ctn3ta6wyr4t2" path="res://assets/Enemy__Crab_Normal.png" id="2_qj055"]
 [ext_resource type="PackedScene" uid="uid://ddfl18bx24sfj" path="res://src/character/enemy_bullet.tscn" id="2_qwwrr"]
-[ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="2_s6l7m"]
+[ext_resource type="Texture2D" uid="uid://bfrygrgrymusy" path="res://assets/Enemy__Crab_Mirror.png" id="3_g4yvg"]
 [ext_resource type="Material" uid="uid://b0yb20w0y2pgh" path="res://src/character/hit_flash.tres" id="3_mi11f"]
 [ext_resource type="PackedScene" uid="uid://csquqwgef4y81" path="res://src/props/hp_drop.tscn" id="3_r4nf6"]
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="4_dmkps"]
@@ -11,45 +12,115 @@
 [ext_resource type="Script" path="res://src/character/HpBar.gd" id="5_16pbh"]
 [ext_resource type="Script" path="res://src/character/SoftCollision.gd" id="9_2mmdc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wd2x"]
-size = Vector2(10, 10)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y7nrr"]
+size = Vector2(12, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vpkdl"]
-size = Vector2(10, 10)
+size = Vector2(14, 10)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5khei"]
-size = Vector2(12, 12)
+[sub_resource type="CircleShape2D" id="CircleShape2D_g25a1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wq5f4"]
-radius = 9.0
+radius = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eu85r"]
-radius = 8.0
+radius = 11.0
+
+[sub_resource type="Animation" id="Animation_wqww7"]
+resource_name = "move"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_u70d7"]
+resource_name = "attack"
+length = 0.2
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_fire"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_pqb0h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j1onk"]
+_data = {
+"RESET": SubResource("Animation_pqb0h"),
+"attack": SubResource("Animation_u70d7"),
+"move": SubResource("Animation_wqww7")
+}
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_xsn24")
 speed = 40
+normal_tex = ExtResource("2_qj055")
+mirror_tex = ExtResource("3_g4yvg")
 bullet_scene = ExtResource("2_qwwrr")
 hp_drop = ExtResource("3_r4nf6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.490196, 0.490196, 1)
 material = ExtResource("3_mi11f")
-scale = Vector2(0.078125, 0.078125)
-texture = ExtResource("2_s6l7m")
+texture = ExtResource("2_qj055")
+hframes = 2
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_0wd2x")
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_y7nrr")
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("4_i70wx")
-damage = 2
-mirror_damage = 4
+mirror_damage = 3
 knockback_force = 150
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
@@ -61,7 +132,7 @@ collision_mask = 0
 script = ExtResource("4_dmkps")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("RectangleShape2D_5khei")
+shape = SubResource("CircleShape2D_g25a1")
 
 [node name="FireRateTimer" type="Timer" parent="."]
 wait_time = 2.0
@@ -69,9 +140,9 @@ autostart = true
 
 [node name="HpBar" type="ProgressBar" parent="."]
 offset_left = -6.0
-offset_top = -9.0
+offset_top = -10.0
 offset_right = 6.0
-offset_bottom = -7.0
+offset_bottom = -8.0
 theme = ExtResource("5_7mmee")
 value = 50.0
 show_percentage = false
@@ -95,6 +166,11 @@ push_force = 500
 shape = SubResource("CircleShape2D_eu85r")
 
 [node name="HealTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j1onk")
+}
 
 [connection signal="hit" from="Hurtbox" to="." method="_on_hitbox_hit"]
 [connection signal="knockback" from="Hurtbox" to="." method="_on_hurtbox_knockback"]

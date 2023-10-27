@@ -73,6 +73,7 @@ script = ExtResource("1_m5cyv")
 bubble_effect = ExtResource("4_k7o7n")
 speed = 100
 max_reflections = 2
+random_move_offset = 10.0
 collision_shape = NodePath("CollisionShape2D")
 raycast = NodePath("RayCast2D")
 mirror_damage = 2

@@ -1,21 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0mbhp0aqksh1"]
+[gd_scene load_steps=5 format=3 uid="uid://c0mbhp0aqksh1"]
 
 [ext_resource type="PackedScene" uid="uid://mt5fy2ohtmg5" path="res://src/character/enemy.tscn" id="1_v1rsa"]
 [ext_resource type="PackedScene" uid="uid://bjoxmq8nco7tj" path="res://src/character/bomb_bullet.tscn" id="2_cgwka"]
+[ext_resource type="Texture2D" uid="uid://b2qgqsafbeyaq" path="res://assets/Enemy__Jellyfish_Normal.png" id="2_euxkn"]
+[ext_resource type="Texture2D" uid="uid://dy31gsft2yhng" path="res://assets/Enemy__Jellyfish_Mirror.png" id="3_leutj"]
 
 [node name="BombEnemy" instance=ExtResource("1_v1rsa")]
 speed = 15
+normal_tex = ExtResource("2_euxkn")
+mirror_tex = ExtResource("3_leutj")
 bullet_scene = ExtResource("2_cgwka")
 
 [node name="Sprite2D" parent="." index="0"]
-modulate = Color(0.701961, 0.490196, 1, 1)
+texture = ExtResource("2_euxkn")
+flip_h = true
 
 [node name="HitBox" parent="." index="3"]
-damage = 3
+damage = 2
 mirror_damage = 5
 
 [node name="FireRateTimer" parent="." index="5"]
-wait_time = 5.0
+wait_time = 4.0
 
 [node name="HpBar" parent="." index="6"]
 max_health = 20

@@ -8,6 +8,7 @@ signal reflect()
 @export var dir := Vector2.RIGHT
 @export var max_reflections := 4
 @export var disable_initial_hit := true
+@export var random_move_offset := 0.0
 
 @export var collision_shape: CollisionShape2D
 @export var raycast: RayCast2D
@@ -21,6 +22,7 @@ var target: Node2D
 var reflected := 0
 
 var ignored = []
+var random_move_tw := TweenCreator.new(self)
 
 func _ready():
 	if disable_initial_hit:
@@ -67,9 +69,17 @@ func _remove():
 
 func _physics_process(delta):
 	var d = global_position.direction_to(target.global_position) if target else dir
+#	if random_move_offset > 0: # TODO: when sprites are done
+#		var offset = randf_range(-random_move_offset, random_move_offset)
+#		var random_dir = offset * d.rotated(90)
+#		d += random_dir
 	
 	translate(d * current_speed * delta)
 	global_rotation = Vector2.RIGHT.angle_to(d)
+	
+#	if random_move_offset > 0 and random_move_tw.new_tween():
+#		var offset = randf_range(-random_move_offset, random_move_offset)
+#		random_move_tw.prop()
 
 func _stop():
 	_disable_hit()

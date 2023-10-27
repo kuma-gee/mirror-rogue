@@ -54,7 +54,6 @@ func _play_shatter(restore = false):
 func gameover():
 	_play_shatter()
 	get_tree().change_scene_to_packed(GAMEOVER)
-	Engine.time_scale = 1
 
 func reset():
 	mirror = false

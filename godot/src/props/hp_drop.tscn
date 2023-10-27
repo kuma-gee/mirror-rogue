@@ -1,11 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://csquqwgef4y81"]
+[gd_scene load_steps=9 format=3 uid="uid://csquqwgef4y81"]
 
 [ext_resource type="Script" path="res://src/props/hp_drop.gd" id="1_8pte8"]
 [ext_resource type="Texture2D" uid="uid://dhmr4gtqmicur" path="res://assets/HpDrop_Drop.png" id="2_icpmc"]
 [ext_resource type="Texture2D" uid="uid://c4yf1xi0hgdqn" path="res://assets/HpDrop_Shadow.png" id="3_gitkb"]
+[ext_resource type="Script" path="res://src/character/FreeOnExit.gd" id="4_ay86h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_spcva"]
 radius = 7.0
+
+[sub_resource type="Animation" id="Animation_28tqp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_1ichw"]
 resource_name = "idle"
@@ -22,21 +38,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -2), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_28tqp"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0kglg"]
@@ -66,3 +67,6 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_0kglg")
 }
+
+[node name="FreeOnExit" type="VisibleOnScreenNotifier2D" parent="."]
+script = ExtResource("4_ay86h")

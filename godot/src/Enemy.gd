@@ -6,6 +6,13 @@ signal died()
 @export var friction := 800
 @export var value := 1.0
 @export var speed := 50
+
+@export var move_anim := "move"
+@export var attack_anim := "attack"
+
+@export var normal_tex: Texture2D
+@export var mirror_tex: Texture2D
+
 @export var bullet_scene: PackedScene
 @export var bullet_spawn_offset := 10
 @export var hp_drop: PackedScene
@@ -19,21 +26,25 @@ signal died()
 @onready var collision_shape_2d = $CollisionShape2D
 @onready var soft_collision = $SoftCollision
 @onready var heal_timer = $HealTimer
+@onready var animation_player = $AnimationPlayer
 
 var knockback: Vector2
+var attacking := false
 
-func _update_heal_timer():
+func _update_mirror():
 	if GameManager.mirror:
 		heal_timer.start()
+		sprite_2d.texture = mirror_tex
 	else:
 		heal_timer.stop()
+		sprite_2d.texture = normal_tex
 
 func _ready():
 	sprite_2d.material = sprite_2d.material.duplicate()
 	collision_shape_2d.disabled = true
 	
-	_update_heal_timer()
-	GameManager.mirrored.connect(func(_m): _update_heal_timer())
+	_update_mirror()
+	GameManager.mirrored.connect(func(_m): _update_mirror())
 	
 	hp_bar.zero_health.connect(func():
 		died.emit()
@@ -41,7 +52,7 @@ func _ready():
 		var diff = max_drop_chance - min_drop_chance
 		var chance = max_drop_chance - player.get_hp_percentage() * diff
 		
-		if randf() <= chance and GameManager.mirror:
+		if randf() <= chance:
 			var drop = hp_drop.instantiate()
 			drop.global_position = global_position
 			get_tree().current_scene.call_deferred("add_child", drop)
@@ -59,7 +70,7 @@ func _process(delta):
 	navigation_agent.target_position = _player_pos()
 
 func _physics_process(delta):
-	if navigation_agent.is_navigation_finished():
+	if navigation_agent.is_navigation_finished() or attacking:
 		return
 		
 	if knockback:
@@ -77,7 +88,8 @@ func _physics_process(delta):
 		new_velocity += soft_collision.get_push_vector() * delta
 
 		velocity = new_velocity
-	
+		
+	animation_player.play(move_anim)
 	move_and_slide()
 
 
@@ -91,6 +103,12 @@ func _set_hit_flash(enable: bool):
 	sprite_2d.material.set_shader_parameter("enabled", enable)
 
 func _on_fire_rate_timer_timeout():
+	attacking = true
+	animation_player.play(attack_anim)
+	await animation_player.animation_finished
+	attacking = false
+
+func _fire():
 	var bullet = bullet_scene.instantiate()
 	var dir = global_position.direction_to(_player_pos())
 	_create_bullet(dir)
