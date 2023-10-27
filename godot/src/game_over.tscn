@@ -1,7 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://cbpmojln8t6kv"]
+[gd_scene load_steps=9 format=3 uid="uid://cbpmojln8t6kv"]
 
 [ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="1_nv306"]
 [ext_resource type="Script" path="res://src/game_over.gd" id="2_qvoxr"]
+[ext_resource type="Texture2D" uid="uid://bjsoxjytx7pf6" path="res://src/background.tres" id="3_qnot2"]
+[ext_resource type="Texture2D" uid="uid://boxy7p3hx6jmr" path="res://assets/Screen_Mirror.png" id="3_yg6gn"]
+[ext_resource type="PackedScene" uid="uid://doqfflpma8rdw" path="res://src/props/screen_bubbles.tscn" id="4_lvw4e"]
+[ext_resource type="Shader" path="res://src/tile_mirror.gdshader" id="5_gtrsc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v37jh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ulbrr"]
+shader = ExtResource("5_gtrsc")
+shader_parameter/base_color = Color(0.462745, 0.537255, 0.639216, 1)
+shader_parameter/shine_color = Color(1, 1, 1, 0.258824)
+shader_parameter/shine_speed = 1.0
+shader_parameter/shine_size = 0.05
 
 [node name="GameOver" type="Control" node_paths=PackedStringArray("kills_label", "mirror_kills_label", "bubbles_label", "mirror_time_label", "playtime_label")]
 layout_mode = 3
@@ -12,16 +25,27 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_nv306")
 script = ExtResource("2_qvoxr")
-kills_label = NodePath("CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer/Kills")
-mirror_kills_label = NodePath("CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer/MirrorKills")
-bubbles_label = NodePath("CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer/Bubbles")
-mirror_time_label = NodePath("CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer/MirrorTime2")
-playtime_label = NodePath("CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer/Playtime2")
+kills_label = NodePath("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer/Kills")
+mirror_kills_label = NodePath("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer/MirrorKills")
+bubbles_label = NodePath("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer/Bubbles")
+mirror_time_label = NodePath("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer/MirrorTime2")
+playtime_label = NodePath("CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer/Playtime2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -10
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer"]
+modulate = Color(0.796078, 0.796078, 0.796078, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_qnot2")
+
+[node name="ScreenBubbles" parent="CanvasLayer" instance=ExtResource("4_lvw4e")]
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
 anchors_preset = 15
@@ -34,69 +58,79 @@ theme = ExtResource("1_nv306")
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_v37jh")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/CenterContainer/PanelContainer"]
+material = SubResource("ShaderMaterial_ulbrr")
+layout_mode = 2
+texture = ExtResource("3_yg6gn")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer2"]
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 text = "Gameover"
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 10
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Kills"
 
-[node name="Kills" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Kills" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 horizontal_alignment = 2
 
-[node name="Label3" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Label3" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Mirror Kills"
 
-[node name="MirrorKills" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="MirrorKills" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 horizontal_alignment = 2
 
-[node name="Label5" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Label5" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Bubbles Popped"
 
-[node name="Bubbles" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Bubbles" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 horizontal_alignment = 2
 
-[node name="Label7" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Label7" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Mirror Time"
 
-[node name="MirrorTime2" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="MirrorTime2" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 horizontal_alignment = 2
 
-[node name="Label6" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Label6" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 text = "Playtime"
 
-[node name="Playtime2" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/GridContainer"]
+[node name="Playtime2" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 horizontal_alignment = 2

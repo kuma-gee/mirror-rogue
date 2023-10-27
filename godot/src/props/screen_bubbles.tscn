@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://doqfflpma8rdw"]
+
+[ext_resource type="Texture2D" uid="uid://dratudgosw1e6" path="res://assets/BubbleParticle.png" id="1_181nb"]
+
+[sub_resource type="Gradient" id="Gradient_ctvr6"]
+colors = PackedColorArray(0.72, 0.841333, 1, 1, 1, 1, 1, 0.211765)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fswlq"]
+gradient = SubResource("Gradient_ctvr6")
+
+[sub_resource type="Curve" id="Curve_gw5a3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.498956), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_s0egq"]
+curve = SubResource("Curve_gw5a3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7njaq"]
+emission_shape = 3
+emission_box_extents = Vector3(200, 1, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, -20, 0)
+angular_velocity_min = 50.0
+angular_velocity_max = 100.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_s0egq")
+color_ramp = SubResource("GradientTexture1D_fswlq")
+
+[node name="ScreenBubbles" type="GPUParticles2D"]
+position = Vector2(199, 244)
+amount = 30
+process_material = SubResource("ParticleProcessMaterial_7njaq")
+texture = ExtResource("1_181nb")
+lifetime = 8.0

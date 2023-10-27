@@ -3,18 +3,11 @@
 [ext_resource type="Script" path="res://addons/input_helper/input_key.gd" id="1_linvu"]
 [ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="1_o10sg"]
 [ext_resource type="Script" path="res://src/start.gd" id="2_tfb7v"]
+[ext_resource type="PackedScene" uid="uid://doqfflpma8rdw" path="res://src/props/screen_bubbles.tscn" id="3_8tvo4"]
 [ext_resource type="Texture2D" uid="uid://0dmn8wp5w64y" path="res://assets/start.png" id="3_pbxon"]
+[ext_resource type="Texture2D" uid="uid://bjsoxjytx7pf6" path="res://src/background.tres" id="3_svgpa"]
 [ext_resource type="AudioStream" uid="uid://b1e1nre5yw3cf" path="res://assets/sound/プレゼンタイトル表示2.mp3" id="4_7l68f"]
 [ext_resource type="AudioStream" uid="uid://drgcjf4qf00kj" path="res://assets/sound/REFLECT_Inst_hololive_202310280008.mp3" id="5_covsc"]
-
-[sub_resource type="Gradient" id="Gradient_5fd4k"]
-colors = PackedColorArray(0.016, 0.0376, 0.16, 1, 0.53, 0.725833, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_07vlc"]
-gradient = SubResource("Gradient_5fd4k")
-width = 384
-height = 224
-fill_from = Vector2(1, 1)
 
 [node name="Start" type="Control"]
 layout_mode = 3
@@ -36,9 +29,11 @@ grow_vertical = 2
 
 [node name="Background" type="TextureRect" parent="MarginContainer2"]
 layout_mode = 2
-texture = SubResource("GradientTexture2D_07vlc")
+texture = ExtResource("3_svgpa")
 expand_mode = 5
 stretch_mode = 5
+
+[node name="ScreenBubbles" parent="MarginContainer2" instance=ExtResource("3_8tvo4")]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
