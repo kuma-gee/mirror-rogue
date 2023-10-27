@@ -5,7 +5,7 @@
 # github-cli
 # butler
 
-GAME="mirage-rogue"
+GAME="mirror-rogue"
 VERSION="$1"
 
 # win, linux, web, macOS, android
