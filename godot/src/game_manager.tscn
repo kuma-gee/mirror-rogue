@@ -1,7 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://vpuckvyd3d02"]
+[gd_scene load_steps=9 format=3 uid="uid://vpuckvyd3d02"]
 
 [ext_resource type="Script" path="res://src/game_manager.gd" id="1_wqsm3"]
 [ext_resource type="Shader" path="res://src/mirror_effect.gdshader" id="2_rh24n"]
+[ext_resource type="AudioStream" uid="uid://jpbs36ucxk1h" path="res://assets/sound/打撃8.mp3" id="3_47kej"]
+[ext_resource type="AudioStream" uid="uid://db0b27ebkjv6l" path="res://assets/sound/打撃1_high.mp3" id="3_gxiw7"]
+[ext_resource type="AudioStream" uid="uid://bt0babmaw0v1k" path="res://assets/sound/ガラスが割れる1.mp3" id="5_2ckpx"]
+[ext_resource type="AudioStream" uid="uid://bs7t1k6mhd428" path="res://assets/sound/ガラスが割れる3.mp3" id="6_qo01d"]
+[ext_resource type="AudioStream" uid="uid://dsqwv66nqbxbr" path="res://assets/sound/魔法反射.mp3" id="7_mrqwb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wwuei"]
 shader = ExtResource("2_rh24n")
@@ -28,3 +33,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="EnemyHitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_gxiw7")
+volume_db = -10.0
+pitch_scale = 1.5
+
+[node name="EnemyDeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_47kej")
+volume_db = -5.0
+pitch_scale = 1.3
+
+[node name="GlassBreak" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_2ckpx")
+volume_db = -5.0
+
+[node name="GlassCrack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_qo01d")
+
+[node name="MirrorSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_mrqwb")
+volume_db = -5.0
+pitch_scale = 0.8

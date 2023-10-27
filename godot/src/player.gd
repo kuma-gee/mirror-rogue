@@ -29,6 +29,8 @@ signal reflected()
 
 @onready var hp_bar = $HpBar
 @onready var frame_freeze = $FrameFreeze
+@onready var heal_sound = $HealSound
+@onready var hit_sound = $HitSound
 
 var dashing := false
 var attacking := false
@@ -87,7 +89,7 @@ func _on_just_pressed(ev: InputEvent):
 		else:
 			trident.return_to()
 			
-	elif ev.is_action_pressed("attack") and not _is_thrown() and not attacking:
+	elif ev.is_action_pressed("attack") and not _is_thrown() and not attacking and not get_tree().paused:
 		attacking = true
 		var eff = attack_effect.instantiate()
 		get_tree().current_scene.add_child(eff)
@@ -127,16 +129,19 @@ func _get_motion():
 	return Vector2(motion_x, motion_y).normalized()
 
 func _on_hurtbox_hit(dmg):
+	hit_sound.play()
 	hp_bar.hurt(dmg)
-	_set_hit_flash(true)
-	await frame_freeze.freeze(0.05, 0.5)
-	_set_hit_flash(false)
+	if hp_bar.value > 0:
+		_set_hit_flash(true)
+		await frame_freeze.freeze(0.05, 0.5)
+		_set_hit_flash(false)
 
 func _on_hurtbox_knockback(dir):
 	velocity += dir
 
 func heal(amount: int):
 	hp_bar.heal(amount)
+	heal_sound.play()
 
 func _on_mirror_detect_area_entered(area):
 	if dashing and velocity.length() > 400:

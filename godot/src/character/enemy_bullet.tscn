@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d8ap1t3wascc" path="res://assets/Bubble.png" id="2_lmg1q"]
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="3_qq6ij"]
 [ext_resource type="PackedScene" uid="uid://dym6lvn1yabg7" path="res://src/props/bubble_effect.tscn" id="4_k7o7n"]
-[ext_resource type="AudioStream" uid="uid://blfh1wxyk2k1k" path="res://assets/sound/パパッ.mp3" id="5_870l7"]
+[ext_resource type="Script" path="res://src/character/FreeOnExit.gd" id="6_0s6lm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k5472"]
 radius = 4.12311
@@ -25,18 +25,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AudioStreamPlayer:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_eavfs"]
@@ -69,18 +57,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [1, 2, 3, 4]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AudioStreamPlayer:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0did4"]
@@ -131,7 +107,7 @@ libraries = {
 "": SubResource("AnimationLibrary_0did4")
 }
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_870l7")
+[node name="FreeOnExit" type="VisibleOnScreenNotifier2D" parent="."]
+script = ExtResource("6_0s6lm")
 
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]

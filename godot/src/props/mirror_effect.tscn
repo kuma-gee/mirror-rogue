@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://b3d6ngjw2fub6"]
+[gd_scene load_steps=13 format=3 uid="uid://b3d6ngjw2fub6"]
 
 [ext_resource type="Texture2D" uid="uid://0adb0xo075m" path="res://assets/MirrorEffect.png" id="1_hhkpl"]
+[ext_resource type="AudioStream" uid="uid://dsqwv66nqbxbr" path="res://assets/sound/魔法反射.mp3" id="2_nxiqb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ehtc"]
 atlas = ExtResource("1_hhkpl")
@@ -78,3 +79,9 @@ sprite_frames = SubResource("SpriteFrames_ekcuf")
 autoplay = "default"
 frame = 8
 frame_progress = 1.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_nxiqb")
+volume_db = -20.0
+pitch_scale = 1.2
+autoplay = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dlby6flxkmnjs"]
+[gd_scene load_steps=31 format=3 uid="uid://dlby6flxkmnjs"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_356t7"]
 [ext_resource type="Shader" path="res://src/character/hit_flash.gdshader" id="1_iff14"]
@@ -16,6 +16,9 @@
 [ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="10_crikn"]
 [ext_resource type="Texture2D" uid="uid://6lcoatpub83l" path="res://assets/Gura__Normal_Mirror.png" id="11_24eg1"]
 [ext_resource type="Script" path="res://src/character/HpBar.gd" id="11_a3gni"]
+[ext_resource type="AudioStream" uid="uid://big4ndyudxso" path="res://assets/sound/ゲージ回復1.mp3" id="17_0xv3n"]
+[ext_resource type="AudioStream" uid="uid://nwar6xq0usb4" path="res://assets/sound/打撃1.mp3" id="18_n7uv4"]
+[ext_resource type="AudioStream" uid="uid://b1q66yq8xmyea" path="res://assets/sound/高速移動.mp3" id="19_eeq4u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tkw7x"]
 shader = ExtResource("1_iff14")
@@ -57,6 +60,18 @@ tracks/0/path = NodePath("Hurtbox/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DashSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -233,6 +248,24 @@ rounded = true
 show_percentage = false
 script = ExtResource("11_a3gni")
 max_health = 20
+
+[node name="HealSound" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("17_0xv3n")
+volume_db = -10.0
+pitch_scale = 1.5
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("18_n7uv4")
+volume_db = -5.0
+pitch_scale = 0.8
+
+[node name="DashSound" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("19_eeq4u")
+volume_db = -5.0
+pitch_scale = 2.0
 
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
 [connection signal="knockback" from="Hurtbox" to="." method="_on_hurtbox_knockback"]

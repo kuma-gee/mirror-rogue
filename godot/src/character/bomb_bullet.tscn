@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bjoxmq8nco7tj"]
+[gd_scene load_steps=14 format=3 uid="uid://bjoxmq8nco7tj"]
 
 [ext_resource type="Script" path="res://src/character/bomb_bullet.gd" id="1_w8slh"]
 [ext_resource type="PackedScene" uid="uid://ddfl18bx24sfj" path="res://src/character/enemy_bullet.tscn" id="2_ggcqs"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c3nl0yefq3f4t" path="res://assets/LargeBubble.png" id="3_xrcna"]
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="4_w8ldn"]
 [ext_resource type="AudioStream" uid="uid://5jsadg4vn1sj" path="res://assets/sound/ペタッ.mp3" id="6_cx87a"]
+[ext_resource type="Script" path="res://src/character/FreeOnExit.gd" id="7_de2g2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_58gh8"]
 radius = 7.0
@@ -142,6 +143,9 @@ libraries = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_cx87a")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+script = ExtResource("7_de2g2")
 
 [connection signal="timeout" from="ExplodeTimer" to="." method="_on_explode_timer_timeout"]
 [connection signal="hit_with" from="Hurtbox" to="." method="_on_hurtbox_hit_with"]

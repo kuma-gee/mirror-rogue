@@ -10,8 +10,8 @@ signal died()
 @export var bullet_spawn_offset := 10
 @export var hp_drop: PackedScene
 
-@export var min_drop_chance := 0.3
-@export var max_drop_chance := 0.6
+@export var min_drop_chance := 0.2
+@export var max_drop_chance := 0.5
 
 @onready var sprite_2d = $Sprite2D
 @onready var navigation_agent := $NavigationAgent2D
@@ -45,6 +45,8 @@ func _ready():
 			var drop = hp_drop.instantiate()
 			drop.global_position = global_position
 			get_tree().current_scene.call_deferred("add_child", drop)
+		
+		GameManager.killed_enemy()
 		queue_free()
 	)
 	navigation_agent.path_desired_distance = 4.0
@@ -82,6 +84,7 @@ func _physics_process(delta):
 func _on_hitbox_hit(dmg):
 	hp_bar.hurt(dmg)
 	_set_hit_flash(true)
+	GameManager.hit()
 	get_tree().create_timer(0.1).timeout.connect(func(): _set_hit_flash(false))
 
 func _set_hit_flash(enable: bool):

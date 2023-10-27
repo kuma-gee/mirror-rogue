@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dym6lvn1yabg7"]
+[gd_scene load_steps=7 format=3 uid="uid://dym6lvn1yabg7"]
 
 [ext_resource type="Texture2D" uid="uid://dratudgosw1e6" path="res://assets/BubbleParticle.png" id="1_uymbc"]
 [ext_resource type="Script" path="res://src/props/bubble_effect.gd" id="2_gxx4c"]
+[ext_resource type="AudioStream" uid="uid://blfh1wxyk2k1k" path="res://assets/sound/パパッ.mp3" id="3_ofdmt"]
 
 [sub_resource type="Curve" id="Curve_6po3u"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.783688, 1), -0.0356804, -0.0356804, 0, 0, Vector2(1, 0.515658), -6.457, 0.0, 0, 0]
@@ -30,3 +31,8 @@ one_shot = true
 explosiveness = 0.8
 randomness = 0.3
 script = ExtResource("2_gxx4c")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ofdmt")
+volume_db = -10.0
+autoplay = true

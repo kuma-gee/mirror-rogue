@@ -8,6 +8,11 @@ const GAMEOVER = preload("res://src/game_over.tscn")
 @onready var canvas_modulate = $CanvasModulate
 @onready var canvas_layer = $CanvasLayer
 @onready var mirror_effect = $CanvasLayer/MirrorEffect
+@onready var enemy_death_sound = $EnemyDeathSound
+@onready var enemy_hit_sound = $EnemyHitSound
+@onready var glass_break = $GlassBreak
+@onready var glass_crack = $GlassCrack
+@onready var mirror_sound = $MirrorSound
 
 const NORMAL_COLOR = Color("ccf8ff")
 const MIRROR_COLOR = Color("ff9c9c")
@@ -38,8 +43,10 @@ func _play_shatter(restore = false):
 	var shard = SHARD_EMITTER.instantiate()
 	canvas_layer.add_child(death_screen)
 	death_screen.add_child(shard)
+	glass_crack.play()
 	get_tree().create_timer(1.0).timeout.connect(func():
 		shard.shatter()
+		glass_break.play()
 		get_tree().create_timer(1.0).timeout.connect(func(): get_tree().paused = false)
 		get_tree().create_timer(1.0).timeout.connect(func(): canvas_layer.remove_child(death_screen))
 	)
@@ -59,6 +66,7 @@ func reflected():
 		get_tree().paused = true
 		
 		mirror_tw.method(_set_mirror_effect, 1.0, -1.5, 1.).set_ease(Tween.EASE_IN)
+		mirror_sound.play()
 		
 		mirror = not mirror
 		mirror_effect.material.set_shader_parameter("in_out", 1 if mirror else 0)
@@ -72,3 +80,9 @@ func _get_mirror_color():
 
 func _set_mirror_effect(value: float):
 	mirror_effect.material.set_shader_parameter("position", value)
+
+func killed_enemy():
+	enemy_death_sound.play()
+
+func hit():
+	enemy_hit_sound.play()

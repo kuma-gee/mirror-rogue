@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://da5fh0ulgabo4"]
+[gd_scene load_steps=5 format=3 uid="uid://da5fh0ulgabo4"]
 
 [ext_resource type="Script" path="res://addons/input_helper/input_key.gd" id="1_linvu"]
-[ext_resource type="Theme" uid="uid://cvvavdkxk7llv" path="res://theme/theme.tres" id="1_o10sg"]
+[ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="1_o10sg"]
 [ext_resource type="Script" path="res://src/start.gd" id="2_tfb7v"]
+[ext_resource type="AudioStream" uid="uid://b1e1nre5yw3cf" path="res://assets/sound/プレゼンタイトル表示2.mp3" id="4_7l68f"]
 
 [node name="Start" type="Control"]
 layout_mode = 3
@@ -47,3 +48,7 @@ layout_mode = 2
 text = "to start"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="StartSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7l68f")
+volume_db = -5.0

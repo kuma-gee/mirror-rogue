@@ -15,7 +15,7 @@ func create_mirror_effect(collision_point: Vector2, dir: Vector2):
 	var shape_size = get_shape().get_rect().size
 	var size = min(shape_size.x, shape_size.y)
 	
-	var actual_pos = collision_point + dir.rotated(-global_rotation) * size / 2
+	var actual_pos = collision_point + dir.rotated(-global_rotation) * size / 3
 	await create_effect(actual_pos)
 	return actual_pos
 	
