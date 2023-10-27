@@ -99,6 +99,7 @@ speed = 100
 max_reflections = 2
 collision_shape = NodePath("CollisionShape2D")
 raycast = NodePath("RayCast2D")
+mirror_damage = 2
 knockback_force = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

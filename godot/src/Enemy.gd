@@ -9,26 +9,36 @@ signal died()
 @export var bullet_scene: PackedScene
 @export var bullet_spawn_offset := 10
 @export var hp_drop: PackedScene
-@export var drop_chance := 0.2
+@export var drop_chance := 0.4
 
 @onready var sprite_2d = $Sprite2D
 @onready var navigation_agent := $NavigationAgent2D
 @onready var hp_bar = $HpBar
 @onready var collision_shape_2d = $CollisionShape2D
 @onready var soft_collision = $SoftCollision
+@onready var heal_timer = $HealTimer
 
 var knockback: Vector2
+
+func _update_heal_timer():
+	if GameManager.mirror:
+		heal_timer.start()
+	else:
+		heal_timer.stop()
 
 func _ready():
 	sprite_2d.material = sprite_2d.material.duplicate()
 	collision_shape_2d.disabled = true
 	
+	_update_heal_timer()
+	GameManager.mirrored.connect(func(_m): _update_heal_timer())
+	
 	hp_bar.zero_health.connect(func():
 		died.emit()
 		if randf() <= drop_chance and GameManager.mirror:
 			var drop = hp_drop.instantiate()
-			get_tree().current_scene.add_child(drop)
 			drop.global_position = global_position
+			get_tree().current_scene.call_deferred("add_child", drop)
 		queue_free()
 	)
 	navigation_agent.path_desired_distance = 4.0
@@ -92,3 +102,7 @@ func _on_hurtbox_knockback(dir):
 
 func _on_mirror_exit_area_exited(area):
 	collision_shape_2d.set_deferred("disabled", false)
+
+
+func _on_heal_timer_timeout():
+	hp_bar.heal(1)

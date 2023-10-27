@@ -7,6 +7,7 @@ signal reflect()
 @export var speed := 300
 @export var dir := Vector2.RIGHT
 @export var max_reflections := 4
+@export var disable_initial_hit := true
 
 @export var collision_shape: CollisionShape2D
 @export var raycast: RayCast2D
@@ -22,7 +23,8 @@ var reflected := 0
 var ignored = []
 
 func _ready():
-	_temp_disable_collision()
+	if disable_initial_hit:
+		_temp_disable_collision()
 	
 	dir = dir.rotated(global_rotation)
 	area_entered.connect(func(area):

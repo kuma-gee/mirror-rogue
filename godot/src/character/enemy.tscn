@@ -32,6 +32,7 @@ script = ExtResource("1_xsn24")
 speed = 40
 bullet_scene = ExtResource("2_qwwrr")
 hp_drop = ExtResource("3_r4nf6")
+drop_chance = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.490196, 0.490196, 1)
@@ -49,6 +50,7 @@ collision_layer = 0
 collision_mask = 8
 script = ExtResource("4_i70wx")
 damage = 2
+mirror_damage = 4
 knockback_force = 150
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
@@ -93,7 +95,10 @@ push_force = 500
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision"]
 shape = SubResource("CircleShape2D_eu85r")
 
+[node name="HealTimer" type="Timer" parent="."]
+
 [connection signal="hit" from="Hurtbox" to="." method="_on_hitbox_hit"]
 [connection signal="knockback" from="Hurtbox" to="." method="_on_hurtbox_knockback"]
 [connection signal="timeout" from="FireRateTimer" to="." method="_on_fire_rate_timer_timeout"]
 [connection signal="area_exited" from="MirrorExit" to="." method="_on_mirror_exit_area_exited"]
+[connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]

@@ -75,7 +75,8 @@ script = ExtResource("2_vt71h")
 collision_layer = 0
 collision_mask = 80
 script = ExtResource("3_xu0cq")
-damage = 3
+damage = 2
+mirror_damage = 4
 knockback_force = 200
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]

@@ -2,6 +2,7 @@ class_name HitBox
 extends Area2D
 
 @export var damage := 1
+@export var mirror_damage := 1
 @export var knockback_force := 0
 
 func _ready():
@@ -11,4 +12,5 @@ func _ready():
 	)
 
 func _do_damage(area: HurtBox):
-	return area.damage(damage, self, knockback_force)
+	var dmg = mirror_damage if GameManager.mirror else damage
+	return area.damage(dmg, self, knockback_force)

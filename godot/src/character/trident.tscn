@@ -17,9 +17,11 @@ script = ExtResource("1_uombx")
 normal_tex = ExtResource("2_d65tq")
 mirror_tex = ExtResource("3_stn4h")
 max_reflections = 5
+disable_initial_hit = false
 collision_shape = NodePath("CollisionShape2D")
 raycast = NodePath("RayCast2D")
-damage = 5
+damage = 4
+mirror_damage = 6
 knockback_force = 120
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
