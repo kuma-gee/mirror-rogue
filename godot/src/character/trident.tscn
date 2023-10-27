@@ -21,7 +21,7 @@ max_reflections = 5
 disable_initial_hit = false
 collision_shape = NodePath("CollisionShape2D")
 raycast = NodePath("RayCast2D")
-damage = 5
+damage = 4
 mirror_damage = 7
 knockback_force = 120
 

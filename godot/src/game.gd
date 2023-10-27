@@ -9,8 +9,10 @@ const ROOM = preload("res://src/props/room.tscn")
 const value_increase := 1.5
 const kill_increase := 1.8
 
+var previous_dir := Vector2.ZERO
 var enemy_value := 5.0
-var enemy_kills := 1.0
+var enemy_kills := 5.0
+var room_dirs := [Vector2.UP, Vector2.LEFT, Vector2.RIGHT, Vector2.DOWN]
 
 var _logger = Logger.new("Game")
 
@@ -26,7 +28,7 @@ func _setup_next_room(current_room: Room):
 	var room = _create_room()
 	enemy_value *= value_increase
 	enemy_kills *= kill_increase
-	var dir = [Vector2.UP, Vector2.LEFT, Vector2.RIGHT, Vector2.DOWN].pick_random()
+	var dir = room_dirs.filter(func(d): return d != previous_dir).pick_random()
 	_logger.debug("Creating room in dir %s" % dir)
 	current_room.rooms[dir] = room
 	current_room.open_door(dir)
@@ -44,6 +46,8 @@ func _create_room() -> Room:
 		player.velocity = Vector2.ZERO
 		player.global_position = new_room.get_door(-dir).global_position + dir * 10
 		player.immediate_return_trident()
+		
+		previous_dir = -dir
 		new_room.start(enemy_value, enemy_kills, dir)
 		get_tree().create_timer(1.0).timeout.connect(func(): room.queue_free())
 	)

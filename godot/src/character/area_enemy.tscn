@@ -8,9 +8,12 @@
 [node name="AreaEnemy" instance=ExtResource("1_c78mk")]
 script = ExtResource("2_5sqx0")
 bullet_count = 8
+value = 2.0
 speed = 20
 normal_tex = ExtResource("3_defo3")
 mirror_tex = ExtResource("4_f0yyd")
+min_drop_chance = 0.3
+max_drop_chance = 0.6
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("3_defo3")

@@ -104,6 +104,7 @@ normal_tex = ExtResource("2_qj055")
 mirror_tex = ExtResource("3_g4yvg")
 bullet_scene = ExtResource("2_qwwrr")
 hp_drop = ExtResource("3_r4nf6")
+max_drop_chance = 0.4
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = ExtResource("3_mi11f")

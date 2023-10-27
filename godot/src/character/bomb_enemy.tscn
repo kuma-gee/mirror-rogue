@@ -6,10 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://dy31gsft2yhng" path="res://assets/Enemy__Jellyfish_Mirror.png" id="3_leutj"]
 
 [node name="BombEnemy" instance=ExtResource("1_v1rsa")]
-speed = 15
+value = 3.0
+speed = 10
 normal_tex = ExtResource("2_euxkn")
 mirror_tex = ExtResource("3_leutj")
 bullet_scene = ExtResource("2_cgwka")
+min_drop_chance = 0.3
+max_drop_chance = 0.6
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_euxkn")

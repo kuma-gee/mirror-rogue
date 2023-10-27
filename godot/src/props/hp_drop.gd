@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var amount := 5
+@export var amount := 3
 
 func _ready():
 	_visible()

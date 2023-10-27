@@ -57,10 +57,10 @@ func start(max_value: int, max_killed: int, from: Vector2 = Vector2.ZERO):
 	max_enemies_killed = max_killed
 	enemy_spawner.start()
 
-	if max_enemy_value > 8:
+	if max_enemy_value > 5:
 		available_enemies.append(AREA_ENEMY)
 
-	if max_enemy_value > 10:
+	if max_enemy_value > 8:
 		available_enemies.append(BOMB_ENEMY)
 
 	if from:
