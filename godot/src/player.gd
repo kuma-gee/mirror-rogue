@@ -45,6 +45,9 @@ func _ready():
 		_update_throw()
 	)
 
+func get_hp_percentage():
+	return hp_bar.value / hp_bar.max_value
+
 func _update_throw():
 	sprite.texture = _get_body_tex()
 

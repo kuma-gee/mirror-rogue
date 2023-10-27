@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://o3j6vr6md5jf"
-path="res://.godot/imported/HpDrop.png-485f71e211a8c94fc16c79dfade008d6.ctex"
+uid="uid://dhmr4gtqmicur"
+path="res://.godot/imported/HpDrop_Drop.png-9611062827077d68c426bf69991cc962.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/HpDrop.png"
-dest_files=["res://.godot/imported/HpDrop.png-485f71e211a8c94fc16c79dfade008d6.ctex"]
+source_file="res://assets/HpDrop_Drop.png"
+dest_files=["res://.godot/imported/HpDrop_Drop.png-9611062827077d68c426bf69991cc962.ctex"]
 
 [params]
 

@@ -32,7 +32,6 @@ script = ExtResource("1_xsn24")
 speed = 40
 bullet_scene = ExtResource("2_qwwrr")
 hp_drop = ExtResource("3_r4nf6")
-drop_chance = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.490196, 0.490196, 1)

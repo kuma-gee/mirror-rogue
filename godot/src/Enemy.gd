@@ -9,7 +9,9 @@ signal died()
 @export var bullet_scene: PackedScene
 @export var bullet_spawn_offset := 10
 @export var hp_drop: PackedScene
-@export var drop_chance := 0.4
+
+@export var min_drop_chance := 0.3
+@export var max_drop_chance := 0.6
 
 @onready var sprite_2d = $Sprite2D
 @onready var navigation_agent := $NavigationAgent2D
@@ -35,7 +37,11 @@ func _ready():
 	
 	hp_bar.zero_health.connect(func():
 		died.emit()
-		if randf() <= drop_chance and GameManager.mirror:
+		var player = get_tree().get_first_node_in_group("Player")
+		var diff = max_drop_chance - min_drop_chance
+		var chance = max_drop_chance - player.get_hp_percentage() * diff
+		
+		if randf() <= chance and GameManager.mirror:
 			var drop = hp_drop.instantiate()
 			drop.global_position = global_position
 			get_tree().current_scene.call_deferred("add_child", drop)
