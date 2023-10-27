@@ -11,6 +11,7 @@ signal reflected()
 @export var attack_rate := 0.5
 
 @export var projectile_scene: PackedScene
+@export var attack_effect: PackedScene
 
 @export var normal_tex: Texture2D
 @export var normal_mirror_tex: Texture2D
@@ -22,7 +23,6 @@ signal reflected()
 @onready var shot_point = $Hand/ShotPoint
 @onready var mirror_detect = $MirrorDetect
 @onready var anim = $AnimationPlayer
-@onready var attack_anim = $AttackAnim
 
 @onready var body = $Body
 @onready var sprite = $Body/Normal
@@ -39,7 +39,6 @@ func _ready():
 	
 	input.just_pressed.connect(_on_just_pressed)
 	anim.play("RESET")
-	attack_anim.play("RESET")
 	_update_throw()
 	
 	GameManager.mirrored.connect(func(mirror):
@@ -87,7 +86,10 @@ func _on_just_pressed(ev: InputEvent):
 			
 	elif ev.is_action_pressed("attack") and not _is_thrown() and not attacking:
 		attacking = true
-		attack_anim.play("attack")
+		var eff = attack_effect.instantiate()
+		get_tree().current_scene.add_child(eff)
+		eff.global_position = shot_point.global_position
+		eff.global_rotation = shot_point.global_rotation
 		get_tree().create_timer(attack_rate).timeout.connect(func(): attacking = false)
 
 func _is_thrown():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dlby6flxkmnjs"]
+[gd_scene load_steps=28 format=3 uid="uid://dlby6flxkmnjs"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_356t7"]
 [ext_resource type="Shader" path="res://src/character/hit_flash.gdshader" id="1_iff14"]
@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="3_h74si"]
 [ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="4_0sora"]
 [ext_resource type="Script" path="res://shared/FrameFreeze.gd" id="4_5mytp"]
-[ext_resource type="Script" path="res://src/character/HitBox.gd" id="5_hp8me"]
 [ext_resource type="Texture2D" uid="uid://c8x10v1drqabm" path="res://assets/Gura__Normal_Normal.png" id="5_ke3rs"]
+[ext_resource type="PackedScene" uid="uid://cxgyhhw7jqslt" path="res://src/props/attack_effect.tscn" id="5_rt7bv"]
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="6_h0fpl"]
 [ext_resource type="Texture2D" uid="uid://or3y5nw2xeov" path="res://assets/Arrow.png" id="6_k4cvt"]
 [ext_resource type="Material" uid="uid://b0yb20w0y2pgh" path="res://src/character/hit_flash.tres" id="7_a3o32"]
@@ -16,7 +16,6 @@
 [ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="10_crikn"]
 [ext_resource type="Texture2D" uid="uid://6lcoatpub83l" path="res://assets/Gura__Normal_Mirror.png" id="11_24eg1"]
 [ext_resource type="Script" path="res://src/character/HpBar.gd" id="11_a3gni"]
-[ext_resource type="Texture2D" uid="uid://h0ninaih1h8y" path="res://assets/Attack.png" id="12_xcrtr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tkw7x"]
 shader = ExtResource("1_iff14")
@@ -43,42 +42,11 @@ _bundled = {
 radius = 2.0
 height = 12.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofpqk"]
-size = Vector2(18, 14)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vssjf"]
 size = Vector2(14, 14)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r0xvd"]
 radius = 13.0
-
-[sub_resource type="Animation" id="Animation_xmo06"]
-resource_name = "Attack"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hand/HitBox/CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hand/Attack:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 2, 3]
-}
 
 [sub_resource type="Animation" id="Animation_4h26t"]
 resource_name = "Dash"
@@ -158,7 +126,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hand/HitBox/CollisionShape2D:disabled")
+tracks/0/path = NodePath("Hurtbox/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -170,34 +138,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hurtbox/CollisionShape2D:disabled")
+tracks/1/path = NodePath("Body/Normal:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Body/Normal:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Hand/Attack:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -206,72 +150,10 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sf20l"]
 _data = {
-"Attack": SubResource("Animation_xmo06"),
 "Dash": SubResource("Animation_4h26t"),
 "Idle": SubResource("Animation_kn83o"),
 "Move": SubResource("Animation_djb3v"),
 "RESET": SubResource("Animation_rwls1")
-}
-
-[sub_resource type="Animation" id="Animation_madi0"]
-resource_name = "attack"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hand/HitBox/CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hand/Attack:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_vf448"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hand/HitBox/CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hand/Attack:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [3]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_fymc4"]
-_data = {
-"RESET": SubResource("Animation_vf448"),
-"attack": SubResource("Animation_madi0")
 }
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
@@ -279,6 +161,7 @@ material = SubResource("ShaderMaterial_tkw7x")
 collision_layer = 2
 script = ExtResource("1_356t7")
 projectile_scene = SubResource("PackedScene_rv4o7")
+attack_effect = ExtResource("5_rt7bv")
 normal_tex = ExtResource("5_ke3rs")
 normal_mirror_tex = ExtResource("11_24eg1")
 trident_tex = ExtResource("7_ih42d")
@@ -306,25 +189,6 @@ texture = ExtResource("7_ih42d")
 hframes = 4
 
 [node name="Hand" type="Node2D" parent="."]
-
-[node name="Attack" type="Sprite2D" parent="Hand"]
-position = Vector2(13, -4.76837e-07)
-rotation = 0.785398
-texture = ExtResource("12_xcrtr")
-hframes = 4
-
-[node name="HitBox" type="Area2D" parent="Hand"]
-collision_layer = 0
-collision_mask = 80
-script = ExtResource("5_hp8me")
-damage = 3
-knockback_force = 200
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hand/HitBox"]
-position = Vector2(12, 0)
-shape = SubResource("RectangleShape2D_ofpqk")
-disabled = true
-debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="ShotPoint" type="Marker2D" parent="Hand"]
 position = Vector2(16, 0)
@@ -355,11 +219,6 @@ debug_color = Color(0, 0.6, 0.7, 0.42)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_sf20l")
-}
-
-[node name="AttackAnim" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_fymc4")
 }
 
 [node name="HpBar" type="ProgressBar" parent="."]
