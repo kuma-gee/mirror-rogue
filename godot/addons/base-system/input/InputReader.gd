@@ -26,9 +26,7 @@ func handle_input(event: InputEvent):
 			continue
 
 		action_strength[action] = event.get_action_strength(action)
-
-	if actions.size() > 0:
-		_register_action(event, actions[0])
+		_register_action(event, action)
 
 
 func _register_action(event: InputEvent, action: String):
@@ -78,6 +76,6 @@ func enable() -> void:
 	self._disabled = false
 	disabled_exception = []
 
-func reset():
+func reset() -> void:
 	inputs.clear()
 	action_strength.clear()

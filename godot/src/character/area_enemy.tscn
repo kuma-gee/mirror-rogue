@@ -16,13 +16,12 @@ mirror_tex = ExtResource("4_f0yyd")
 min_drop_chance = 0.3
 max_drop_chance = 0.6
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="2"]
 texture = ExtResource("3_defo3")
 
-[node name="FireRateTimer" parent="." index="5"]
+[node name="FireRateTimer" parent="." index="7"]
 wait_time = 3.0
-normal_time = 4.0
-mirror_time = 2.0
 
-[node name="HpBar" parent="." index="6"]
-max_health = 20
+[node name="MirrorValue" parent="FireRateTimer" index="0"]
+normal_value = 3.5
+mirror_value = 2.5

@@ -25,7 +25,7 @@ signal died()
 
 @onready var sprite_2d = $Sprite2D
 @onready var navigation_agent := $NavigationAgent2D
-@onready var hp_bar = $HpBar
+@onready var hp_bar = $Health
 @onready var collision_shape_2d = $CollisionShape2D
 @onready var soft_collision = $SoftCollision
 @onready var heal_timer = $HealTimer
@@ -113,12 +113,6 @@ func _set_hit_flash(enable: bool):
 	sprite_2d.material.set_shader_parameter("mirror", GameManager.mirror)
 	sprite_2d.material.set_shader_parameter("enabled", enable)
 
-func _on_fire_rate_timer_timeout():
-	attacking = true
-	animation_player.play(attack_anim)
-	await animation_player.animation_finished
-	attacking = false
-
 func _fire():
 	var bullet = bullet_scene.instantiate()
 	var dir = global_position.direction_to(_player_pos())
@@ -148,3 +142,10 @@ func _on_heal_timer_timeout():
 
 func _on_hurtbox_hit_with(area):
 	last_hit_dir = area.global_position.direction_to(global_position)
+
+
+func _on_timer_timeout():
+	attacking = true
+	animation_player.play(attack_anim)
+	await animation_player.animation_finished
+	attacking = false

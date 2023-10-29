@@ -1,10 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://dlby6flxkmnjs"]
+[gd_scene load_steps=32 format=3 uid="uid://dlby6flxkmnjs"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_356t7"]
 [ext_resource type="Shader" path="res://src/character/hit_flash.gdshader" id="1_iff14"]
-[ext_resource type="Script" path="res://src/character/Trident.gd" id="2_krux5"]
-[ext_resource type="Texture2D" uid="uid://bwve2nq30wldn" path="res://icon.svg" id="3_h74si"]
-[ext_resource type="Script" path="res://addons/input-system/PlayerInput.gd" id="4_0sora"]
+[ext_resource type="Script" path="res://addons/base-system/input/PlayerInput.gd" id="4_0sora"]
 [ext_resource type="Script" path="res://shared/FrameFreeze.gd" id="4_5mytp"]
 [ext_resource type="Texture2D" uid="uid://c8x10v1drqabm" path="res://assets/Gura__Normal_Normal.png" id="5_ke3rs"]
 [ext_resource type="PackedScene" uid="uid://cxgyhhw7jqslt" path="res://src/props/attack_effect.tscn" id="5_rt7bv"]
@@ -13,10 +11,15 @@
 [ext_resource type="Material" uid="uid://b0yb20w0y2pgh" path="res://src/character/hit_flash.tres" id="7_a3o32"]
 [ext_resource type="Texture2D" uid="uid://co8dko7iojh8p" path="res://assets/Gura__Trident_Normal.png" id="7_ih42d"]
 [ext_resource type="Texture2D" uid="uid://wi47ngkwkxbc" path="res://assets/Gura__Trident_Mirror.png" id="9_rn4i3"]
+[ext_resource type="Script" path="res://addons/base-system/Spawner2D.gd" id="10_5oq21"]
+[ext_resource type="Script" path="res://addons/base-system/combat/rate_limiter.gd" id="10_8ehmo"]
+[ext_resource type="Script" path="res://addons/base-system/combat/health.gd" id="10_bdagd"]
 [ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="10_crikn"]
 [ext_resource type="Texture2D" uid="uid://6lcoatpub83l" path="res://assets/Gura__Normal_Mirror.png" id="11_24eg1"]
 [ext_resource type="Script" path="res://src/character/HpBar.gd" id="11_a3gni"]
+[ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="11_tbdww"]
 [ext_resource type="AudioStream" uid="uid://big4ndyudxso" path="res://assets/sound/ゲージ回復1.mp3" id="17_0xv3n"]
+[ext_resource type="PackedScene" uid="uid://chfrm1aqrag7x" path="res://src/character/trident.tscn" id="17_3fjia"]
 [ext_resource type="AudioStream" uid="uid://nwar6xq0usb4" path="res://assets/sound/打撃1.mp3" id="18_n7uv4"]
 [ext_resource type="AudioStream" uid="uid://b1q66yq8xmyea" path="res://assets/sound/高速移動.mp3" id="19_eeq4u"]
 
@@ -26,22 +29,6 @@ shader_parameter/hit_color = Color(1, 0, 0, 1)
 shader_parameter/hit_color_mirror = Color(1, 0, 0, 1)
 shader_parameter/mirror = false
 shader_parameter/enabled = false
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_str41"]
-size = Vector2(4, 32)
-
-[sub_resource type="PackedScene" id="PackedScene_rv4o7"]
-_bundled = {
-"conn_count": 0,
-"conns": PackedInt32Array(),
-"editable_instances": [],
-"names": PackedStringArray("Projectile", "collision_layer", "collision_mask", "script", "Area2D", "Sprite2D", "scale", "texture", "CollisionShape2D", "rotation", "shape"),
-"node_count": 3,
-"node_paths": [],
-"nodes": PackedInt32Array(-1, -1, 4, 0, -1, 3, 1, 0, 2, 1, 3, 2, 0, 0, 0, 5, 5, -1, 2, 6, 3, 7, 4, 0, 0, 0, 8, 8, -1, 2, 9, 5, 10, 6, 0),
-"variants": [0, 57, ExtResource("2_krux5"), Vector2(0.234375, 0.0256348), ExtResource("3_h74si"), -1.5708, SubResource("RectangleShape2D_str41")],
-"version": 3
-}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dgu6m"]
 radius = 2.0
@@ -177,12 +164,27 @@ _data = {
 material = SubResource("ShaderMaterial_tkw7x")
 collision_layer = 2
 script = ExtResource("1_356t7")
-projectile_scene = SubResource("PackedScene_rv4o7")
-attack_effect = ExtResource("5_rt7bv")
 normal_tex = ExtResource("5_ke3rs")
 normal_mirror_tex = ExtResource("11_24eg1")
 trident_tex = ExtResource("7_ih42d")
 trident_mirror_tex = ExtResource("9_rn4i3")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("10_bdagd")
+max_health = 20
+
+[node name="HpBar" type="ProgressBar" parent="." node_paths=PackedStringArray("health")]
+offset_left = -7.0
+offset_top = -10.0
+offset_right = 7.0
+offset_bottom = -8.0
+theme = ExtResource("10_crikn")
+step = 1.0
+value = 50.0
+rounded = true
+show_percentage = false
+script = ExtResource("11_a3gni")
+health = NodePath("../Health")
 
 [node name="FrameFreeze" type="Node" parent="."]
 process_mode = 3
@@ -207,12 +209,30 @@ hframes = 4
 
 [node name="Hand" type="Node2D" parent="."]
 
-[node name="ShotPoint" type="Marker2D" parent="Hand"]
+[node name="Sprite2D" type="Sprite2D" parent="Hand"]
 position = Vector2(16, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="Hand/ShotPoint"]
 texture = ExtResource("6_k4cvt")
 flip_h = true
+
+[node name="TridentSpawner" type="Marker2D" parent="Hand"]
+position = Vector2(17, 0)
+script = ExtResource("10_5oq21")
+scene = ExtResource("17_3fjia")
+
+[node name="AttackSpawner" type="Marker2D" parent="Hand" node_paths=PackedStringArray("limiter")]
+position = Vector2(17, 0)
+script = ExtResource("10_5oq21")
+limiter = NodePath("AttackTimer")
+scene = ExtResource("5_rt7bv")
+
+[node name="AttackTimer" type="Timer" parent="Hand/AttackSpawner" node_paths=PackedStringArray("value")]
+script = ExtResource("10_8ehmo")
+value = NodePath("MirrorValue")
+
+[node name="MirrorValue" type="Node" parent="Hand/AttackSpawner/AttackTimer"]
+script = ExtResource("11_tbdww")
+normal_value = 0.5
+mirror_value = 0.3
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 8
@@ -237,19 +257,6 @@ debug_color = Color(0, 0.6, 0.7, 0.42)
 libraries = {
 "": SubResource("AnimationLibrary_sf20l")
 }
-
-[node name="HpBar" type="ProgressBar" parent="."]
-offset_left = -7.0
-offset_top = -10.0
-offset_right = 7.0
-offset_bottom = -8.0
-theme = ExtResource("10_crikn")
-step = 1.0
-value = 50.0
-rounded = true
-show_percentage = false
-script = ExtResource("11_a3gni")
-max_health = 20
 
 [node name="HealSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3

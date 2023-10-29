@@ -1,13 +1,11 @@
 extends Node
 
-@export var input_path: NodePath
-@onready var input: PlayerInput = get_node(input_path) if input_path else get_parent()
+@export var input: PlayerInput
 
 var logger = Logger.new("DeviceSwitcher")
 
-
 func _unhandled_input(event: InputEvent):
-	if event.device != input.device_id or input.is_player_event(event):
+	if input == null or event.device != input.device_id or input.is_player_event(event):
 		return
 
 	var joypad = event is InputEventJoypadButton

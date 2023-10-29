@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://mt5fy2ohtmg5"]
+[gd_scene load_steps=25 format=3 uid="uid://mt5fy2ohtmg5"]
 
 [ext_resource type="Script" path="res://src/Enemy.gd" id="1_xsn24"]
 [ext_resource type="Texture2D" uid="uid://ctn3ta6wyr4t2" path="res://assets/Enemy__Crab_Normal.png" id="2_qj055"]
@@ -11,8 +11,10 @@
 [ext_resource type="Theme" uid="uid://bx7af5qpgeitk" path="res://theme/enemy.tres" id="5_7mmee"]
 [ext_resource type="Script" path="res://src/character/HpBar.gd" id="5_16pbh"]
 [ext_resource type="PackedScene" uid="uid://mhmji1mdl0e5" path="res://src/props/kill_particles.tscn" id="6_in8mi"]
+[ext_resource type="Script" path="res://addons/base-system/combat/health.gd" id="7_onsqq"]
 [ext_resource type="Script" path="res://src/character/SoftCollision.gd" id="9_2mmdc"]
-[ext_resource type="Script" path="res://src/character/AttackTimer.gd" id="10_ky8df"]
+[ext_resource type="Script" path="res://addons/base-system/combat/rate_limiter.gd" id="13_dl564"]
+[ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="14_k2bbo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7nrr"]
 size = Vector2(8, 2)
@@ -110,6 +112,21 @@ hp_drop = ExtResource("3_r4nf6")
 blood_particles = ExtResource("6_in8mi")
 min_drop_chance = 0.1
 
+[node name="Health" type="Node" parent="."]
+script = ExtResource("7_onsqq")
+max_health = 15
+
+[node name="HpBar" type="ProgressBar" parent="." node_paths=PackedStringArray("health")]
+offset_left = -6.0
+offset_top = -10.0
+offset_right = 6.0
+offset_bottom = -8.0
+theme = ExtResource("5_7mmee")
+value = 50.0
+show_percentage = false
+script = ExtResource("5_16pbh")
+health = NodePath("../Health")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = ExtResource("3_mi11f")
 texture = ExtResource("2_qj055")
@@ -139,23 +156,16 @@ script = ExtResource("4_dmkps")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_g25a1")
 
-[node name="FireRateTimer" type="Timer" parent="."]
-wait_time = 2.0
+[node name="FireRateTimer" type="Timer" parent="." node_paths=PackedStringArray("value")]
 autostart = true
-script = ExtResource("10_ky8df")
-normal_time = 2.0
-mirror_time = 1.5
+script = ExtResource("13_dl564")
+value = NodePath("MirrorValue")
+continuous = true
 
-[node name="HpBar" type="ProgressBar" parent="."]
-offset_left = -6.0
-offset_top = -10.0
-offset_right = 6.0
-offset_bottom = -8.0
-theme = ExtResource("5_7mmee")
-value = 50.0
-show_percentage = false
-script = ExtResource("5_16pbh")
-max_health = 15
+[node name="MirrorValue" type="Node" parent="FireRateTimer"]
+script = ExtResource("14_k2bbo")
+normal_value = 2.0
+mirror_value = 1.5
 
 [node name="MirrorExit" type="Area2D" parent="."]
 collision_layer = 0
@@ -183,6 +193,6 @@ libraries = {
 [connection signal="hit" from="Hurtbox" to="." method="_on_hitbox_hit"]
 [connection signal="hit_with" from="Hurtbox" to="." method="_on_hurtbox_hit_with"]
 [connection signal="knockback" from="Hurtbox" to="." method="_on_hurtbox_knockback"]
-[connection signal="timeout" from="FireRateTimer" to="." method="_on_fire_rate_timer_timeout"]
+[connection signal="timeout" from="FireRateTimer" to="." method="_on_timer_timeout"]
 [connection signal="area_exited" from="MirrorExit" to="." method="_on_mirror_exit_area_exited"]
 [connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]

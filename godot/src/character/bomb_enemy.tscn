@@ -15,20 +15,14 @@ bullet_scene = ExtResource("2_cgwka")
 min_drop_chance = 0.3
 max_drop_chance = 0.6
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Sprite2D" parent="." index="2"]
 texture = ExtResource("2_euxkn")
 flip_h = true
 
-[node name="HitBox" parent="." index="3"]
+[node name="HitBox" parent="." index="5"]
 damage = 2
 mirror_damage = 5
 
-[node name="FireRateTimer" parent="." index="5"]
-wait_time = 4.0
-one_shot = true
-autostart = false
-normal_time = 5.0
-mirror_time = 3.0
-
-[node name="HpBar" parent="." index="6"]
-max_health = 20
+[node name="MirrorValue" parent="FireRateTimer" index="0"]
+normal_value = 5.0
+mirror_value = 3.5

@@ -1,36 +1,24 @@
 class_name HpBar
 extends ProgressBar
 
-signal zero_health()
-
-@export var max_health := 50
-@onready var health := max_health
+@export var health: Health
 
 var tw := TweenCreator.new(self)
 
 func _ready():
 	tw.block = false
 	modulate = Color.TRANSPARENT
-
-func _is_full_hp():
-	return health == max_health
-
-func heal(amount: int):
-	health = clamp(health + amount, 0, max_health)
-	_update_hp_bar()
-
-func hurt(dmg: int):
-	health -= dmg
-	_update_hp_bar()
-	if health <= 0:
-		zero_health.emit()
+	
+	if health:
+		health.health_changed.connect(func(_h): _update_hp_bar())
 
 func _update_hp_bar():
-	max_value = max_health
-	value = health
-	if _is_full_hp():
+	value = health.health
+	max_value = health.max_health
+	
+	if health.is_full_health():
 		get_tree().create_timer(1.0).timeout.connect(func():
-			if _is_full_hp() and tw.new_tween():
+			if health.is_full_health() and tw.new_tween():
 				tw.fade_out(self)
 		)
 	elif modulate != Color.WHITE and tw.new_tween():
