@@ -14,4 +14,5 @@ func _ready():
 
 func _do_damage(area: HurtBox):
 	var dmg = mirror_damage if GameManager.mirror else damage
-	return area.damage(dmg, self, knockback_force, from_player)
+	var knockback_dir = global_position.direction_to(area.global_position)
+	return area.damage(dmg, knockback_dir * knockback_force)

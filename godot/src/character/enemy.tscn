@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://mt5fy2ohtmg5"]
+[gd_scene load_steps=26 format=3 uid="uid://mt5fy2ohtmg5"]
 
 [ext_resource type="Script" path="res://src/Enemy.gd" id="1_xsn24"]
 [ext_resource type="Texture2D" uid="uid://ctn3ta6wyr4t2" path="res://assets/Enemy__Crab_Normal.png" id="2_qj055"]
@@ -10,10 +10,11 @@
 [ext_resource type="Script" path="res://src/character/HitBox.gd" id="4_i70wx"]
 [ext_resource type="Theme" uid="uid://bx7af5qpgeitk" path="res://theme/enemy.tres" id="5_7mmee"]
 [ext_resource type="Script" path="res://src/character/HpBar.gd" id="5_16pbh"]
+[ext_resource type="Script" path="res://src/base-system/combat/health.gd" id="5_t4qtg"]
 [ext_resource type="PackedScene" uid="uid://mhmji1mdl0e5" path="res://src/props/kill_particles.tscn" id="6_in8mi"]
-[ext_resource type="Script" path="res://addons/base-system/combat/health.gd" id="7_onsqq"]
 [ext_resource type="Script" path="res://src/character/SoftCollision.gd" id="9_2mmdc"]
-[ext_resource type="Script" path="res://addons/base-system/combat/rate_limiter.gd" id="13_dl564"]
+[ext_resource type="Script" path="res://src/character/MirrorSprite2D.gd" id="11_ljeiv"]
+[ext_resource type="Script" path="res://src/base-system/combat/rate_limiter.gd" id="14_3jedw"]
 [ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="14_k2bbo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7nrr"]
@@ -105,15 +106,13 @@ collision_mask = 0
 script = ExtResource("1_xsn24")
 mirror_speed = 40
 speed = 30
-normal_tex = ExtResource("2_qj055")
-mirror_tex = ExtResource("3_g4yvg")
 bullet_scene = ExtResource("2_qwwrr")
 hp_drop = ExtResource("3_r4nf6")
 blood_particles = ExtResource("6_in8mi")
 min_drop_chance = 0.1
 
 [node name="Health" type="Node" parent="."]
-script = ExtResource("7_onsqq")
+script = ExtResource("5_t4qtg")
 max_health = 15
 
 [node name="HpBar" type="ProgressBar" parent="." node_paths=PackedStringArray("health")]
@@ -131,6 +130,8 @@ health = NodePath("../Health")
 material = ExtResource("3_mi11f")
 texture = ExtResource("2_qj055")
 hframes = 2
+script = ExtResource("11_ljeiv")
+mirror_texture = ExtResource("3_g4yvg")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
@@ -158,7 +159,7 @@ shape = SubResource("CircleShape2D_g25a1")
 
 [node name="FireRateTimer" type="Timer" parent="." node_paths=PackedStringArray("value")]
 autostart = true
-script = ExtResource("13_dl564")
+script = ExtResource("14_3jedw")
 value = NodePath("MirrorValue")
 continuous = true
 
@@ -191,7 +192,6 @@ libraries = {
 }
 
 [connection signal="hit" from="Hurtbox" to="." method="_on_hitbox_hit"]
-[connection signal="hit_with" from="Hurtbox" to="." method="_on_hurtbox_hit_with"]
 [connection signal="knockback" from="Hurtbox" to="." method="_on_hurtbox_knockback"]
 [connection signal="timeout" from="FireRateTimer" to="." method="_on_timer_timeout"]
 [connection signal="area_exited" from="MirrorExit" to="." method="_on_mirror_exit_area_exited"]

@@ -1,32 +1,17 @@
 extends Projectile
 
-@export var bubble_effect: PackedScene
-
+@export var speed: ValueProvider
 @onready var hurtbox = $Hurtbox
-@onready var animation_player = $AnimationPlayer
+@onready var health = $Health
 
-var removing = false
+var velocity := Vector2.ZERO
 
 func _ready():
 	ignored.append(hurtbox)
-	animation_player.play("idle")
 	super._ready()
+	
+	health.zero_health.connect(func(): queue_free())
 
-func _on_hurtbox_hit(dmg):
-	_remove()
-
-func _remove():
-	if not removing:
-		removing = true
-		var eff = bubble_effect.instantiate()
-		eff.global_position = global_position
-		get_tree().current_scene.add_child(eff)
-		_stop()
-		
-		animation_player.play("pop")
-		await animation_player.animation_finished
-		super._remove()
-
-
-func _on_hurtbox_by_player():
-	GameManager.bubble_popped()
+func _physics_process(delta):
+	translate(dir * speed.get_value() * delta)
+	global_rotation = Vector2.RIGHT.angle_to(dir)

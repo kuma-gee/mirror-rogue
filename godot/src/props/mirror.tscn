@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://tiykwg5o8806"]
+[gd_scene load_steps=4 format=3 uid="uid://tiykwg5o8806"]
 
 [ext_resource type="Script" path="res://src/props/mirror.gd" id="1_urugg"]
 [ext_resource type="PackedScene" uid="uid://b3d6ngjw2fub6" path="res://src/props/mirror_effect.tscn" id="2_jx7qd"]
+[ext_resource type="Script" path="res://src/base-system/spawner/Spawner2D.gd" id="3_dvw08"]
 
 [node name="Mirror" type="Area2D"]
 position = Vector2(-101, -102)
 collision_layer = 32
 collision_mask = 0
 script = ExtResource("1_urugg")
-mirror_effect = ExtResource("2_jx7qd")
+
+[node name="Spawner2D" type="Node2D" parent="."]
+script = ExtResource("3_dvw08")
+scene = ExtResource("2_jx7qd")

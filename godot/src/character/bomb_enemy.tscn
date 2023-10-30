@@ -9,8 +9,6 @@
 value = 3.0
 mirror_speed = 15
 speed = 10
-normal_tex = ExtResource("2_euxkn")
-mirror_tex = ExtResource("3_leutj")
 bullet_scene = ExtResource("2_cgwka")
 min_drop_chance = 0.3
 max_drop_chance = 0.6
@@ -18,6 +16,7 @@ max_drop_chance = 0.6
 [node name="Sprite2D" parent="." index="2"]
 texture = ExtResource("2_euxkn")
 flip_h = true
+mirror_texture = ExtResource("3_leutj")
 
 [node name="HitBox" parent="." index="5"]
 damage = 2

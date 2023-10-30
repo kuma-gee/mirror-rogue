@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://chfrm1aqrag7x"]
+[gd_scene load_steps=10 format=3 uid="uid://chfrm1aqrag7x"]
 
 [ext_resource type="Script" path="res://src/character/Trident.gd" id="1_uombx"]
 [ext_resource type="Texture2D" uid="uid://co2wlkxnutets" path="res://assets/Trident_Normal.png" id="2_d65tq"]
 [ext_resource type="Texture2D" uid="uid://dywa8xm74rcff" path="res://assets/Trident_Mirror.png" id="3_stn4h"]
 [ext_resource type="AudioStream" uid="uid://1r6kvejxx1y1" path="res://assets/sound/ナイフを投げる.mp3" id="4_f6rth"]
+[ext_resource type="Script" path="res://src/character/MirrorSprite2D.gd" id="4_od2uf"]
+[ext_resource type="Script" path="res://src/base-system/FreeOnEnterArea2D.gd" id="5_ibpd5"]
+[ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="7_jaq63"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_str41"]
 size = Vector2(4, 24)
@@ -11,14 +14,11 @@ size = Vector2(4, 24)
 [sub_resource type="CircleShape2D" id="CircleShape2D_bddqt"]
 radius = 6.08276
 
-[node name="Trident" type="Area2D" node_paths=PackedStringArray("collision_shape", "raycast")]
+[node name="Trident" type="Area2D" node_paths=PackedStringArray("speed", "collision_shape", "raycast")]
 collision_layer = 0
 collision_mask = 112
 script = ExtResource("1_uombx")
-normal_tex = ExtResource("2_d65tq")
-mirror_tex = ExtResource("3_stn4h")
-mirror_speed = 350
-speed = 250
+speed = NodePath("SpeedValue")
 disable_initial_hit = false
 collision_shape = NodePath("CollisionShape2D")
 raycast = NodePath("RayCast2D")
@@ -27,19 +27,28 @@ damage = 4
 mirror_damage = 7
 knockback_force = 120
 
+[node name="SpeedValue" type="Node" parent="."]
+script = ExtResource("7_jaq63")
+normal_value = 250.0
+mirror_value = 350.0
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
 texture = ExtResource("2_d65tq")
+script = ExtResource("4_od2uf")
+mirror_texture = ExtResource("3_stn4h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5708
 shape = SubResource("RectangleShape2D_str41")
 debug_color = Color(0, 0.6, 0.701961, 0.196078)
 
-[node name="PlayerDetect" type="Area2D" parent="."]
+[node name="PlayerDetect" type="Area2D" parent="." node_paths=PackedStringArray("node")]
 position = Vector2(10, 0)
 collision_layer = 0
 collision_mask = 2
+script = ExtResource("5_ibpd5")
+node = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetect"]
 shape = SubResource("CircleShape2D_bddqt")

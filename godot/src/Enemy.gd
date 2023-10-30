@@ -12,9 +12,6 @@ signal died()
 @export var move_anim := "move"
 @export var attack_anim := "attack"
 
-@export var normal_tex: Texture2D
-@export var mirror_tex: Texture2D
-
 @export var bullet_scene: PackedScene
 @export var bullet_spawn_offset := 15
 @export var hp_drop: PackedScene
@@ -38,10 +35,8 @@ var last_hit_dir := Vector2.RIGHT
 func _update_mirror():
 	if GameManager.mirror:
 		heal_timer.start()
-		sprite_2d.texture = mirror_tex
 	else:
 		heal_timer.stop()
-		sprite_2d.texture = normal_tex
 
 func _ready():
 	sprite_2d.material = sprite_2d.material.duplicate()
@@ -114,7 +109,6 @@ func _set_hit_flash(enable: bool):
 	sprite_2d.material.set_shader_parameter("enabled", enable)
 
 func _fire():
-	var bullet = bullet_scene.instantiate()
 	var dir = global_position.direction_to(_player_pos())
 	_create_bullet(dir)
 
@@ -122,12 +116,13 @@ func _create_bullet(dir):
 	var bullet = bullet_scene.instantiate()
 	dir = dir * bullet_spawn_offset
 	bullet.global_position = global_position + dir
-	bullet.dir = dir.normalized()
+	bullet.global_rotation = Vector2.RIGHT.angle_to(dir)
 	get_tree().current_scene.add_child(bullet)
 	return bullet
 
 
 func _on_hurtbox_knockback(dir):
+	last_hit_dir = dir.normalized()
 	knockback = dir
 	velocity = dir
 
@@ -138,10 +133,6 @@ func _on_mirror_exit_area_exited(area):
 
 func _on_heal_timer_timeout():
 	hp_bar.heal(1)
-
-
-func _on_hurtbox_hit_with(area):
-	last_hit_dir = area.global_position.direction_to(global_position)
 
 
 func _on_timer_timeout():

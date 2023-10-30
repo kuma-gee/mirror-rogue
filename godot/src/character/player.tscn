@@ -1,27 +1,31 @@
-[gd_scene load_steps=32 format=3 uid="uid://dlby6flxkmnjs"]
+[gd_scene load_steps=36 format=3 uid="uid://dlby6flxkmnjs"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_356t7"]
 [ext_resource type="Shader" path="res://src/character/hit_flash.gdshader" id="1_iff14"]
-[ext_resource type="Script" path="res://addons/base-system/input/PlayerInput.gd" id="4_0sora"]
+[ext_resource type="Script" path="res://src/base-system/ctrl/TopDownPlayerController.gd" id="3_tqbq3"]
 [ext_resource type="Script" path="res://shared/FrameFreeze.gd" id="4_5mytp"]
+[ext_resource type="Script" path="res://src/base-system/input/PlayerInput.gd" id="4_hna8m"]
 [ext_resource type="Texture2D" uid="uid://c8x10v1drqabm" path="res://assets/Gura__Normal_Normal.png" id="5_ke3rs"]
 [ext_resource type="PackedScene" uid="uid://cxgyhhw7jqslt" path="res://src/props/attack_effect.tscn" id="5_rt7bv"]
+[ext_resource type="Script" path="res://src/base-system/move/TopDownMove2D.gd" id="5_t4mtp"]
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="6_h0fpl"]
 [ext_resource type="Texture2D" uid="uid://or3y5nw2xeov" path="res://assets/Arrow.png" id="6_k4cvt"]
 [ext_resource type="Material" uid="uid://b0yb20w0y2pgh" path="res://src/character/hit_flash.tres" id="7_a3o32"]
+[ext_resource type="Script" path="res://src/base-system/combat/health.gd" id="7_ie2m8"]
 [ext_resource type="Texture2D" uid="uid://co8dko7iojh8p" path="res://assets/Gura__Trident_Normal.png" id="7_ih42d"]
 [ext_resource type="Texture2D" uid="uid://wi47ngkwkxbc" path="res://assets/Gura__Trident_Mirror.png" id="9_rn4i3"]
-[ext_resource type="Script" path="res://addons/base-system/Spawner2D.gd" id="10_5oq21"]
-[ext_resource type="Script" path="res://addons/base-system/combat/rate_limiter.gd" id="10_8ehmo"]
-[ext_resource type="Script" path="res://addons/base-system/combat/health.gd" id="10_bdagd"]
 [ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="10_crikn"]
 [ext_resource type="Texture2D" uid="uid://6lcoatpub83l" path="res://assets/Gura__Normal_Mirror.png" id="11_24eg1"]
 [ext_resource type="Script" path="res://src/character/HpBar.gd" id="11_a3gni"]
 [ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="11_tbdww"]
+[ext_resource type="Script" path="res://src/character/PlayerMirrorSprite2D.gd" id="16_quags"]
 [ext_resource type="AudioStream" uid="uid://big4ndyudxso" path="res://assets/sound/ゲージ回復1.mp3" id="17_0xv3n"]
 [ext_resource type="PackedScene" uid="uid://chfrm1aqrag7x" path="res://src/character/trident.tscn" id="17_3fjia"]
+[ext_resource type="Script" path="res://src/base-system/spawner/RateLimitedSpawner2D.gd" id="17_onmko"]
 [ext_resource type="AudioStream" uid="uid://nwar6xq0usb4" path="res://assets/sound/打撃1.mp3" id="18_n7uv4"]
 [ext_resource type="AudioStream" uid="uid://b1q66yq8xmyea" path="res://assets/sound/高速移動.mp3" id="19_eeq4u"]
+[ext_resource type="Script" path="res://src/base-system/combat/rate_limiter.gd" id="21_u6tuy"]
+[ext_resource type="Script" path="res://src/character/MirrorHitFlash2D.gd" id="24_q2deq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tkw7x"]
 shader = ExtResource("1_iff14")
@@ -86,7 +90,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Normal:frame")
+tracks/1/path = NodePath("Body/Sprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -115,7 +119,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Normal:frame")
+tracks/1/path = NodePath("Body/Sprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -142,7 +146,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body/Normal:frame")
+tracks/1/path = NodePath("Body/Sprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -164,13 +168,29 @@ _data = {
 material = SubResource("ShaderMaterial_tkw7x")
 collision_layer = 2
 script = ExtResource("1_356t7")
-normal_tex = ExtResource("5_ke3rs")
-normal_mirror_tex = ExtResource("11_24eg1")
-trident_tex = ExtResource("7_ih42d")
-trident_mirror_tex = ExtResource("9_rn4i3")
+
+[node name="PlayerController" type="Node2D" parent="." node_paths=PackedStringArray("input")]
+script = ExtResource("3_tqbq3")
+input = NodePath("Input")
+
+[node name="Input" type="Node" parent="PlayerController"]
+process_mode = 3
+script = ExtResource("4_hna8m")
+
+[node name="States" type="Node" parent="."]
+
+[node name="TopDownMove2D" type="Node" parent="States" node_paths=PackedStringArray("ctrl", "speed")]
+script = ExtResource("5_t4mtp")
+ctrl = NodePath("../../PlayerController")
+speed = NodePath("MirrorValue")
+
+[node name="MirrorValue" type="Node" parent="States/TopDownMove2D"]
+script = ExtResource("11_tbdww")
+normal_value = 80.0
+mirror_value = 120.0
 
 [node name="Health" type="Node" parent="."]
-script = ExtResource("10_bdagd")
+script = ExtResource("7_ie2m8")
 max_health = 20
 
 [node name="HpBar" type="ProgressBar" parent="." node_paths=PackedStringArray("health")]
@@ -186,26 +206,23 @@ show_percentage = false
 script = ExtResource("11_a3gni")
 health = NodePath("../Health")
 
-[node name="FrameFreeze" type="Node" parent="."]
-process_mode = 3
-script = ExtResource("4_5mytp")
-
-[node name="Input" type="Node" parent="."]
-process_mode = 3
-script = ExtResource("4_0sora")
-
 [node name="Body" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_dgu6m")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
-[node name="Normal" type="Sprite2D" parent="Body"]
+[node name="Sprite2D" type="Sprite2D" parent="Body" node_paths=PackedStringArray("player")]
 material = ExtResource("7_a3o32")
 position = Vector2(-8.00001, -2.99997)
 rotation = -1.5708
-texture = ExtResource("7_ih42d")
+texture = ExtResource("5_ke3rs")
 hframes = 4
+script = ExtResource("16_quags")
+player = NodePath("../..")
+normal_trident_texture = ExtResource("7_ih42d")
+mirror_trident_texture = ExtResource("9_rn4i3")
+mirror_texture = ExtResource("11_24eg1")
 
 [node name="Hand" type="Node2D" parent="."]
 
@@ -216,17 +233,17 @@ flip_h = true
 
 [node name="TridentSpawner" type="Marker2D" parent="Hand"]
 position = Vector2(17, 0)
-script = ExtResource("10_5oq21")
+script = ExtResource("17_onmko")
 scene = ExtResource("17_3fjia")
 
 [node name="AttackSpawner" type="Marker2D" parent="Hand" node_paths=PackedStringArray("limiter")]
 position = Vector2(17, 0)
-script = ExtResource("10_5oq21")
+script = ExtResource("17_onmko")
 limiter = NodePath("AttackTimer")
 scene = ExtResource("5_rt7bv")
 
 [node name="AttackTimer" type="Timer" parent="Hand/AttackSpawner" node_paths=PackedStringArray("value")]
-script = ExtResource("10_8ehmo")
+script = ExtResource("21_u6tuy")
 value = NodePath("MirrorValue")
 
 [node name="MirrorValue" type="Node" parent="Hand/AttackSpawner/AttackTimer"]
@@ -234,16 +251,36 @@ script = ExtResource("11_tbdww")
 normal_value = 0.5
 mirror_value = 0.3
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health", "hit_sound", "frame_freeze", "hit_flash")]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("6_h0fpl")
+health = NodePath("../Health")
+hit_sound = NodePath("HitSound")
+frame_freeze = NodePath("FrameFreeze")
+hit_flash = NodePath("HitFlash2D")
 invincible_time = 0.5
+
+[node name="FrameFreeze" type="Node" parent="Hurtbox"]
+process_mode = 3
+script = ExtResource("4_5mytp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("RectangleShape2D_vssjf")
 disabled = true
 debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="HitSound" type="AudioStreamPlayer" parent="Hurtbox"]
+process_mode = 3
+stream = ExtResource("18_n7uv4")
+volume_db = -5.0
+pitch_scale = 0.8
+
+[node name="HitFlash2D" type="Node" parent="Hurtbox"]
+script = ExtResource("24_q2deq")
+node = Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":ExtResource("7_a3o32"),"use_parent_material":false,"position":Vector2(-8.00001, -2.99997),"rotation":-1.5708,"scale":Vector2(1, 1),"skew":0.0,"texture":ExtResource("5_ke3rs"),"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"hframes":4,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":ExtResource("16_quags"),"player":Object(CharacterBody2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":SubResource("ShaderMaterial_tkw7x"),"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"disable_mode":0,"collision_layer":2,"collision_mask":1,"collision_priority":1.0,"input_pickable":false,"motion_mode":0,"up_direction":Vector2(0, -1),"velocity":Vector2(0, 0),"slide_on_ceiling":true,"max_slides":4,"wall_min_slide_angle":0.261799,"floor_stop_on_slope":true,"floor_constant_speed":false,"floor_block_on_wall":true,"floor_max_angle":0.785398,"floor_snap_length":1.0,"platform_on_leave":0,"platform_floor_layers":4294967295,"platform_wall_layers":0,"safe_margin":0.08,"script":ExtResource("1_356t7"),"dash_force":500,"dash_deaccel":1500)
+,"normal_trident_texture":ExtResource("7_ih42d"),"mirror_trident_texture":ExtResource("9_rn4i3"),"mirror_texture":ExtResource("11_24eg1"))
+
 
 [node name="MirrorDetect" type="Area2D" parent="."]
 collision_layer = 0
@@ -264,18 +301,11 @@ stream = ExtResource("17_0xv3n")
 volume_db = -10.0
 pitch_scale = 1.5
 
-[node name="HitSound" type="AudioStreamPlayer" parent="."]
-process_mode = 3
-stream = ExtResource("18_n7uv4")
-volume_db = -5.0
-pitch_scale = 0.8
-
 [node name="DashSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("19_eeq4u")
 volume_db = -5.0
 pitch_scale = 2.0
 
-[connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
 [connection signal="knockback" from="Hurtbox" to="." method="_on_hurtbox_knockback"]
 [connection signal="area_entered" from="MirrorDetect" to="." method="_on_mirror_detect_area_entered"]

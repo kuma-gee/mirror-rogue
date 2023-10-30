@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://demmj5vw7sf6i"]
+
+[ext_resource type="AudioStream" uid="uid://5jsadg4vn1sj" path="res://assets/sound/ペタッ.mp3" id="1_2n7dk"]
+[ext_resource type="Texture2D" uid="uid://c3nl0yefq3f4t" path="res://assets/LargeBubble.png" id="1_bu8kf"]
+[ext_resource type="PackedScene" uid="uid://dym6lvn1yabg7" path="res://src/props/bubble_effect.tscn" id="1_q0lpj"]
+[ext_resource type="Script" path="res://src/base-system/spawner/AreaSpawner2D.gd" id="4_t027f"]
+[ext_resource type="PackedScene" uid="uid://ddfl18bx24sfj" path="res://src/character/enemy_bullet.tscn" id="5_4mf5t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_84axq"]
+atlas = ExtResource("1_bu8kf")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7ktl"]
+atlas = ExtResource("1_bu8kf")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gnxg"]
+atlas = ExtResource("1_bu8kf")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_osm41"]
+atlas = ExtResource("1_bu8kf")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8i1hp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84axq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7ktl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gnxg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_osm41")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="BombBulletDeath" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8i1hp")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+
+[node name="BubbleEffect" parent="." instance=ExtResource("1_q0lpj")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_2n7dk")
+autoplay = true
+
+[node name="AreaSpawner2D" type="Node2D" parent="."]
+script = ExtResource("4_t027f")
+spread = 180
+autostart = true
+scene = ExtResource("5_4mf5t")

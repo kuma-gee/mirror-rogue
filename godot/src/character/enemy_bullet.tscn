@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://ddfl18bx24sfj"]
+[gd_scene load_steps=10 format=3 uid="uid://ddfl18bx24sfj"]
 
 [ext_resource type="Script" path="res://src/character/enemy_bullet.gd" id="1_m5cyv"]
 [ext_resource type="Texture2D" uid="uid://d8ap1t3wascc" path="res://assets/Bubble.png" id="2_lmg1q"]
+[ext_resource type="Script" path="res://src/base-system/combat/health.gd" id="2_ppbv3"]
 [ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="3_qq6ij"]
-[ext_resource type="PackedScene" uid="uid://dym6lvn1yabg7" path="res://src/props/bubble_effect.tscn" id="4_k7o7n"]
-[ext_resource type="Script" path="res://src/character/FreeOnExit.gd" id="6_0s6lm"]
+[ext_resource type="Script" path="res://src/base-system/spawner/DeathSpawner2D.gd" id="3_y2eun"]
+[ext_resource type="PackedScene" uid="uid://cnk6fkkr62eva" path="res://src/props/enemy_bullet_death.tscn" id="5_jy5q3"]
+[ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="7_jof7a"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5521j"]
 radius = 6.0
@@ -12,84 +14,40 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_k5472"]
 radius = 4.12311
 
-[sub_resource type="Animation" id="Animation_vp5li"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_eavfs"]
-resource_name = "idle"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_3rp3y"]
-resource_name = "pop"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [1, 2, 3, 4]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0did4"]
-_data = {
-"RESET": SubResource("Animation_vp5li"),
-"idle": SubResource("Animation_eavfs"),
-"pop": SubResource("Animation_3rp3y")
-}
-
-[node name="EnemyBullet" type="Area2D" node_paths=PackedStringArray("collision_shape", "hurt_collision", "raycast")]
+[node name="EnemyBullet" type="Area2D" node_paths=PackedStringArray("speed", "collision_shape", "hurt_collision", "raycast")]
 collision_layer = 0
 collision_mask = 56
 script = ExtResource("1_m5cyv")
-bubble_effect = ExtResource("4_k7o7n")
-mirror_speed = 100
-speed = 80
+speed = NodePath("MirrorValue")
 max_reflections = 2
-random_move_offset = 10.0
 collision_shape = NodePath("CollisionShape2D")
 hurt_collision = NodePath("Hurtbox/CollisionShape2D")
 raycast = NodePath("RayCast2D")
 mirror_damage = 2
 knockback_force = 100
 
+[node name="MirrorValue" type="Node" parent="."]
+script = ExtResource("7_jof7a")
+normal_value = 80.0
+mirror_value = 100.0
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_ppbv3")
+
+[node name="DeathSpawner2D" type="Marker2D" parent="." node_paths=PackedStringArray("health")]
+script = ExtResource("3_y2eun")
+health = NodePath("../Health")
+scene = ExtResource("5_jy5q3")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_lmg1q")
 hframes = 5
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
 collision_layer = 64
 collision_mask = 0
 script = ExtResource("3_qq6ij")
-remove_on_hit = false
+health = NodePath("../Health")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_5521j")
@@ -104,14 +62,3 @@ target_position = Vector2(20, 0)
 collision_mask = 32
 collide_with_areas = true
 collide_with_bodies = false
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_0did4")
-}
-
-[node name="FreeOnExit" type="VisibleOnScreenNotifier2D" parent="."]
-script = ExtResource("6_0s6lm")
-
-[connection signal="by_player" from="Hurtbox" to="." method="_on_hurtbox_by_player"]
-[connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]

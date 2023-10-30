@@ -11,13 +11,12 @@ bullet_count = 6
 value = 2.0
 mirror_speed = 30
 speed = 20
-normal_tex = ExtResource("3_defo3")
-mirror_tex = ExtResource("4_f0yyd")
 min_drop_chance = 0.3
 max_drop_chance = 0.6
 
 [node name="Sprite2D" parent="." index="2"]
 texture = ExtResource("3_defo3")
+mirror_texture = ExtResource("4_f0yyd")
 
 [node name="FireRateTimer" parent="." index="7"]
 wait_time = 3.0

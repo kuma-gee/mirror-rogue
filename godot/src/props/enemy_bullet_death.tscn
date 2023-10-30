@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://cnk6fkkr62eva"]
+
+[ext_resource type="Texture2D" uid="uid://d8ap1t3wascc" path="res://assets/Bubble.png" id="1_cbi7x"]
+[ext_resource type="PackedScene" uid="uid://dym6lvn1yabg7" path="res://src/props/bubble_effect.tscn" id="1_cvt0n"]
+[ext_resource type="Script" path="res://src/base-system/FreeOnExit.gd" id="3_j7gi6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2fji"]
+atlas = ExtResource("1_cbi7x")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7ax4"]
+atlas = ExtResource("1_cbi7x")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g01dl"]
+atlas = ExtResource("1_cbi7x")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m36x3"]
+atlas = ExtResource("1_cbi7x")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge4aw"]
+atlas = ExtResource("1_cbi7x")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2et8r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r2fji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7ax4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g01dl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m36x3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ge4aw")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="EnemyBulletDeath" type="Node2D"]
+
+[node name="BubbleEffect" parent="." instance=ExtResource("1_cvt0n")]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2et8r")
+autoplay = "default"
+frame_progress = 0.310964
+
+[node name="FreeOnExit" type="VisibleOnScreenNotifier2D" parent="." node_paths=PackedStringArray("node")]
+script = ExtResource("3_j7gi6")
+node = NodePath("..")
+
+[connection signal="finished" from="BubbleEffect" to="." method="queue_free"]

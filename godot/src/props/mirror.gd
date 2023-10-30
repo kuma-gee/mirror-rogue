@@ -1,9 +1,8 @@
 class_name Mirror
 extends Area2D
 
-@export var mirror_effect: PackedScene
-
 @onready var collision: CollisionShape2D = $CollisionShape2D
+@onready var spawner_2d = $Spawner2D
 
 func get_normal():
 	return Vector2.DOWN.rotated(global_rotation)
@@ -20,9 +19,7 @@ func create_mirror_effect(collision_point: Vector2, dir: Vector2):
 	return actual_pos
 	
 func create_effect(pos):
-	var effect = mirror_effect.instantiate() as AnimatedSprite2D
-	add_child(effect)
+	var effect = spawner_2d.spawn() as AnimatedSprite2D
 	effect.global_position = pos
 	await effect.animation_finished
-	remove_child(effect)
 	
