@@ -6,15 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://bfrygrgrymusy" path="res://assets/Enemy__Crab_Mirror.png" id="3_g4yvg"]
 [ext_resource type="Material" uid="uid://b0yb20w0y2pgh" path="res://src/character/hit_flash.tres" id="3_mi11f"]
 [ext_resource type="PackedScene" uid="uid://csquqwgef4y81" path="res://src/props/hp_drop.tscn" id="3_r4nf6"]
-[ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="4_dmkps"]
-[ext_resource type="Script" path="res://src/character/HitBox.gd" id="4_i70wx"]
 [ext_resource type="Theme" uid="uid://bx7af5qpgeitk" path="res://theme/enemy.tres" id="5_7mmee"]
 [ext_resource type="Script" path="res://src/character/HpBar.gd" id="5_16pbh"]
 [ext_resource type="Script" path="res://src/base-system/combat/health.gd" id="5_t4qtg"]
 [ext_resource type="PackedScene" uid="uid://mhmji1mdl0e5" path="res://src/props/kill_particles.tscn" id="6_in8mi"]
 [ext_resource type="Script" path="res://src/character/SoftCollision.gd" id="9_2mmdc"]
 [ext_resource type="Script" path="res://src/character/MirrorSprite2D.gd" id="11_ljeiv"]
+[ext_resource type="Script" path="res://src/base-system/combat/HitBox.gd" id="12_upiab"]
 [ext_resource type="Script" path="res://src/base-system/combat/rate_limiter.gd" id="14_3jedw"]
+[ext_resource type="Script" path="res://src/base-system/combat/Hurtbox.gd" id="14_i0bfb"]
 [ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="14_k2bbo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7nrr"]
@@ -139,12 +139,17 @@ mirror_texture = ExtResource("3_g4yvg")
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_y7nrr")
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("damage_value")]
 collision_layer = 0
 collision_mask = 8
-script = ExtResource("4_i70wx")
-mirror_damage = 3
+script = ExtResource("12_upiab")
+damage_value = NodePath("MirrorValue")
 knockback_force = 150
+
+[node name="MirrorValue" type="Node" parent="HitBox"]
+script = ExtResource("14_k2bbo")
+mirror_value = 2.0
+value = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("RectangleShape2D_vpkdl")
@@ -152,7 +157,7 @@ shape = SubResource("RectangleShape2D_vpkdl")
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 0
-script = ExtResource("4_dmkps")
+script = ExtResource("14_i0bfb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_g25a1")
@@ -165,8 +170,8 @@ continuous = true
 
 [node name="MirrorValue" type="Node" parent="FireRateTimer"]
 script = ExtResource("14_k2bbo")
-normal_value = 2.0
 mirror_value = 1.5
+value = 2.0
 
 [node name="MirrorExit" type="Area2D" parent="."]
 collision_layer = 0

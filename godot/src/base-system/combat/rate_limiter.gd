@@ -4,8 +4,6 @@ extends Timer
 @export var value: ValueProvider
 @export var continuous := false
 
-#var waiting = false
-
 func _ready():
 	if value:
 		wait_time = value.get_value()
@@ -18,6 +16,5 @@ func should_wait():
 	return not is_stopped()
 
 func run():
-#	waiting = false
 	var v = wait_time if value == null else value.get_value()
 	start(v)

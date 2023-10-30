@@ -1,3 +1,4 @@
+class_name SoftCollision
 extends Area2D
 
 @export var push_force := 100

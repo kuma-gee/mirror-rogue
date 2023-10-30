@@ -14,7 +14,7 @@ size = Vector2(4, 24)
 [sub_resource type="CircleShape2D" id="CircleShape2D_bddqt"]
 radius = 6.08276
 
-[node name="Trident" type="Area2D" node_paths=PackedStringArray("speed", "collision_shape", "raycast")]
+[node name="Trident" type="Area2D" node_paths=PackedStringArray("speed", "collision_shape", "raycast", "damage_value")]
 collision_layer = 0
 collision_mask = 112
 script = ExtResource("1_uombx")
@@ -22,15 +22,19 @@ speed = NodePath("SpeedValue")
 disable_initial_hit = false
 collision_shape = NodePath("CollisionShape2D")
 raycast = NodePath("RayCast2D")
-from_player = true
 damage = 4
-mirror_damage = 7
+damage_value = NodePath("DmgValue")
 knockback_force = 120
 
 [node name="SpeedValue" type="Node" parent="."]
 script = ExtResource("7_jaq63")
-normal_value = 250.0
 mirror_value = 350.0
+value = 250.0
+
+[node name="DmgValue" type="Node" parent="."]
+script = ExtResource("7_jaq63")
+mirror_value = 7.0
+value = 4.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708

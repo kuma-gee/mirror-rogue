@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/character/enemy_bullet.gd" id="1_m5cyv"]
 [ext_resource type="Texture2D" uid="uid://d8ap1t3wascc" path="res://assets/Bubble.png" id="2_lmg1q"]
 [ext_resource type="Script" path="res://src/base-system/combat/health.gd" id="2_ppbv3"]
-[ext_resource type="Script" path="res://src/character/Hurtbox.gd" id="3_qq6ij"]
+[ext_resource type="Script" path="res://src/base-system/combat/Hurtbox.gd" id="3_qq6ij"]
 [ext_resource type="Script" path="res://src/base-system/spawner/DeathSpawner2D.gd" id="3_y2eun"]
 [ext_resource type="PackedScene" uid="uid://cnk6fkkr62eva" path="res://src/props/enemy_bullet_death.tscn" id="5_jy5q3"]
 [ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="7_jof7a"]
@@ -18,7 +18,7 @@ radius = 4.12311
 collision_layer = 0
 collision_mask = 56
 script = ExtResource("1_m5cyv")
-speed = NodePath("MirrorValue")
+speed = NodePath("SpeedValue")
 max_reflections = 2
 collision_shape = NodePath("CollisionShape2D")
 hurt_collision = NodePath("Hurtbox/CollisionShape2D")
@@ -26,7 +26,11 @@ raycast = NodePath("RayCast2D")
 mirror_damage = 2
 knockback_force = 100
 
-[node name="MirrorValue" type="Node" parent="."]
+[node name="DamageValue" type="Node" parent="."]
+script = ExtResource("7_jof7a")
+mirror_value = 2.0
+
+[node name="SpeedValue" type="Node" parent="."]
 script = ExtResource("7_jof7a")
 normal_value = 80.0
 mirror_value = 100.0

@@ -18,9 +18,12 @@ max_drop_chance = 0.6
 texture = ExtResource("3_defo3")
 mirror_texture = ExtResource("4_f0yyd")
 
+[node name="MirrorValue" parent="HitBox" index="0"]
+mirror_value = 3.0
+
 [node name="FireRateTimer" parent="." index="7"]
 wait_time = 3.0
 
 [node name="MirrorValue" parent="FireRateTimer" index="0"]
-normal_value = 3.5
 mirror_value = 2.5
+value = 3.5

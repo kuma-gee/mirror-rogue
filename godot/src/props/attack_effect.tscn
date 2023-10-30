@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cxgyhhw7jqslt"]
+[gd_scene load_steps=10 format=3 uid="uid://cxgyhhw7jqslt"]
 
 [ext_resource type="Texture2D" uid="uid://h0ninaih1h8y" path="res://assets/Attack.png" id="1_p5cjh"]
 [ext_resource type="Script" path="res://src/props/attack_effect.gd" id="2_vt71h"]
-[ext_resource type="Script" path="res://src/character/HitBox.gd" id="3_xu0cq"]
+[ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="3_efp3r"]
+[ext_resource type="Script" path="res://src/base-system/combat/HitBox.gd" id="3_xu0cq"]
 [ext_resource type="AudioStream" uid="uid://dena2a06vsx8t" path="res://assets/sound/剣の素振り2.mp3" id="4_2d7c3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_st85h"]
@@ -72,18 +73,24 @@ _data = {
 [node name="Node2D" type="Node2D"]
 script = ExtResource("2_vt71h")
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("damage_value")]
 collision_layer = 0
 collision_mask = 80
 script = ExtResource("3_xu0cq")
 from_player = true
 damage = 2
+damage_value = NodePath("MirrorValue")
 mirror_damage = 3
 knockback_force = 200
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_st85h")
+
+[node name="MirrorValue" type="Node" parent="HitBox"]
+script = ExtResource("3_efp3r")
+mirror_value = 3.0
+value = 2.0
 
 [node name="AttackEffect" type="Sprite2D" parent="."]
 texture = ExtResource("1_p5cjh")

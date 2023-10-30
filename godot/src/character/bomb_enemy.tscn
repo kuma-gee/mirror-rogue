@@ -20,8 +20,11 @@ mirror_texture = ExtResource("3_leutj")
 
 [node name="HitBox" parent="." index="5"]
 damage = 2
-mirror_damage = 5
+
+[node name="MirrorValue" parent="HitBox" index="0"]
+mirror_value = 5.0
+value = 2.0
 
 [node name="MirrorValue" parent="FireRateTimer" index="0"]
-normal_value = 5.0
 mirror_value = 3.5
+value = 5.0
