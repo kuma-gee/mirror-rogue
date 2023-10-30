@@ -6,9 +6,6 @@ extends Projectile
 @onready var death_spawner_2d = $DeathSpawner2D
 @onready var health = $Health
 
-var velocity := Vector2.ZERO
-var removing = false
-
 func _ready():
 	ignored.append(hurtbox)
 	super._ready()

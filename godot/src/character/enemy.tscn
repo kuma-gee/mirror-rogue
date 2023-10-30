@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://mt5fy2ohtmg5"]
+[gd_scene load_steps=30 format=3 uid="uid://mt5fy2ohtmg5"]
 
 [ext_resource type="Script" path="res://src/Enemy.gd" id="1_xsn24"]
 [ext_resource type="Texture2D" uid="uid://ctn3ta6wyr4t2" path="res://assets/Enemy__Crab_Normal.png" id="2_qj055"]
@@ -13,9 +13,13 @@
 [ext_resource type="Script" path="res://src/character/SoftCollision.gd" id="9_2mmdc"]
 [ext_resource type="Script" path="res://src/character/MirrorSprite2D.gd" id="11_ljeiv"]
 [ext_resource type="Script" path="res://src/base-system/combat/HitBox.gd" id="12_upiab"]
+[ext_resource type="Script" path="res://src/character/MirrorHitFlash2D.gd" id="13_wvrbd"]
 [ext_resource type="Script" path="res://src/base-system/combat/rate_limiter.gd" id="14_3jedw"]
 [ext_resource type="Script" path="res://src/base-system/combat/Hurtbox.gd" id="14_i0bfb"]
 [ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="14_k2bbo"]
+[ext_resource type="Script" path="res://src/base-system/spawner/DeathSpawner2D.gd" id="17_0ncfi"]
+[ext_resource type="Script" path="res://src/base-system/value/range_value.gd" id="18_sq22k"]
+[ext_resource type="Script" path="res://src/base-system/spawner/Spawner2D.gd" id="19_33lyf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7nrr"]
 size = Vector2(8, 2)
@@ -106,10 +110,6 @@ collision_mask = 0
 script = ExtResource("1_xsn24")
 mirror_speed = 40
 speed = 30
-bullet_scene = ExtResource("2_qwwrr")
-hp_drop = ExtResource("3_r4nf6")
-blood_particles = ExtResource("6_in8mi")
-min_drop_chance = 0.1
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("5_t4qtg")
@@ -154,10 +154,16 @@ value = 1.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("RectangleShape2D_vpkdl")
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health", "hit_flash")]
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("14_i0bfb")
+health = NodePath("../Health")
+hit_flash = NodePath("MirrorHitFlash2D")
+
+[node name="MirrorHitFlash2D" type="Node" parent="Hurtbox" node_paths=PackedStringArray("node")]
+script = ExtResource("13_wvrbd")
+node = NodePath("../../Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_g25a1")
@@ -195,6 +201,26 @@ shape = SubResource("CircleShape2D_eu85r")
 libraries = {
 "": SubResource("AnimationLibrary_j1onk")
 }
+
+[node name="DeathSpawner2D" type="Node2D" parent="." node_paths=PackedStringArray("spawn_chance", "health")]
+script = ExtResource("17_0ncfi")
+spawn_chance = NodePath("DropChance")
+health = NodePath("../Health")
+scene = ExtResource("3_r4nf6")
+
+[node name="DropChance" type="Node" parent="DeathSpawner2D"]
+script = ExtResource("18_sq22k")
+start = 0.1
+end = 0.5
+
+[node name="BloodSpawner" type="Node2D" parent="."]
+script = ExtResource("19_33lyf")
+scene = ExtResource("6_in8mi")
+
+[node name="BulletSpawner" type="Node2D" parent="."]
+script = ExtResource("19_33lyf")
+scene = ExtResource("2_qwwrr")
+offset = 15
 
 [connection signal="hit" from="Hurtbox" to="." method="_on_hitbox_hit"]
 [connection signal="knockback" from="Hurtbox" to="." method="_on_hurtbox_knockback"]

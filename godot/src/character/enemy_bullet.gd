@@ -4,8 +4,6 @@ extends Projectile
 @onready var hurtbox = $Hurtbox
 @onready var health = $Health
 
-var velocity := Vector2.ZERO
-
 func _ready():
 	ignored.append(hurtbox)
 	super._ready()

@@ -61,18 +61,16 @@ collision_shape = NodePath("CollisionShape2D")
 hurt_collision = NodePath("Hurtbox/CollisionShape2D")
 raycast = NodePath("RayCast2D")
 damage = 2
-mirror_damage = 4
 knockback_force = 200
 
 [node name="DamageValue" type="Node" parent="."]
 script = ExtResource("13_4j2ad")
-normal_value = 2.0
 mirror_value = 4.0
 
 [node name="SpeedValue" type="Node" parent="."]
 script = ExtResource("13_4j2ad")
-normal_value = 50.0
 mirror_value = 80.0
+value = 50.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_58gh8")

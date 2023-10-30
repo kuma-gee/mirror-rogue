@@ -23,7 +23,6 @@ max_reflections = 2
 collision_shape = NodePath("CollisionShape2D")
 hurt_collision = NodePath("Hurtbox/CollisionShape2D")
 raycast = NodePath("RayCast2D")
-mirror_damage = 2
 knockback_force = 100
 
 [node name="DamageValue" type="Node" parent="."]
@@ -32,8 +31,8 @@ mirror_value = 2.0
 
 [node name="SpeedValue" type="Node" parent="."]
 script = ExtResource("7_jof7a")
-normal_value = 80.0
 mirror_value = 100.0
+value = 80.0
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_ppbv3")

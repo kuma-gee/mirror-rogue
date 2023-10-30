@@ -11,5 +11,9 @@ func flash():
 		await get_tree().create_timer(time).timeout
 		_set_hit_flash(mat, false)
 
+func reset():
+	if node:
+		_set_hit_flash(node.material, false)
+
 func _set_hit_flash(mat: ShaderMaterial, enable: bool):
 	pass

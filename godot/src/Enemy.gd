@@ -3,22 +3,13 @@ extends CharacterBody2D
 
 signal died()
 
+@export var value := 1
 @export var friction := 800
-@export var value := 1.0
-
 @export var mirror_speed := 50
 @export var speed := 50
 
 @export var move_anim := "move"
 @export var attack_anim := "attack"
-
-@export var bullet_scene: PackedScene
-@export var bullet_spawn_offset := 15
-@export var hp_drop: PackedScene
-@export var blood_particles: PackedScene
-
-@export var min_drop_chance := 0.2
-@export var max_drop_chance := 0.5
 
 @onready var sprite_2d = $Sprite2D
 @onready var navigation_agent := $NavigationAgent2D
@@ -27,6 +18,11 @@ signal died()
 @onready var soft_collision = $SoftCollision
 @onready var heal_timer = $HealTimer
 @onready var animation_player = $AnimationPlayer
+
+@onready var drop_chance = $DeathSpawner2D/DropChance
+@onready var blood_spawner = $BloodSpawner
+@onready var bullet_spawner = $BulletSpawner
+@onready var mirror_hit_flash_2d = $Hurtbox/MirrorHitFlash2D
 
 var knockback: Vector2
 var attacking := false
@@ -40,27 +36,22 @@ func _update_mirror():
 
 func _ready():
 	sprite_2d.material = sprite_2d.material.duplicate()
+	mirror_hit_flash_2d.reset()
 	collision_shape_2d.disabled = true
-	_set_hit_flash(false)
 	
 	_update_mirror()
 	GameManager.mirrored.connect(func(_m): _update_mirror())
 	
+	hp_bar.health_changed.connect(func(_h):
+		var player = get_tree().get_first_node_in_group("Player")
+		drop_chance.value = 1 - player.get_hp_percentage()
+	)
+	
 	hp_bar.zero_health.connect(func():
 		died.emit()
-		var player = get_tree().get_first_node_in_group("Player")
-		var diff = max_drop_chance - min_drop_chance
-		var chance = max_drop_chance - player.get_hp_percentage() * diff
-		
-		if randf() <= chance:
-			var drop = hp_drop.instantiate()
-			drop.global_position = global_position
-			get_tree().current_scene.call_deferred("add_child", drop)
-		
-		var blood = blood_particles.instantiate()
-		blood.global_position = global_position
+		var blood = blood_spawner.spawn()
 		blood.global_rotation = Vector2.RIGHT.angle_to(last_hit_dir)
-		get_tree().current_scene.call_deferred("add_child", blood)
+		
 		GameManager.killed_enemy()
 		queue_free()
 	)
@@ -99,26 +90,15 @@ func _physics_process(delta):
 
 
 func _on_hitbox_hit(dmg):
-	hp_bar.hurt(dmg)
-	_set_hit_flash(true)
 	GameManager.hit()
-	get_tree().create_timer(0.1).timeout.connect(func(): _set_hit_flash(false))
-
-func _set_hit_flash(enable: bool):
-	sprite_2d.material.set_shader_parameter("mirror", GameManager.mirror)
-	sprite_2d.material.set_shader_parameter("enabled", enable)
 
 func _fire():
 	var dir = global_position.direction_to(_player_pos())
 	_create_bullet(dir)
 
 func _create_bullet(dir):
-	var bullet = bullet_scene.instantiate()
-	dir = dir * bullet_spawn_offset
-	bullet.global_position = global_position + dir
-	bullet.global_rotation = Vector2.RIGHT.angle_to(dir)
-	get_tree().current_scene.add_child(bullet)
-	return bullet
+	bullet_spawner.global_rotation = Vector2.RIGHT.angle_to(dir)
+	return bullet_spawner.spawn()
 
 
 func _on_hurtbox_knockback(dir):

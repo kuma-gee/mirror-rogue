@@ -13,4 +13,4 @@ func _ready():
 
 func _visible(v: bool = GameManager.mirror):
 	visible = v
-	$CollisionShape2D.disabled = not v
+	$CollisionShape2D.set_deferred("disabled", not v)
