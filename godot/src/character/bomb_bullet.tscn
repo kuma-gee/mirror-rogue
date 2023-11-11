@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bjoxmq8nco7tj"]
+[gd_scene load_steps=18 format=3 uid="uid://bjoxmq8nco7tj"]
 
 [ext_resource type="Script" path="res://src/character/bomb_bullet.gd" id="1_w8slh"]
 [ext_resource type="Script" path="res://src/base-system/combat/DelayedDamage.gd" id="3_f7q0i"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://src/base-system/combat/health.gd" id="5_fqps8"]
 [ext_resource type="Script" path="res://src/base-system/spawner/DeathSpawner2D.gd" id="6_xn0k5"]
 [ext_resource type="PackedScene" uid="uid://demmj5vw7sf6i" path="res://src/props/bomb_bullet_death.tscn" id="7_2qm82"]
+[ext_resource type="Script" path="res://src/base-system/combat/HitBox.gd" id="9_i6l0c"]
 [ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="13_4j2ad"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_58gh8"]
@@ -51,21 +52,21 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_uma4k"]
 radius = 9.0
 
-[node name="BombBullet" type="Area2D" node_paths=PackedStringArray("speed", "collision_shape", "hurt_collision", "raycast")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_rbo4n"]
+radius = 8.0
+
+[node name="BombBullet" type="Area2D" node_paths=PackedStringArray("speed", "collision_shape", "hurt_collision", "raycast", "death_spawner", "hit_box", "health")]
 collision_layer = 0
-collision_mask = 56
+collision_mask = 32
 script = ExtResource("1_w8slh")
 speed = NodePath("SpeedValue")
 max_reflections = 2
 collision_shape = NodePath("CollisionShape2D")
 hurt_collision = NodePath("Hurtbox/CollisionShape2D")
 raycast = NodePath("RayCast2D")
-damage = 2
-knockback_force = 200
-
-[node name="DamageValue" type="Node" parent="."]
-script = ExtResource("13_4j2ad")
-mirror_value = 4.0
+death_spawner = NodePath("DeathSpawner2D")
+hit_box = NodePath("HitBox")
+health = NodePath("Health")
 
 [node name="SpeedValue" type="Node" parent="."]
 script = ExtResource("13_4j2ad")
@@ -90,9 +91,8 @@ frame_progress = 0.485157
 [node name="Health" type="Node" parent="."]
 script = ExtResource("5_fqps8")
 
-[node name="DeathSpawner2D" type="Node2D" parent="." node_paths=PackedStringArray("health")]
+[node name="DeathSpawner2D" type="Node2D" parent="."]
 script = ExtResource("6_xn0k5")
-health = NodePath("../Health")
 scene = ExtResource("7_2qm82")
 
 [node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
@@ -110,5 +110,17 @@ target_position = Vector2(30, 0)
 collision_mask = 32
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("damage_value")]
+script = ExtResource("9_i6l0c")
+damage_value = NodePath("DamageValue")
+knockback_force = 200
+
+[node name="DamageValue" type="Node" parent="HitBox"]
+script = ExtResource("13_4j2ad")
+mirror_value = 4.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_rbo4n")
 
 [connection signal="knockback" from="Hurtbox" to="." method="_on_hurtbox_knockback"]

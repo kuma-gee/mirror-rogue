@@ -7,12 +7,12 @@ extends Node2D
 
 func _ready():
 	if health:
-		health.zero_health.connect(func(): _create())
+		health.zero_health.connect(func(): spawn())
 
 func _should_spawn():
 	return spawn_chance == null or randf() <= spawn_chance.get_value()
 
-func _create():
+func spawn():
 	if not _should_spawn():
 		return
 	

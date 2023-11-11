@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://chfrm1aqrag7x"]
+[gd_scene load_steps=12 format=3 uid="uid://chfrm1aqrag7x"]
 
 [ext_resource type="Script" path="res://src/character/Trident.gd" id="1_uombx"]
 [ext_resource type="Texture2D" uid="uid://co2wlkxnutets" path="res://assets/Trident_Normal.png" id="2_d65tq"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://src/character/MirrorSprite2D.gd" id="4_od2uf"]
 [ext_resource type="Script" path="res://src/base-system/FreeOnEnterArea2D.gd" id="5_ibpd5"]
 [ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="7_jaq63"]
+[ext_resource type="Script" path="res://src/base-system/combat/HitBox.gd" id="8_atedw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_str41"]
 size = Vector2(4, 24)
@@ -14,27 +15,23 @@ size = Vector2(4, 24)
 [sub_resource type="CircleShape2D" id="CircleShape2D_bddqt"]
 radius = 6.08276
 
-[node name="Trident" type="Area2D" node_paths=PackedStringArray("speed", "collision_shape", "raycast", "damage_value")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c0uui"]
+size = Vector2(8, 12)
+
+[node name="Trident" type="Area2D" node_paths=PackedStringArray("speed", "collision_shape", "raycast", "hit_box")]
 collision_layer = 0
-collision_mask = 112
+collision_mask = 32
 script = ExtResource("1_uombx")
 speed = NodePath("SpeedValue")
 disable_initial_hit = false
 collision_shape = NodePath("CollisionShape2D")
 raycast = NodePath("RayCast2D")
-damage = 4
-damage_value = NodePath("DmgValue")
-knockback_force = 120
+hit_box = NodePath("HitBox")
 
 [node name="SpeedValue" type="Node" parent="."]
 script = ExtResource("7_jaq63")
 mirror_value = 350.0
 value = 250.0
-
-[node name="DmgValue" type="Node" parent="."]
-script = ExtResource("7_jaq63")
-mirror_value = 7.0
-value = 4.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 rotation = 1.5708
@@ -69,3 +66,28 @@ stream = ExtResource("4_f6rth")
 volume_db = -10.0
 pitch_scale = 0.7
 autoplay = true
+
+[node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("damage_value")]
+position = Vector2(9, 0)
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("8_atedw")
+damage_value = NodePath("DmgValue")
+knockback_force = 120
+
+[node name="DmgValue" type="Node" parent="HitBox"]
+script = ExtResource("7_jaq63")
+mirror_value = 7.0
+value = 4.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_c0uui")
+
+[node name="BubbleHit" type="Area2D" parent="."]
+position = Vector2(9, 0)
+collision_layer = 0
+collision_mask = 64
+script = ExtResource("8_atedw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BubbleHit"]
+shape = SubResource("RectangleShape2D_c0uui")

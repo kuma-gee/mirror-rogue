@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0mbhp0aqksh1"]
+[gd_scene load_steps=5 format=3 uid="uid://c0mbhp0aqksh1"]
 
 [ext_resource type="PackedScene" uid="uid://mt5fy2ohtmg5" path="res://src/character/enemy.tscn" id="1_v1rsa"]
 [ext_resource type="Texture2D" uid="uid://b2qgqsafbeyaq" path="res://assets/Enemy__Jellyfish_Normal.png" id="2_euxkn"]
 [ext_resource type="Texture2D" uid="uid://dy31gsft2yhng" path="res://assets/Enemy__Jellyfish_Mirror.png" id="3_leutj"]
+[ext_resource type="PackedScene" uid="uid://bjoxmq8nco7tj" path="res://src/character/bomb_bullet.tscn" id="4_o3ox8"]
 
 [node name="BombEnemy" instance=ExtResource("1_v1rsa")]
 value = 3
@@ -24,3 +25,6 @@ value = 2.0
 [node name="MirrorValue" parent="FireRateTimer" index="0"]
 mirror_value = 3.5
 value = 5.0
+
+[node name="BulletSpawner" parent="." index="14"]
+scene = ExtResource("4_o3ox8")

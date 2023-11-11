@@ -32,3 +32,4 @@ func damage(dmg: int, knockback_force: Vector2):
 		frame_freeze.freeze()
 	
 	get_tree().create_timer(invincible_time).timeout.connect(func(): invincible = false)
+	return true

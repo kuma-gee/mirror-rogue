@@ -11,4 +11,4 @@ func spawn():
 	for i in count:
 		var start = dir.rotated(-spread/2)
 		var d = start.rotated(i * spread/count)
-		_create(d * center_offset)
+		_create(d * center_offset, Vector2.RIGHT.angle_to(d))

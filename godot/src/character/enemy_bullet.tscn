@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ddfl18bx24sfj"]
+[gd_scene load_steps=12 format=3 uid="uid://ddfl18bx24sfj"]
 
 [ext_resource type="Script" path="res://src/character/enemy_bullet.gd" id="1_m5cyv"]
 [ext_resource type="Texture2D" uid="uid://d8ap1t3wascc" path="res://assets/Bubble.png" id="2_lmg1q"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://src/base-system/spawner/DeathSpawner2D.gd" id="3_y2eun"]
 [ext_resource type="PackedScene" uid="uid://cnk6fkkr62eva" path="res://src/props/enemy_bullet_death.tscn" id="5_jy5q3"]
 [ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="7_jof7a"]
+[ext_resource type="Script" path="res://src/base-system/combat/HitBox.gd" id="8_w36so"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5521j"]
 radius = 6.0
@@ -14,20 +15,21 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_k5472"]
 radius = 4.12311
 
-[node name="EnemyBullet" type="Area2D" node_paths=PackedStringArray("speed", "collision_shape", "hurt_collision", "raycast")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_mqd7s"]
+radius = 5.0
+
+[node name="EnemyBullet" type="Area2D" node_paths=PackedStringArray("speed", "collision_shape", "hurt_collision", "raycast", "death_spawner", "hit_box", "health")]
 collision_layer = 0
-collision_mask = 56
+collision_mask = 32
 script = ExtResource("1_m5cyv")
 speed = NodePath("SpeedValue")
 max_reflections = 2
 collision_shape = NodePath("CollisionShape2D")
 hurt_collision = NodePath("Hurtbox/CollisionShape2D")
 raycast = NodePath("RayCast2D")
-knockback_force = 100
-
-[node name="DamageValue" type="Node" parent="."]
-script = ExtResource("7_jof7a")
-mirror_value = 2.0
+death_spawner = NodePath("DeathSpawner2D")
+hit_box = NodePath("HitBox")
+health = NodePath("Health")
 
 [node name="SpeedValue" type="Node" parent="."]
 script = ExtResource("7_jof7a")
@@ -37,9 +39,8 @@ value = 80.0
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_ppbv3")
 
-[node name="DeathSpawner2D" type="Marker2D" parent="." node_paths=PackedStringArray("health")]
+[node name="DeathSpawner2D" type="Marker2D" parent="."]
 script = ExtResource("3_y2eun")
-health = NodePath("../Health")
 scene = ExtResource("5_jy5q3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -65,3 +66,18 @@ target_position = Vector2(20, 0)
 collision_mask = 32
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("damage_value")]
+collision_layer = 0
+collision_mask = 24
+script = ExtResource("8_w36so")
+damage_value = NodePath("DamageValue")
+knockback_force = 100
+
+[node name="DamageValue" type="Node" parent="HitBox"]
+script = ExtResource("7_jof7a")
+mirror_value = 2.0
+value = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_mqd7s")

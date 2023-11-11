@@ -12,9 +12,9 @@ func _ready():
 func spawn():
 	return _create()
 
-func _create(offset_dir = offset * Vector2.RIGHT.rotated(global_rotation)):
+func _create(offset_dir = offset * Vector2.RIGHT.rotated(global_rotation), rot = global_rotation):
 	var eff = scene.instantiate()
 	eff.global_position = global_position + offset_dir
-	eff.global_rotation = global_rotation
+	eff.global_rotation = rot
 	get_tree().current_scene.add_child(eff)
 	return eff

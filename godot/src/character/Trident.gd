@@ -5,7 +5,6 @@ extends Projectile
 @onready var player_detect = $PlayerDetect
 
 var target: Node2D
-var velocity := Vector2.ZERO
 var player: Node2D
 
 func _physics_process(delta):

@@ -6,12 +6,13 @@ const ROOM = preload("res://src/props/room.tscn")
 @onready var player = $Player
 @onready var music_player = $MusicPlayer
 
-const value_increase := 1.5
-const kill_increase := 1.8
+@export var enemy_value := 5.0
+@export var enemy_kills := 5.0
+
+@export var value_increase := 1.5
+@export var kill_increase := 1.8
 
 var previous_dir := Vector2.ZERO
-var enemy_value := 5.0
-var enemy_kills := 5.0
 var room_dirs := [Vector2.UP, Vector2.LEFT, Vector2.RIGHT, Vector2.DOWN]
 
 var _logger = Logger.new("Game")

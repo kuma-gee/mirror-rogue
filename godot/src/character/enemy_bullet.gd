@@ -1,14 +1,13 @@
 extends Projectile
 
 @export var speed: ValueProvider
+
 @onready var hurtbox = $Hurtbox
-@onready var health = $Health
+@onready var death_spawner_2d = $DeathSpawner2D
 
 func _ready():
 	ignored.append(hurtbox)
 	super._ready()
-	
-	health.zero_health.connect(func(): queue_free())
 
 func _physics_process(delta):
 	translate(dir * speed.get_value() * delta)

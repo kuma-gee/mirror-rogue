@@ -58,6 +58,6 @@ autoplay = true
 
 [node name="AreaSpawner2D" type="Node2D" parent="."]
 script = ExtResource("4_t027f")
-spread = 180
+center_offset = 20
 autostart = true
 scene = ExtResource("5_4mf5t")

@@ -1,6 +1,8 @@
 class_name HitBox
 extends Area2D
 
+signal hit()
+
 @export var damage := 1
 @export var damage_value: NumberValue
 @export var knockback_force := 0
@@ -14,4 +16,8 @@ func _ready():
 func _do_damage(area: HurtBox):
 	var dmg = damage_value.get_value() if damage_value else damage
 	var knockback_dir = global_position.direction_to(area.global_position)
-	return area.damage(dmg, knockback_dir * knockback_force)
+	
+	var did_hit = area.damage(dmg, knockback_dir * knockback_force)
+	if did_hit:
+		hit.emit()
+	return did_hit
