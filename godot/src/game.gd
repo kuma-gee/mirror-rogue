@@ -5,6 +5,7 @@ const ROOM = preload("res://src/props/room.tscn")
 @onready var cam = $Camera2D
 @onready var player = $Player
 @onready var music_player = $MusicPlayer
+@onready var mirror_viewport = $MirrorViewport
 
 @export var enemy_value := 5.0
 @export var enemy_kills := 5.0
@@ -42,6 +43,9 @@ func _setup_next_room(current_room: Room):
 
 func _create_room() -> Room:
 	var room = ROOM.instantiate()
+	var mat = room.material as ShaderMaterial
+	mat.set_shader_parameter("reflection_viewport", mirror_viewport.get_viewport().get_texture())
+	
 	room.finished.connect(func():
 		_setup_next_room(room)
 		GameManager.room_done()

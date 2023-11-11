@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=11 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_fscq0"]
+[ext_resource type="Script" path="res://src/base-system/RelativeRemoteTransform2D.gd" id="3_vvprc"]
 [ext_resource type="AudioStream" uid="uid://cj3tphknhrawu" path="res://assets/sound/Sparkle.mp3" id="4_rug7x"]
 [ext_resource type="AudioStream" uid="uid://bygqjhqr85tjf" path="res://assets/sound/危機.mp3" id="5_3pgwk"]
 [ext_resource type="PackedScene" uid="uid://dlby6flxkmnjs" path="res://src/character/player.tscn" id="6_2xq02"]
+[ext_resource type="PackedScene" uid="uid://1sccjkvbts1e" path="res://src/character/player_reflection.tscn" id="6_bcrcl"]
 
 [sub_resource type="Animation" id="Animation_880qs"]
 length = 0.001
@@ -152,6 +154,11 @@ position_smoothing_enabled = true
 [node name="Player" parent="." instance=ExtResource("6_2xq02")]
 z_index = 10
 
+[node name="RelativeRemoteTransform2D" type="Node2D" parent="Player" node_paths=PackedStringArray("remote_node")]
+script = ExtResource("3_vvprc")
+remote_node = NodePath("../../MirrorViewport/PlayerReflection")
+relative_to_origin = 1.05
+
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("4_rug7x")
@@ -167,6 +174,17 @@ process_mode = 3
 libraries = {
 "": SubResource("AnimationLibrary_06h2n")
 }
+
+[node name="MirrorViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(384, 224)
+render_target_update_mode = 4
+
+[node name="Camera2D2" type="Camera2D" parent="MirrorViewport"]
+visible = false
+position_smoothing_enabled = true
+
+[node name="PlayerReflection" parent="MirrorViewport" instance=ExtResource("6_bcrcl")]
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="reflected" from="Player" to="." method="_on_player_reflected"]
