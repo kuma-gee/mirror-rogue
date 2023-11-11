@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://da5fh0ulgabo4"]
+[gd_scene load_steps=10 format=3 uid="uid://da5fh0ulgabo4"]
 
 [ext_resource type="Script" path="res://addons/input_helper/input_key.gd" id="1_linvu"]
 [ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="1_o10sg"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bjsoxjytx7pf6" path="res://src/background.tres" id="3_svgpa"]
 [ext_resource type="AudioStream" uid="uid://b1e1nre5yw3cf" path="res://assets/sound/プレゼンタイトル表示2.mp3" id="4_7l68f"]
 [ext_resource type="AudioStream" uid="uid://drgcjf4qf00kj" path="res://assets/sound/REFLECT_Inst_hololive_202310280008.mp3" id="5_covsc"]
+[ext_resource type="Texture2D" uid="uid://cn4wf5xjeok2j" path="res://assets/Screen.png" id="5_h77cu"]
 
 [node name="Start" type="Control"]
 layout_mode = 3
@@ -34,6 +35,12 @@ expand_mode = 5
 stretch_mode = 5
 
 [node name="ScreenBubbles" parent="MarginContainer2" instance=ExtResource("3_8tvo4")]
+
+[node name="Background2" type="TextureRect" parent="MarginContainer2"]
+layout_mode = 2
+texture = ExtResource("5_h77cu")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
 visible = false
