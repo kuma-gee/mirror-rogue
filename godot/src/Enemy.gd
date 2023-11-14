@@ -27,6 +27,7 @@ signal died()
 var knockback: Vector2
 var attacking := false
 var last_hit_dir := Vector2.RIGHT
+var avoidance_vel := Vector2.ZERO
 
 func _update_mirror():
 	if GameManager.mirror:
@@ -57,6 +58,7 @@ func _ready():
 	)
 	navigation_agent.path_desired_distance = 4.0
 	navigation_agent.target_desired_distance = 4.0
+	navigation_agent.velocity_computed.connect(on_nav_velocity_computed)
 
 func _player_pos():
 	return get_tree().get_first_node_in_group("Player").global_position
@@ -77,17 +79,20 @@ func _physics_process(delta):
 		var next_path_position: Vector2 = navigation_agent.get_next_path_position()
 
 		var new_velocity: Vector2 = next_path_position - current_agent_position
+		new_velocity += avoidance_vel
 		new_velocity = new_velocity.normalized()
+		
 		var s = mirror_speed if GameManager.mirror else speed
 		new_velocity = new_velocity * s
 		
 		new_velocity += soft_collision.get_push_vector() * delta
-
 		velocity = new_velocity
 		
 	animation_player.play(move_anim)
 	move_and_slide()
 
+func on_nav_velocity_computed(vel):
+	avoidance_vel = vel
 
 func _on_hitbox_hit(dmg):
 	GameManager.hit()

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqndpno6afbql"]
+
+[ext_resource type="Texture2D" uid="uid://dbvhpmqxnmcww" path="res://assets/Stones_Round.png" id="1_i6d4t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hr4nb"]
+radius = 5.0
+
+[node name="Stone" type="NavigationObstacle2D"]
+position = Vector2(-82, 29)
+radius = 5.0
+
+[node name="Stone" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Stone"]
+texture = ExtResource("1_i6d4t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Stone"]
+shape = SubResource("CircleShape2D_hr4nb")

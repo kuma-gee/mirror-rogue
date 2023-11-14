@@ -33,7 +33,7 @@ func _ready():
 		
 		if reflected > max_reflections and max_reflections >= 0:
 			_remove()
-		else:
+		elif area is Mirror:
 			if raycast and raycast.is_colliding():
 				set_physics_process(false)
 				hide()
@@ -46,7 +46,10 @@ func _ready():
 			global_rotation = Vector2.RIGHT.angle_to(dir)
 			reflected += 1
 			reflect.emit(dir)
-	) 
+		else:
+			_remove()
+	)
+	body_entered.connect(func(_x): _remove())
 
 #func _temp_disable_collision():
 #	_disable_hit()

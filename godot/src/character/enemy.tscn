@@ -106,7 +106,6 @@ _data = {
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 0
 script = ExtResource("1_xsn24")
 mirror_speed = 40
 speed = 30
@@ -134,6 +133,7 @@ script = ExtResource("11_ljeiv")
 mirror_texture = ExtResource("3_g4yvg")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
