@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbpmojln8t6kv"]
+[gd_scene load_steps=10 format=3 uid="uid://cbpmojln8t6kv"]
 
 [ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="1_nv306"]
 [ext_resource type="Script" path="res://src/game_over.gd" id="2_qvoxr"]
@@ -6,13 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://boxy7p3hx6jmr" path="res://assets/Screen_Mirror.png" id="3_yg6gn"]
 [ext_resource type="PackedScene" uid="uid://doqfflpma8rdw" path="res://src/props/screen_bubbles.tscn" id="4_lvw4e"]
 [ext_resource type="Shader" path="res://src/tile_mirror.gdshader" id="5_gtrsc"]
+[ext_resource type="AudioStream" uid="uid://drgcjf4qf00kj" path="res://assets/sound/REFLECT_Inst_hololive_202310280008.mp3" id="7_0grgn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v37jh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ulbrr"]
 shader = ExtResource("5_gtrsc")
-shader_parameter/base_color = Color(0.462745, 0.537255, 0.639216, 1)
-shader_parameter/shine_color = Color(1, 1, 1, 0.258824)
+shader_parameter/do_reflect = false
+shader_parameter/base_color = Color(0.384314, 0.482353, 0.619608, 1)
+shader_parameter/shine_color = Color(0.631373, 0.74902, 0.831373, 0.258824)
 shader_parameter/shine_speed = 1.0
 shader_parameter/shine_size = 0.05
 
@@ -134,3 +136,7 @@ text = "Playtime"
 [node name="Playtime2" type="Label" parent="CanvasLayer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/GridContainer"]
 layout_mode = 2
 horizontal_alignment = 2
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_0grgn")
+volume_db = -15.0

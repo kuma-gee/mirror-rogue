@@ -8,6 +8,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rserg"]
 shader = ExtResource("1_ergtu")
+shader_parameter/do_reflect = true
 shader_parameter/base_color = Color(0.545098, 0.607843, 0.705882, 1)
 shader_parameter/shine_color = Color(0.752941, 0.796078, 0.862745, 1)
 shader_parameter/shine_speed = 1.5
