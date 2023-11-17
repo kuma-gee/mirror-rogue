@@ -184,7 +184,8 @@ render_target_update_mode = 4
 visible = false
 position_smoothing_enabled = true
 
-[node name="PlayerReflection" parent="MirrorViewport" instance=ExtResource("6_bcrcl")]
+[node name="PlayerReflection" parent="MirrorViewport" node_paths=PackedStringArray("player") instance=ExtResource("6_bcrcl")]
+player = NodePath("../../Player")
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="reflected" from="Player" to="." method="_on_player_reflected"]

@@ -250,7 +250,6 @@ texture = ExtResource("2_wnn8d")
 hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_lth1k")
 

@@ -20,7 +20,7 @@ size = Vector2(8, 12)
 
 [node name="Trident" type="Area2D" node_paths=PackedStringArray("speed", "collision_shape", "raycast", "hit_box")]
 collision_layer = 0
-collision_mask = 33
+collision_mask = 544
 script = ExtResource("1_uombx")
 speed = NodePath("SpeedValue")
 disable_initial_hit = false

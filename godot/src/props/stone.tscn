@@ -10,6 +10,7 @@ position = Vector2(-82, 29)
 radius = 5.0
 
 [node name="Stone" type="StaticBody2D" parent="."]
+collision_layer = 513
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Stone"]

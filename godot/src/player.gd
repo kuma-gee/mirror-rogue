@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 signal died()
 signal reflected()
+signal thrown()
 
 @export var dash_force := 500
 @export var dash_deaccel := 1500
@@ -36,7 +37,7 @@ func get_hp_percentage():
 	return hp_bar.get_health_percent()
 
 func _update_throw():
-	sprite.update()
+	thrown.emit()
 
 func _on_just_pressed(ev: InputEvent):
 	if ev.is_action_pressed("dash") and not dashing:
