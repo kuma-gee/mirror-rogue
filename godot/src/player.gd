@@ -120,3 +120,8 @@ func immediate_return_trident():
 		trident = null
 		_update_throw()
 	
+func get_frame():
+	return sprite.frame
+
+func get_body_scale():
+	return body.scale

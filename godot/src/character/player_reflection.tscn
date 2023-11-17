@@ -8,8 +8,10 @@
 
 [node name="PlayerMirrorSprite2D" type="Sprite2D"]
 texture = ExtResource("5_h6dwk")
+offset = Vector2(3, -2)
 hframes = 4
 script = ExtResource("4_j7uc5")
+clone = true
 normal_trident_texture = ExtResource("1_awrgi")
 mirror_trident_texture = ExtResource("3_4mtbe")
 mirror_texture = ExtResource("1_m2o5t")

@@ -6,6 +6,7 @@ const ROOM = preload("res://src/props/room.tscn")
 @onready var player = $Player
 @onready var music_player = $MusicPlayer
 @onready var mirror_viewport = $MirrorViewport
+@onready var relative_remote_transform_2d = $Player/RelativeRemoteTransform2D
 
 @export var enemy_value := 5.0
 @export var enemy_kills := 5.0
@@ -54,6 +55,8 @@ func _create_room() -> Room:
 		_logger.debug("Player entered in direction %s" % dir)
 		var new_room = room.rooms[dir]
 		cam.global_position = new_room.global_position
+		relative_remote_transform_2d.center = cam.global_position
+		
 		player.velocity = Vector2.ZERO
 		player.global_position = new_room.get_door(-dir).global_position + dir * 10
 		player.immediate_return_trident()

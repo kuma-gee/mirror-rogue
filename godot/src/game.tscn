@@ -155,9 +155,10 @@ position_smoothing_enabled = true
 z_index = 10
 
 [node name="RelativeRemoteTransform2D" type="Node2D" parent="Player" node_paths=PackedStringArray("remote_node")]
+position = Vector2(0, -2)
 script = ExtResource("3_vvprc")
 remote_node = NodePath("../../MirrorViewport/PlayerReflection")
-relative_to_origin = 1.05
+relative_to_origin = 1.06
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 process_mode = 3
