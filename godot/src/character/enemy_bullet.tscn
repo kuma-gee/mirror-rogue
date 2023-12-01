@@ -57,6 +57,16 @@ health = NodePath("../Health")
 shape = SubResource("CircleShape2D_5521j")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
+[node name="PlayerHurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
+collision_layer = 1024
+collision_mask = 0
+script = ExtResource("3_qq6ij")
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtbox"]
+shape = SubResource("CircleShape2D_5521j")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_k5472")
 debug_color = Color(0, 0.6, 0.7, 0.42)
@@ -81,3 +91,5 @@ value = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CircleShape2D_mqd7s")
+
+[connection signal="hit" from="PlayerHurtbox" to="." method="_on_player_hurtbox_hit"]

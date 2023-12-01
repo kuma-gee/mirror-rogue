@@ -28,6 +28,7 @@ var knockback: Vector2
 var attacking := false
 var last_hit_dir := Vector2.RIGHT
 var avoidance_vel := Vector2.ZERO
+var last_hit_player := false
 
 func _update_mirror():
 	if GameManager.mirror:
@@ -53,7 +54,8 @@ func _ready():
 		var blood = blood_spawner.spawn()
 		blood.global_rotation = Vector2.RIGHT.angle_to(last_hit_dir)
 		
-		GameManager.killed_enemy()
+		if last_hit_player:
+			GameManager.killed_enemy()
 		queue_free()
 	)
 	navigation_agent.path_desired_distance = 4.0
@@ -95,6 +97,7 @@ func on_nav_velocity_computed(vel):
 	avoidance_vel = vel
 
 func _on_hitbox_hit(dmg):
+	last_hit_player = false
 	GameManager.hit()
 
 func _fire():
@@ -125,3 +128,7 @@ func _on_timer_timeout():
 	animation_player.play(attack_anim)
 	await animation_player.animation_finished
 	attacking = false
+
+
+func _on_player_hurtbox_hit(dmg):
+	last_hit_player = true

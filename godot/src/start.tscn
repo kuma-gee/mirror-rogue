@@ -37,7 +37,6 @@ stretch_mode = 5
 [node name="ScreenBubbles" parent="MarginContainer2" instance=ExtResource("3_8tvo4")]
 
 [node name="Background2" type="TextureRect" parent="MarginContainer2"]
-modulate = Color(1, 1, 1, 0.721569)
 layout_mode = 2
 texture = ExtResource("5_ao30t")
 expand_mode = 5

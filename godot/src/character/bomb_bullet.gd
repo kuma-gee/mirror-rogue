@@ -14,3 +14,7 @@ func _physics_process(delta):
 
 func _on_hurtbox_knockback(dir):
 	death_spawner.global_rotation = Vector2.RIGHT.angle_to(dir)
+
+
+func _on_player_hurtbox_knockback(dir):
+	GameManager.bubble_popped()

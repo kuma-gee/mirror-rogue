@@ -168,6 +168,15 @@ node = NodePath("../../Sprite2D")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_g25a1")
 
+[node name="PlayerHurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
+collision_layer = 1024
+collision_mask = 0
+script = ExtResource("14_i0bfb")
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtbox"]
+shape = SubResource("CircleShape2D_g25a1")
+
 [node name="FireRateTimer" type="Timer" parent="." node_paths=PackedStringArray("value")]
 autostart = true
 script = ExtResource("14_3jedw")
@@ -224,6 +233,7 @@ offset = 15
 
 [connection signal="hit" from="Hurtbox" to="." method="_on_hitbox_hit"]
 [connection signal="knockback" from="Hurtbox" to="." method="_on_hurtbox_knockback"]
+[connection signal="hit" from="PlayerHurtbox" to="." method="_on_player_hurtbox_hit"]
 [connection signal="timeout" from="FireRateTimer" to="." method="_on_timer_timeout"]
 [connection signal="area_exited" from="MirrorExit" to="." method="_on_mirror_exit_area_exited"]
 [connection signal="timeout" from="HealTimer" to="." method="_on_heal_timer_timeout"]

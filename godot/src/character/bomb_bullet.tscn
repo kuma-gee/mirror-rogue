@@ -105,6 +105,16 @@ health = NodePath("../Health")
 shape = SubResource("CircleShape2D_uma4k")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
+[node name="PlayerHurtbox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
+collision_layer = 1024
+collision_mask = 0
+script = ExtResource("4_w8ldn")
+health = NodePath("../Health")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtbox"]
+shape = SubResource("CircleShape2D_uma4k")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(30, 0)
 collision_mask = 32
@@ -124,3 +134,4 @@ mirror_value = 4.0
 shape = SubResource("CircleShape2D_rbo4n")
 
 [connection signal="knockback" from="Hurtbox" to="." method="_on_hurtbox_knockback"]
+[connection signal="knockback" from="PlayerHurtbox" to="." method="_on_player_hurtbox_knockback"]

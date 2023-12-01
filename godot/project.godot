@@ -129,6 +129,7 @@ start={
 2d_physics/layer_8="soft_collision"
 2d_physics/layer_9="pick_up"
 2d_physics/layer_10="obstacles"
+2d_physics/layer_11="player_hitbox"
 
 [locale]
 

@@ -12,3 +12,7 @@ func _ready():
 func _physics_process(delta):
 	translate(dir * speed.get_value() * delta)
 	global_rotation = Vector2.RIGHT.angle_to(dir)
+
+
+func _on_player_hurtbox_hit(dmg):
+	GameManager.bubble_popped()
