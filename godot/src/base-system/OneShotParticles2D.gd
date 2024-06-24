@@ -1,8 +1,6 @@
 class_name OneShotParticles
 extends GPUParticles2D
 
-signal finished()
-
 @export var wait_time := -1.0
 @onready var time := lifetime if wait_time < 0 else wait_time
 

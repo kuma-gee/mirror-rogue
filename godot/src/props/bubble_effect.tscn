@@ -12,12 +12,10 @@ point_count = 3
 curve = SubResource("Curve_6po3u")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n6yig"]
+particle_flag_disable_z = true
 emission_shape = 1
 emission_sphere_radius = 8.0
-particle_flag_disable_z = true
 gravity = Vector3(0, -20, 0)
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
 scale_min = 0.4
 scale_max = 0.6
 scale_curve = SubResource("CurveTexture_506yr")

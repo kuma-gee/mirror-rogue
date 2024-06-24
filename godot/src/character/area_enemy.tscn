@@ -19,7 +19,7 @@ mirror_texture = ExtResource("4_f0yyd")
 [node name="MirrorValue" parent="HitBox" index="0"]
 mirror_value = 3.0
 
-[node name="FireRateTimer" parent="." index="7"]
+[node name="FireRateTimer" parent="." index="8"]
 wait_time = 3.0
 
 [node name="MirrorValue" parent="FireRateTimer" index="0"]

@@ -22,7 +22,7 @@
 [ext_resource type="Script" path="res://src/base-system/spawner/Spawner2D.gd" id="19_33lyf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7nrr"]
-size = Vector2(8, 2)
+size = Vector2(8, 3)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vpkdl"]
 size = Vector2(14, 10)
@@ -136,7 +136,7 @@ mirror_texture = ExtResource("3_g4yvg")
 avoidance_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
+position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_y7nrr")
 
 [node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("damage_value")]

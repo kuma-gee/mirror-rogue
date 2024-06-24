@@ -24,6 +24,8 @@ signal died()
 @onready var bullet_spawner = $BulletSpawner
 @onready var mirror_hit_flash_2d = $Hurtbox/MirrorHitFlash2D
 
+@onready var player: Player = get_tree().get_first_node_in_group("Player")
+
 var knockback: Vector2
 var attacking := false
 var last_hit_dir := Vector2.RIGHT
@@ -63,7 +65,7 @@ func _ready():
 	navigation_agent.velocity_computed.connect(on_nav_velocity_computed)
 
 func _player_pos():
-	return get_tree().get_first_node_in_group("Player").global_position
+	return player.global_position
 
 func _process(delta):
 	navigation_agent.target_position = _player_pos()
