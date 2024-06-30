@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://di8g8e6s34cik"]
+[gd_scene load_steps=13 format=3 uid="uid://di8g8e6s34cik"]
 
 [ext_resource type="Script" path="res://src/game.gd" id="1_fscq0"]
 [ext_resource type="Script" path="res://src/base-system/RelativeRemoteTransform2D.gd" id="3_vvprc"]
@@ -6,6 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://bygqjhqr85tjf" path="res://assets/sound/危機.mp3" id="5_3pgwk"]
 [ext_resource type="PackedScene" uid="uid://dlby6flxkmnjs" path="res://src/character/player.tscn" id="6_2xq02"]
 [ext_resource type="PackedScene" uid="uid://1sccjkvbts1e" path="res://src/character/player_reflection.tscn" id="6_bcrcl"]
+[ext_resource type="Script" path="res://src/GridRoomMap.gd" id="7_hygqf"]
+[ext_resource type="Script" path="res://src/GridMapUI.gd" id="8_21wk6"]
 
 [sub_resource type="Animation" id="Animation_880qs"]
 length = 0.001
@@ -32,6 +34,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BGM:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-30.0]
 }
 
 [sub_resource type="Animation" id="Animation_sp5nt"]
@@ -149,7 +163,6 @@ _data = {
 script = ExtResource("1_fscq0")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position_smoothing_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("6_2xq02")]
 z_index = 10
@@ -163,12 +176,17 @@ relative_to_origin = 1.06
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("4_rug7x")
-volume_db = -25.0
+volume_db = -30.0
+
+[node name="BGM2" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("4_rug7x")
+volume_db = -30.0
 
 [node name="BGMirror" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("5_3pgwk")
-volume_db = -50.0
+volume_db = -60.0
 
 [node name="MusicPlayer" type="AnimationPlayer" parent="."]
 process_mode = 3
@@ -187,6 +205,19 @@ position_smoothing_enabled = true
 
 [node name="PlayerReflection" parent="MirrorViewport" node_paths=PackedStringArray("player") instance=ExtResource("6_bcrcl")]
 player = NodePath("../../Player")
+
+[node name="GridRoomMap" type="Node" parent="."]
+script = ExtResource("7_hygqf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GridMapUI" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("room_manager")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_21wk6")
+room_manager = NodePath("../../GridRoomMap")
 
 [connection signal="died" from="Player" to="." method="_on_player_died"]
 [connection signal="reflected" from="Player" to="." method="_on_player_reflected"]

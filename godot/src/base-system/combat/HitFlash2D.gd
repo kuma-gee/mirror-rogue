@@ -5,7 +5,7 @@ extends Node
 @export var node: Node2D
 
 func flash():
-	if node and node.material:
+	if node and node.material and is_inside_tree():
 		var mat = node.material as ShaderMaterial
 		_set_hit_flash(mat, true)
 		await get_tree().create_timer(time).timeout

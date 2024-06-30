@@ -31,5 +31,6 @@ func damage(dmg: int, knockback_force: Vector2):
 	if frame_freeze and not health.is_dead():
 		frame_freeze.freeze()
 	
-	get_tree().create_timer(invincible_time).timeout.connect(func(): invincible = false)
+	if is_inside_tree():
+		get_tree().create_timer(invincible_time).timeout.connect(func(): invincible = false)
 	return true

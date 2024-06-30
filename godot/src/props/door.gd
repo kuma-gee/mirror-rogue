@@ -14,6 +14,9 @@ func open():
 func close():
 	animation_player.play("close")
 
+func disable():
+	$CollisionShape2D.disabled = true
+	hide()
 
 func _on_enter_area_body_entered(body):
 	entered.emit()

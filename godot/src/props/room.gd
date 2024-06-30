@@ -21,10 +21,10 @@ const BOMB_ENEMY = preload("res://src/character/bomb_enemy.tscn")
 @onready var enemy_spawner = $EnemySpawner
 
 @onready var doors = {
-	Vector2.UP: door_n,
-	Vector2.DOWN: door_s,
-	Vector2.LEFT: door_w,
-	Vector2.RIGHT: door_e,
+	Vector2i.UP: door_n,
+	Vector2i.DOWN: door_s,
+	Vector2i.LEFT: door_w,
+	Vector2i.RIGHT: door_e,
 }
 
 var max_enemy_value := 5.0
@@ -34,25 +34,30 @@ var available_enemies := [ENEMY]
 var spawned_enemies: Array[Enemy] = []
 var enemies_killed := 0
 
-var rooms = {}
-
 func _ready():
-	door_n.entered.connect(func(): entered.emit(Vector2.UP))
-	door_s.entered.connect(func(): entered.emit(Vector2.DOWN))
-	door_w.entered.connect(func(): entered.emit(Vector2.LEFT))
-	door_e.entered.connect(func(): entered.emit(Vector2.RIGHT))
+	door_n.entered.connect(func(): entered.emit(Vector2i.UP))
+	door_s.entered.connect(func(): entered.emit(Vector2i.DOWN))
+	door_w.entered.connect(func(): entered.emit(Vector2i.LEFT))
+	door_e.entered.connect(func(): entered.emit(Vector2i.RIGHT))
 
 func get_size():
 	var size = get_used_rect().size + Vector2i(2, 0)
-	return Vector2(size * tile_set.tile_size)
+	return Vector2i(size * tile_set.tile_size)
 
-func open_door(dir: Vector2):
-	doors[dir].open()
+func setup_doors(valid_dirs: Array):
+	for d in doors:
+		if not d in valid_dirs:
+			doors[d].disable()
 
-func get_door(dir: Vector2):
+func open_doors():
+	for d in doors:
+		if doors[d].visible:
+			doors[d].open()
+
+func get_door(dir: Vector2i):
 	return doors[dir]
 
-func start(max_value: int, max_killed: int, from: Vector2 = Vector2.ZERO):
+func start(max_value: int, max_killed: int, from := Vector2i.ZERO):
 	max_enemy_value = max_value
 	max_enemies_killed = max_killed
 	enemy_spawner.start()
@@ -80,7 +85,7 @@ func _on_enemy_spawner_timeout():
 			finished.emit()
 	)
 	
-	_check_current_enemy_values()a
+	_check_current_enemy_values()
 	
 	#var rect = get_used_rect()
 	#var start_x = rect.position + Vector2.RIGHT
