@@ -44,6 +44,7 @@ jobs:
       channels: ${{ needs.build-info.outputs.channels }}
       godot-version: 4.3
       project-path: godot
+      use-password: false
     secrets: inherit
 
   release-itch:
