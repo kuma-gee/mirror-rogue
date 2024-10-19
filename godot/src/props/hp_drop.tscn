@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://csquqwgef4y81"]
 
 [ext_resource type="Script" path="res://src/props/hp_drop.gd" id="1_8pte8"]
-[ext_resource type="Texture2D" uid="uid://dhmr4gtqmicur" path="res://assets/HpDrop_Drop.png" id="2_icpmc"]
-[ext_resource type="Texture2D" uid="uid://c4yf1xi0hgdqn" path="res://assets/HpDrop_Shadow.png" id="3_gitkb"]
+[ext_resource type="Texture2D" uid="uid://dhmr4gtqmicur" path="res://assets/sprites/HpDrop_Drop.png" id="2_icpmc"]
+[ext_resource type="Texture2D" uid="uid://c4yf1xi0hgdqn" path="res://assets/sprites/HpDrop_Shadow.png" id="3_gitkb"]
 [ext_resource type="Script" path="res://src/base-system/FreeOnExit.gd" id="4_p613k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_spcva"]

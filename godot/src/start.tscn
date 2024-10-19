@@ -4,10 +4,10 @@
 [ext_resource type="Theme" uid="uid://cj7m8mvymraef" path="res://theme/theme.tres" id="1_o10sg"]
 [ext_resource type="Script" path="res://src/start.gd" id="2_tfb7v"]
 [ext_resource type="PackedScene" uid="uid://doqfflpma8rdw" path="res://src/props/screen_bubbles.tscn" id="3_8tvo4"]
-[ext_resource type="Texture2D" uid="uid://0dmn8wp5w64y" path="res://assets/start.png" id="3_pbxon"]
+[ext_resource type="Texture2D" uid="uid://0dmn8wp5w64y" path="res://assets/sprites/start.png" id="3_pbxon"]
 [ext_resource type="Texture2D" uid="uid://bjsoxjytx7pf6" path="res://src/background.tres" id="3_svgpa"]
 [ext_resource type="AudioStream" uid="uid://b1e1nre5yw3cf" path="res://assets/sound/プレゼンタイトル表示2.mp3" id="4_7l68f"]
-[ext_resource type="Texture2D" uid="uid://dkd730b3opy54" path="res://assets/Screen_Start.png" id="5_ao30t"]
+[ext_resource type="Texture2D" uid="uid://dkd730b3opy54" path="res://assets/sprites/Screen_Start.png" id="5_ao30t"]
 [ext_resource type="AudioStream" uid="uid://drgcjf4qf00kj" path="res://assets/sound/REFLECT_Inst_hololive_202310280008.mp3" id="5_covsc"]
 
 [node name="Start" type="Control"]
@@ -35,6 +35,7 @@ expand_mode = 5
 stretch_mode = 5
 
 [node name="ScreenBubbles" parent="MarginContainer2" instance=ExtResource("3_8tvo4")]
+texture = null
 
 [node name="Background2" type="TextureRect" parent="MarginContainer2"]
 layout_mode = 2

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://demmj5vw7sf6i"]
 
 [ext_resource type="AudioStream" uid="uid://5jsadg4vn1sj" path="res://assets/sound/ペタッ.mp3" id="1_2n7dk"]
-[ext_resource type="Texture2D" uid="uid://c3nl0yefq3f4t" path="res://assets/LargeBubble.png" id="1_bu8kf"]
+[ext_resource type="Texture2D" uid="uid://c3nl0yefq3f4t" path="res://assets/sprites/LargeBubble.png" id="1_bu8kf"]
 [ext_resource type="PackedScene" uid="uid://dym6lvn1yabg7" path="res://src/props/bubble_effect.tscn" id="1_q0lpj"]
 [ext_resource type="Script" path="res://src/base-system/spawner/AreaSpawner2D.gd" id="4_t027f"]
 [ext_resource type="PackedScene" uid="uid://ddfl18bx24sfj" path="res://src/character/enemy_bullet.tscn" id="5_4mf5t"]

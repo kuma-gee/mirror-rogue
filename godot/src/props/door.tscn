@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://dyst70ideebbg"]
 
 [ext_resource type="Script" path="res://src/props/door.gd" id="1_nnqne"]
-[ext_resource type="Texture2D" uid="uid://da8j6bqgjt118" path="res://assets/Door.png" id="2_wnn8d"]
+[ext_resource type="Texture2D" uid="uid://da8j6bqgjt118" path="res://assets/sprites/Door.png" id="2_wnn8d"]
 [ext_resource type="AudioStream" uid="uid://b73i2ym0gftfa" path="res://assets/sound/崖から石がパラパラ落ちる.mp3" id="3_y5h82"]
 [ext_resource type="AudioStream" uid="uid://chc4pj4l2t1wm" path="res://assets/sound/石が砕ける.mp3" id="4_rqxle"]
 [ext_resource type="Script" path="res://shared/CameraShake.gd" id="5_j76kl"]

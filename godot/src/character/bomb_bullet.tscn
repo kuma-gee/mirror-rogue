@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/character/bomb_bullet.gd" id="1_w8slh"]
 [ext_resource type="Script" path="res://src/base-system/combat/DelayedDamage.gd" id="3_f7q0i"]
-[ext_resource type="Texture2D" uid="uid://c3nl0yefq3f4t" path="res://assets/LargeBubble.png" id="3_xrcna"]
+[ext_resource type="Texture2D" uid="uid://c3nl0yefq3f4t" path="res://assets/sprites/LargeBubble.png" id="3_xrcna"]
 [ext_resource type="Script" path="res://src/base-system/combat/Hurtbox.gd" id="4_w8ldn"]
 [ext_resource type="Script" path="res://src/base-system/combat/health.gd" id="5_fqps8"]
 [ext_resource type="Script" path="res://src/base-system/spawner/DeathSpawner2D.gd" id="6_xn0k5"]

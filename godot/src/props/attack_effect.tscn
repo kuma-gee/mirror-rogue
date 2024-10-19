@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://cxgyhhw7jqslt"]
 
-[ext_resource type="Texture2D" uid="uid://h0ninaih1h8y" path="res://assets/Attack.png" id="1_p5cjh"]
+[ext_resource type="Texture2D" uid="uid://h0ninaih1h8y" path="res://assets/sprites/Attack.png" id="1_p5cjh"]
 [ext_resource type="Script" path="res://src/props/attack_effect.gd" id="2_vt71h"]
 [ext_resource type="Script" path="res://src/nodes/MirrorValue.gd" id="3_efp3r"]
 [ext_resource type="Script" path="res://src/base-system/combat/HitBox.gd" id="3_xu0cq"]

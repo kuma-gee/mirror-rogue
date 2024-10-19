@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://mhmji1mdl0e5"]
 
-[ext_resource type="Texture2D" uid="uid://djv3cdj63wl2j" path="res://assets/KillEffect.png" id="1_6x8tw"]
+[ext_resource type="Texture2D" uid="uid://djv3cdj63wl2j" path="res://assets/sprites/KillEffect.png" id="1_6x8tw"]
 [ext_resource type="Script" path="res://src/props/kill_particles.gd" id="2_jace2"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_61rlo"]

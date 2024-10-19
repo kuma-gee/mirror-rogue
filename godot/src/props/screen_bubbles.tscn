@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://doqfflpma8rdw"]
 
-[ext_resource type="Texture2D" uid="uid://dratudgosw1e6" path="res://assets/BubbleParticle.png" id="1_181nb"]
+[ext_resource type="Texture2D" uid="uid://dratudgosw1e6" path="res://assets/sprites/BubbleParticle.png" id="1_181nb"]
 
 [sub_resource type="Gradient" id="Gradient_ctvr6"]
 colors = PackedColorArray(0.72, 0.841333, 1, 1, 1, 1, 1, 0.211765)

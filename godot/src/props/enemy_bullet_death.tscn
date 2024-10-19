@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://cnk6fkkr62eva"]
 
-[ext_resource type="Texture2D" uid="uid://d8ap1t3wascc" path="res://assets/Bubble.png" id="1_cbi7x"]
+[ext_resource type="Texture2D" uid="uid://d8ap1t3wascc" path="res://assets/sprites/Bubble.png" id="1_cbi7x"]
 [ext_resource type="PackedScene" uid="uid://dym6lvn1yabg7" path="res://src/props/bubble_effect.tscn" id="1_cvt0n"]
 [ext_resource type="Script" path="res://src/base-system/FreeOnExit.gd" id="3_j7gi6"]
 

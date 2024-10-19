@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bqndpno6afbql"]
 
-[ext_resource type="Texture2D" uid="uid://dbvhpmqxnmcww" path="res://assets/Stones_Round.png" id="1_i6d4t"]
+[ext_resource type="Texture2D" uid="uid://dbvhpmqxnmcww" path="res://assets/sprites/Stones_Round.png" id="1_i6d4t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hr4nb"]
 radius = 5.0

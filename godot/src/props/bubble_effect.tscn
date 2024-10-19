@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dym6lvn1yabg7"]
 
-[ext_resource type="Texture2D" uid="uid://dratudgosw1e6" path="res://assets/BubbleParticle.png" id="1_uymbc"]
+[ext_resource type="Texture2D" uid="uid://dratudgosw1e6" path="res://assets/sprites/BubbleParticle.png" id="1_uymbc"]
 [ext_resource type="Script" path="res://src/base-system/OneShotParticles2D.gd" id="2_gxx4c"]
 [ext_resource type="AudioStream" uid="uid://blfh1wxyk2k1k" path="res://assets/sound/パパッ.mp3" id="3_ofdmt"]
 

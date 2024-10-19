@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://ddfl18bx24sfj"]
 
 [ext_resource type="Script" path="res://src/character/enemy_bullet.gd" id="1_m5cyv"]
-[ext_resource type="Texture2D" uid="uid://d8ap1t3wascc" path="res://assets/Bubble.png" id="2_lmg1q"]
+[ext_resource type="Texture2D" uid="uid://d8ap1t3wascc" path="res://assets/sprites/Bubble.png" id="2_lmg1q"]
 [ext_resource type="Script" path="res://src/base-system/combat/health.gd" id="2_ppbv3"]
 [ext_resource type="Script" path="res://src/base-system/combat/Hurtbox.gd" id="3_qq6ij"]
 [ext_resource type="Script" path="res://src/base-system/spawner/DeathSpawner2D.gd" id="3_y2eun"]

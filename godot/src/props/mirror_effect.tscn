@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://b3d6ngjw2fub6"]
 
-[ext_resource type="Texture2D" uid="uid://0adb0xo075m" path="res://assets/MirrorEffect.png" id="1_hhkpl"]
+[ext_resource type="Texture2D" uid="uid://0adb0xo075m" path="res://assets/sprites/MirrorEffect.png" id="1_hhkpl"]
 [ext_resource type="Script" path="res://src/base-system/FreeOnFinish.gd" id="2_l0007"]
 [ext_resource type="AudioStream" uid="uid://dsqwv66nqbxbr" path="res://assets/sound/魔法反射.mp3" id="2_nxiqb"]
 
