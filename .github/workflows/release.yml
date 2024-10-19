@@ -28,7 +28,7 @@ jobs:
         run: |
           CHANNELS='"windows", "linux", "web"'
 
-          if [ $IS_TAG = true]; then
+          if [ $IS_TAG = true ]; then
             RELEASE_ITCH=true
             RELEASE_GITHUB=true
           fi
