@@ -26,7 +26,12 @@ jobs:
         run: |
           CHANNELS='"windows", "linux", "web"'
 
-          if [ $RELEASE_ITCH = false ] && [ $RELEASE_GITHUB = false ] && [ $IS_TAG = false ]; then
+          if [ $IS_TAG = true]; then
+            RELEASE_ITCH=true
+            RELEASE_GITHUB=true
+          fi
+
+          if [ $RELEASE_ITCH = false ] && [ $RELEASE_GITHUB = false ]; then
             CHANNELS=''
           fi
 
