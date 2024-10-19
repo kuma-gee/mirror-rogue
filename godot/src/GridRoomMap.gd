@@ -60,10 +60,11 @@ func get_room(c = coord):
 	return rooms[c]
 
 func _mark_item_rooms():
-	for room in rooms:
-		var close_items = items.filter(func(p): return Vector2(abs(p - room)).length() <= 2)
-		if randf() < item_room_chance and close_items.is_empty():
-			items.append(room)
+	pass # TODO:
+	# for room in rooms:
+	# 	var close_items = items.filter(func(p): return Vector2(abs(p - room)).length() <= 2)
+	# 	if randf() < item_room_chance and close_items.is_empty():
+	# 		items.append(room)
 
 func _mark_boss_room():
 	var x = _get_random_boss_room()
