@@ -21,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       channels: ${{ steps.build-data.outputs.channels }}
+      release-itch: ${{ steps.build-data.outputs.release-itch }}
+      release-github: ${{ steps.build-data.outputs.release-github }}
     steps:
       - id: build-data
         run: |
@@ -36,6 +38,8 @@ jobs:
           fi
 
           echo "channels=[$CHANNELS]" >> $GITHUB_OUTPUT
+          echo "release-itch=$RELEASE_ITCH" >> $GITHUB_OUTPUT
+          echo "release-github=$RELEASE_GITHUB" >> $GITHUB_OUTPUT
         env:
           REF: ${{ github.ref_name }}
           RELEASE_ITCH: ${{ inputs.release-itch }}
@@ -56,7 +60,7 @@ jobs:
   release-itch:
     uses: kuma-gee/actions/.github/workflows/itch-release.yml@main
     needs: [build-godot, build-info]
-    if: ${{ inputs.release-itch }}
+    if: ${{ needs.build-info.outputs.release-itch }}
     with:
       channels: ${{ needs.build-info.outputs.channels }}
       game: ${{ needs.build-godot.outputs.game }}
@@ -67,4 +71,4 @@ jobs:
   release-github:
     uses: kuma-gee/actions/.github/workflows/github-release.yml@main
     needs: build-godot
-    if: ${{ inputs.release-github }}
+    if: ${{ needs.build-info.outputs.release-github }}
