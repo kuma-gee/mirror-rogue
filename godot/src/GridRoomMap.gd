@@ -37,14 +37,14 @@ func generate():
 	self.coord = spawn
 	generated.emit()
 
-func is_item_room():
-	return coord in items
+func is_item_room(c = coord):
+	return c in items
 
-func is_boss_room():
-	return coord == boss_room
+func is_boss_room(c = coord):
+	return c == boss_room
 
-func is_pre_boss_room():
-	return coord == pre_boss_room
+func is_pre_boss_room(c = coord):
+	return c == pre_boss_room
 
 func is_enemy_room():
 	return not is_item_room() and not is_boss_room() and not is_pre_boss_room()

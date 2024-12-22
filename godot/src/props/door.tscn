@@ -270,9 +270,11 @@ debug_color = Color(0.701961, 0, 0, 0.419608)
 
 [node name="Slide" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_y5h82")
+volume_db = -15.0
 
 [node name="Crack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_rqxle")
+volume_db = -10.0
 
 [node name="ShortShake" type="Node" parent="."]
 script = ExtResource("5_j76kl")

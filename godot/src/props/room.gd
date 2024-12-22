@@ -19,6 +19,8 @@ const BOMB_ENEMY = preload("res://src/character/bomb_enemy.tscn")
 @onready var door_e = $DoorE
 
 @onready var enemy_spawner = $EnemySpawner
+@onready var chest_item: Area2D = $ChestItem
+@onready var grid_room: GridRoomMap = get_tree().get_first_node_in_group(GridRoomMap.GROUP)
 
 @onready var doors = {
 	Vector2i.UP: door_n,
@@ -33,12 +35,15 @@ var max_enemies_killed := 10.0
 var available_enemies := [ENEMY]
 var spawned_enemies: Array[Enemy] = []
 var enemies_killed := 0
+var coord: Vector2i
 
 func _ready():
 	door_n.entered.connect(func(): entered.emit(Vector2i.UP))
 	door_s.entered.connect(func(): entered.emit(Vector2i.DOWN))
 	door_w.entered.connect(func(): entered.emit(Vector2i.LEFT))
 	door_e.entered.connect(func(): entered.emit(Vector2i.RIGHT))
+	
+	chest_item.visible = grid_room.is_item_room(coord)
 
 func get_size():
 	var size = get_used_rect().size + Vector2i(2, 0)

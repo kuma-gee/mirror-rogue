@@ -62,6 +62,7 @@ func _create_room(coord: Vector2i) -> Room:
 	var mat = room.material as ShaderMaterial
 	mat.set_shader_parameter("reflection_viewport", mirror_viewport.get_viewport().get_texture())
 	
+	room.coord = coord
 	add_child(room)
 	rooms[coord] = room
 	room.global_position = coord * room.get_size()
